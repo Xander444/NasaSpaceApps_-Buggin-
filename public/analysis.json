@@ -1,0 +1,208 @@
+{
+  "method": "masked cosine similarity over sourced investigation metadata",
+  "warning": "Exploratory retrieval aid; not a fire-risk prediction or safety recommendation.",
+  "record_count": 7,
+  "feature_count": 51,
+  "results": [
+    {
+      "id": "PSI-25",
+      "nearest": [
+        {
+          "id": "PSI-26",
+          "score": 0.4529,
+          "shared_evidence": [
+            "platform:ISS MSG",
+            "fuel_class:solid",
+            "focus:extinction",
+            "sensors:video"
+          ]
+        },
+        {
+          "id": "PSI-99",
+          "score": 0.2097,
+          "shared_evidence": [
+            "fuel_class:solid",
+            "focus:material screening"
+          ]
+        },
+        {
+          "id": "PSI-100",
+          "score": 0.1048,
+          "shared_evidence": [
+            "fuel_class:solid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-26",
+      "nearest": [
+        {
+          "id": "PSI-25",
+          "score": 0.4529,
+          "shared_evidence": [
+            "platform:ISS MSG",
+            "fuel_class:solid",
+            "focus:extinction",
+            "sensors:video"
+          ]
+        },
+        {
+          "id": "PSI-99",
+          "score": 0.1543,
+          "shared_evidence": [
+            "fuel_class:solid"
+          ]
+        },
+        {
+          "id": "PSI-100",
+          "score": 0.1543,
+          "shared_evidence": [
+            "fuel_class:solid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-98",
+      "nearest": [
+        {
+          "id": "PSI-100",
+          "score": 0.6682,
+          "shared_evidence": [
+            "platform:Cygnus",
+            "fuel_class:solid",
+            "materials:spacecraft material",
+            "focus:large-scale fire",
+            "sensors:camera"
+          ]
+        },
+        {
+          "id": "PSI-99",
+          "score": 0.4009,
+          "shared_evidence": [
+            "platform:Cygnus",
+            "fuel_class:solid",
+            "sensors:camera"
+          ]
+        },
+        {
+          "id": "PSI-26",
+          "score": 0.1443,
+          "shared_evidence": [
+            "fuel_class:solid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-99",
+      "nearest": [
+        {
+          "id": "PSI-100",
+          "score": 0.5714,
+          "shared_evidence": [
+            "platform:Cygnus",
+            "fuel_class:solid",
+            "sensors:camera",
+            "sensors:environmental sensor"
+          ]
+        },
+        {
+          "id": "PSI-98",
+          "score": 0.4009,
+          "shared_evidence": [
+            "platform:Cygnus",
+            "fuel_class:solid",
+            "sensors:camera"
+          ]
+        },
+        {
+          "id": "PSI-25",
+          "score": 0.2097,
+          "shared_evidence": [
+            "fuel_class:solid",
+            "focus:material screening"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-100",
+      "nearest": [
+        {
+          "id": "PSI-98",
+          "score": 0.6682,
+          "shared_evidence": [
+            "platform:Cygnus",
+            "fuel_class:solid",
+            "materials:spacecraft material",
+            "focus:large-scale fire",
+            "sensors:camera"
+          ]
+        },
+        {
+          "id": "PSI-99",
+          "score": 0.5714,
+          "shared_evidence": [
+            "platform:Cygnus",
+            "fuel_class:solid",
+            "sensors:camera",
+            "sensors:environmental sensor"
+          ]
+        },
+        {
+          "id": "PSI-26",
+          "score": 0.1543,
+          "shared_evidence": [
+            "fuel_class:solid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-101",
+      "nearest": [
+        {
+          "id": "PSI-25",
+          "score": 0.0,
+          "shared_evidence": []
+        },
+        {
+          "id": "PSI-26",
+          "score": 0.0,
+          "shared_evidence": []
+        },
+        {
+          "id": "PSI-98",
+          "score": 0.0,
+          "shared_evidence": []
+        }
+      ]
+    },
+    {
+      "id": "PSI-69",
+      "nearest": [
+        {
+          "id": "PSI-26",
+          "score": 0.1231,
+          "shared_evidence": [
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-25",
+          "score": 0.0836,
+          "shared_evidence": [
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-98",
+          "score": 0.0,
+          "shared_evidence": []
+        }
+      ]
+    }
+  ]
+}
