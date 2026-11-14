@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "description": "Source-reviewed retrieval judgments, not scientific validation. Tuning questions are distinct from held-out paraphrases. IDs are evaluation labels only; the engine never reads this file.",
+  "queries": [
+    {"split":"tuning","query":"Design a smoke detector","expected":["PSI-102","PSI-101"],"rationale":"SAME approach reports detector-response analysis; SAME-R objective and impacts discuss smoke size and advanced detector technology.","sources":["PSI-102:approach","PSI-101:research_impacts"]},
+    {"split":"tuning","query":"Extinguish liquid-fuel flames","expected":["PSI-69"],"rationale":"FLEX objective explicitly studies liquid-fuel limits, suppressants and extinction.","sources":["PSI-69:objective"]},
+    {"split":"tuning","query":"PMMA initial oxygen","expected":["PSI-25"],"rationale":"BASS-II table includes PMMA sample descriptions with calibrated initial oxygen, including B1 at 22.2% vol; free text does not apply a numeric filter.","sources":["PSI-25:CSV row 2"]},
+    {"split":"held-out","query":"alarms for spacecraft smoke","expected":["PSI-102","PSI-101"],"rationale":"SAME/SAME-R describe detectors and smoke; alarm is a documented detection alias.","sources":["PSI-102:approach","PSI-101:hypothesis"]},
+    {"split":"held-out","query":"liquid droplet extinction","expected":["PSI-69"],"rationale":"FLEX approach describes liquid droplet combustion and radiative extinction sequences.","sources":["PSI-69:approach"]},
+    {"split":"held-out","query":"large scale fabric fire growth","expected":["PSI-98","PSI-99","PSI-100"],"rationale":"Saffire objectives address large-scale growth; their approaches describe fabric and material sample configurations.","sources":["PSI-98:objective","PSI-99:objective","PSI-100:objective"]},
+    {"split":"held-out","query":"quantum banana investment","expected":[],"rationale":"No indexed combustion topic supports these terms.","sources":[]}
+  ]
+}

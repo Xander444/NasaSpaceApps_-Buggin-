@@ -1,29 +1,41 @@
 # Flame in Freefall
 
-An evidence-first dashboard and human-confirmed 3D fire-risk screening prototype for the 2026 NASA Space Apps Challenge. It imports public NASA Physical Sciences Informatics records, preserves source provenance and missing data, and uses PyTorch to rank study similarity and candidate spatial hotspots.
+An evidence-first dashboard and human-confirmed 3D fire-risk screening prototype for the 2026 NASA Space Apps Challenge. It searches imported NASA Physical Sciences Informatics evidence, preserves provenance and unknown conditions, and optionally adds pretrained semantic retrieval. A separate PyTorch workflow screens candidate spatial hotspots.
 
-## Run locally
+## Run the evidence explorer locally
+
+```bash
+npm install
+npm run dev
+npm run build
+```
+
+The explorer at `/` works from the committed search index without Python, a server, an API key, or live NASA access. Search a question, add optional required/preferred conditions, inspect cited rows, compare up to three selections, and export verified tests. Try **Design a smoke detector**, or **PMMA** with required initial oxygen **22.2% vol**.
+
+```bash
+npm run search:index       # explicit, offline preprocessing
+npm run test:search
+npm run search:evaluate
+```
+
+[Search setup, provenance, ranking, optional semantic service, evaluation, and limitations](docs/SEARCH.md) are documented in detail. Optional semantic search uses a real pinned Sentence Transformers/PyTorch model with a visible keyword fallback. It is disabled until configured; it does not affect static builds.
+
+## Run the existing 3D workflow
+
+The controlled annotation/screening workflow remains at `/simulator`. To run its simulations, install its Python dependencies and start the existing API in a separate terminal:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-npm install
-```
-
-Start the two local services in separate terminals. Activate `.venv` in the API terminal first.
-
-```bash
 npm run api
 ```
 
-```bash
-npm run dev
-```
+Run `npm run dev` in another terminal. Production frontend output is written to `dist/`; no publishing is part of these commands.
 
-Open the local address printed by Vite. For a production check, run `npm run build`; the static output is written to `dist/` and can be deployed to GitHub Pages, Netlify, Vercel, or Cloudflare Pages.
+## Verify the integrated project
 
-The study explorer is at `/`; the controlled 3D annotation and screening workflow is at `/simulator`.
+After activating `.venv` and installing `requirements.txt`, run `npm run check` to check search, analysis, simulator behavior, and the production build together. Optional semantic setup is documented in [SEARCH.md](docs/SEARCH.md). Rebuild the search index explicitly with `npm run search:index` whenever committed source data changes; restart the semantic service afterward so versions agree.
 
 ## First-release 3D workflow
 
@@ -41,7 +53,7 @@ The source model stays in the browser. The API receives derived geometry bounds,
 npm run import:psi
 ```
 
-The importer currently covers 24 relevant NASA PSI investigations spanning BASS/BASS-II, Saffire I–III, SAME/SAME-R, FLEX/FLEX-2, CFI, SPICE, SLICE, ACME, DAFT, and related modeling work. It indexes 16,354 public files, downloads 22 official experimental tables, and preserves 2,484 experimental rows as raw source text. BASS-II has an additional normalized set of 129 test rows. See `data/psi/manifest.json`, `data/source_review.json`, and `docs/DATA_CONTRACT.md`.
+The importer currently covers 24 relevant NASA PSI investigations spanning BASS/BASS-II, Saffire I–III, SAME/SAME-R, FLEX/FLEX-2, CFI, SPICE, SLICE, ACME, DAFT, and related modeling work. It indexes 16,354 public files, downloads 22 official experimental tables, and preserves 2,870 raw table rows (including 861 empty rows) as raw source text. BASS-II has an additional normalized set of 129 test rows. See `data/psi/manifest.json`, `data/source_review.json`, and `docs/DATA_CONTRACT.md`.
 
 The official NASA PSI search returned 26 combustion matches. Two keyword false positives were excluded with reasons recorded in `data/source_review.json`. The Canadian Space Agency open-data catalog was also checked: its combustion search returned MOPITT atmospheric carbon-monoxide data, which is useful for biomass-burning research but not comparable to enclosed-spacecraft microgravity fire experiments, so it is not included in rankings.
 
@@ -59,7 +71,7 @@ The current score is a **relative screening index**, not a fire probability, fla
 
 ## PyTorch analysis
 
-The first analysis layer performs explainable, missing-aware similarity analysis over sourced PSI investigation metadata. It is an exploratory retrieval aid—not a trained fire-risk model.
+The legacy analysis command performs investigation-level similarity over sourced PSI metadata; it is separate from the new query retrieval engine. It is an exploratory retrieval aid—not a trained fire-risk model.
 
 ```bash
 python3 -m venv .venv
@@ -73,11 +85,11 @@ The analysis writes `public/analysis.json`, which contains the three nearest evi
 
 ## Data and AI contract
 
-- Investigation summaries are imported from the public NASA PSI API; the initial dashboard descriptions remain curated.
-- “AI-grounded interpretation” is deterministic prototype copy tied to each record, not a model call.
+- Search summaries are cited extracts from imported catalog sections and table cells. Hypotheses and prospective impacts retain their labels.
+- Earlier curator copy is archived separately and is not presented as AI-generated findings.
 - No absent measurement is converted to zero or inferred.
-- A future retrieval layer should emit source IDs and excerpts for every generated statement and refuse unsupported quantitative claims.
-- PyTorch currently supports metadata encoding and similarity retrieval. Training is intentionally deferred until test-level records and defensible labels exist.
+- Search and comparison expose source IDs, excerpts, row locators, units, and discrepancies.
+- The optional semantic service encodes questions and evidence with a pinned pretrained model. Retrieval similarity is not scientific confidence or fire prediction.
 - The 3D recognition suggestion is currently a deterministic name heuristic, not a trained AI model. This is stated in the UI and every label requires human confirmation.
 - Gravity and temperature are recorded but do not affect the current score. Directional transport, oxygen depletion, material consumption, and time evolution are not implemented.
 

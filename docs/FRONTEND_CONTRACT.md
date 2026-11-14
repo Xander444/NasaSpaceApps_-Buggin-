@@ -37,3 +37,7 @@ Do not call the current object-name heuristic AI, computer vision, or material r
 - Evidence drawer and citations
 - Accessibility and keyboard controls
 - Export/import of a reviewed annotation manifest
+
+## Evidence explorer v1
+
+The `/` route consumes `public/search/index.json` schema 1 via the pure JavaScript modules in `src/search/`. It must stay usable without any API or model. Conditions are scoped to a single test; topic context must not supply missing test conditions. Keep verified and related-with-gaps groups separate, preserve comparison selection across searches, and export only currently verified test selections. Source excerpts and claim-level citations remain inspectable. Optional `VITE_SEMANTIC_URL` enables the separate local semantic API; stale, unavailable, timed-out, or mismatched results must fall back visibly to keyword search. See [SEARCH.md](SEARCH.md) for the exact contract and demo. Existing `/simulator` controls, confirmation gate, API, and coefficients are unchanged.
