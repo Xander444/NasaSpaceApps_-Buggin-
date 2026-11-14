@@ -11,6 +11,8 @@
     "analyze": "python3 analysis/analyze.py",
     "import:psi": "python3 analysis/import_psi.py",
     "simulate": "python3 simulator/engine.py",
+    "benchmark:sim": "python3 simulator/benchmark.py",
+    "release:sim": "python3 simulator/build_cabin_release.py",
     "search:index": "python3 analysis/build_search_index.py",
     "test:search": "node --test src/search/*.test.js",
     "search:evaluate": "node analysis/evaluate_search.mjs",

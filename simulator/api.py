@@ -11,7 +11,7 @@ from engine import simulate
 
 class SimulationRequest(BaseModel):
     scenario: dict[str, Any]
-    samples: int = Field(default=1_000_000, ge=1_000, le=2_000_000)
+    samples: int = Field(default=100_000, ge=1_000, le=2_000_000)
     seed: int = 2026
 
 

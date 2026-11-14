@@ -2,11 +2,13 @@ import React,{useEffect,useMemo,useRef,useState} from 'react';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
-import {AlertTriangle,ArrowLeft,Check,ChevronRight,FileUp,Flame,Info,Play,RotateCcw} from 'lucide-react';
+import {AlertTriangle,ArrowLeft,Check,ChevronRight,ExternalLink,FileUp,Flame,Info,Play,RotateCcw,Search} from 'lucide-react';
 import {CATEGORIES,MATERIAL_PRESETS,defaultsFor,suggestClassification} from './simulator/suggestions';
 import './simulator.css';
 
 const COLOR={unreviewed:0xf2a65a,confirmed:0x75d39b,ignored:0x687376,selected:0xffe08a};
+const DEFAULT_SAMPLES=100_000;
+const CABIN_DEMO={name:'cabin-demo.glb',format:'glb',bytes:24044,sha256:'335206796c175bf3791b8ca0b76a3208462cb2268b5af32d601ccab43a29ac1a'};
 const roundVector=vector=>vector.toArray().map(value=>Number(value.toFixed(4)));
 const slug=value=>(value||'object').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,42)||'object';
 
@@ -126,7 +128,14 @@ export default function Simulator(){
         setAnnotations(prepared.annotations);setDimensions(prepared.dimensions);setSource(metadata);setSelectedId(prepared.annotations[0]?.id||null);setUnitsConfirmed(false);setResult(null);setError('');
       }catch(caught){disposeGroup(raw);setError(caught.message);}
     };
-    installRef.current=install; install(createDemoModel(),{name:'Built-in compartment demo',format:'generated',bytes:0,sha256:'built-in-demo-v1'});
+    installRef.current=install;
+    install(createDemoModel(),{name:'Loading exact cabin demo…',format:'generated',bytes:0,sha256:'built-in-demo-v1'});
+    fetch('/models/cabin-demo.glb').then(response=>{
+      if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      return response.arrayBuffer();
+    }).then(buffer=>new GLTFLoader().parse(buffer,'',gltf=>install(gltf.scene,CABIN_DEMO),()=>{})).catch(()=>{
+      setError('The exact cabin demo could not be loaded; showing the generated fallback.');
+    });
     const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null;
     const pointerDown=event=>{down=[event.clientX,event.clientY];};
     const pointerUp=event=>{
@@ -145,14 +154,14 @@ export default function Simulator(){
     const statuses=new Map(annotations.map(item=>[item.id,item.reviewStatus]));
     modelRef.current.traverse(mesh=>{
       if(!mesh.isMesh||!mesh.userData.annotationId)return;
-      const status=statuses.get(mesh.userData.annotationId)||'unreviewed';const color=mesh.userData.annotationId===selectedId?COLOR.selected:COLOR[status];
+      const status=statuses.get(mesh.userData.annotationId)||'unreviewed';const color=result?mesh.userData.originalColor:mesh.userData.annotationId===selectedId?COLOR.selected:COLOR[status];
       const materials=Array.isArray(mesh.material)?mesh.material:[mesh.material];materials.forEach(material=>{material.color?.setHex(color);if(material.emissive)material.emissive.setHex(mesh.userData.annotationId===selectedId?0x44320d:0x000000);});
     });
-  },[annotations,selectedId]);
+  },[annotations,selectedId,result]);
 
   useEffect(()=>{
     const group=resultRef.current;if(!group)return;while(group.children.length){const child=group.children.pop();disposeGroup(child);}if(!result)return;
-    const voxelSize=result.dimensions_m.map((value,index)=>value/result.grid[index]);const geometry=new THREE.BoxGeometry(...voxelSize.map(value=>value*.68));const material=new THREE.MeshBasicMaterial({transparent:true,opacity:.5,vertexColors:true,depthWrite:false});const voxels=result.risk_voxels_p75;const mesh=new THREE.InstancedMesh(geometry,material,voxels.length);const matrix=new THREE.Matrix4(),color=new THREE.Color();voxels.forEach((voxel,index)=>{matrix.makeTranslation((voxel[0]+.5)*voxelSize[0],(voxel[1]+.5)*voxelSize[1],(voxel[2]+.5)*voxelSize[2]);mesh.setMatrixAt(index,matrix);const normalized=Math.min(1,voxel[3]/100);color.setHSL(.12*(1-normalized),.92,.52);mesh.setColorAt(index,color);});group.add(mesh);
+    const voxelSize=result.dimensions_m.map((value,index)=>value/result.grid[index]);const geometry=new THREE.BoxGeometry(...voxelSize.map(value=>value*.48));const material=new THREE.MeshBasicMaterial({transparent:true,opacity:.38,vertexColors:true,depthWrite:false});const voxels=result.risk_voxels_p75;const mesh=new THREE.InstancedMesh(geometry,material,voxels.length);const matrix=new THREE.Matrix4(),color=new THREE.Color();const low=result.summary.hotspot_threshold_p75||0;const high=result.summary.maximum_voxel_relative_screening_index||result.summary.maximum_voxel_risk_index||100;voxels.forEach((voxel,index)=>{matrix.makeTranslation((voxel[0]+.5)*voxelSize[0],(voxel[1]+.5)*voxelSize[1],(voxel[2]+.5)*voxelSize[2]);mesh.setMatrixAt(index,matrix);const normalized=Math.max(0,Math.min(1,(voxel[3]-low)/Math.max(high-low,.001)));color.setHSL(.14*(1-normalized),.92,.5);mesh.setColorAt(index,color);});group.add(mesh);
   },[result]);
 
   const editSelected=(patch,invalidate=true)=>setAnnotations(items=>items.map(item=>item.id===selectedId?{...item,...patch,reviewStatus:invalidate?'unreviewed':item.reviewStatus}:item));
@@ -161,7 +170,21 @@ export default function Simulator(){
   const confirmSelected=()=>editSelected({reviewStatus:selected.category==='ignore'?'ignored':'confirmed'},false);
   const ignoreSelected=()=>editSelected({category:'ignore',params:{},reviewStatus:'ignored'},false);
   const nextUnreviewed=()=>{const next=annotations.find(item=>item.reviewStatus==='unreviewed');if(next)setSelectedId(next.id);};
-  const loadDemo=()=>installRef.current?.(createDemoModel(),{name:'Built-in compartment demo',format:'generated',bytes:0,sha256:'built-in-demo-v1'});
+  const loadExactDemo=async(precomputed=false)=>{
+    setBusy(true);setError('');
+    try{
+      const [modelResponse,resultResponse]=await Promise.all([
+        fetch('/models/cabin-demo.glb'),
+        precomputed?fetch('/simulation/cabin-demo.json'):Promise.resolve(null),
+      ]);
+      if(!modelResponse.ok)throw new Error(`Could not load cabin-demo.glb (HTTP ${modelResponse.status}).`);
+      if(resultResponse&&!resultResponse.ok)throw new Error(`Could not load the precomputed result (HTTP ${resultResponse.status}).`);
+      const buffer=await modelResponse.arrayBuffer();
+      const group=await new Promise((resolve,reject)=>new GLTFLoader().parse(buffer,'',gltf=>resolve(gltf.scene),reject));
+      installRef.current?.(group,CABIN_DEMO);
+      if(resultResponse)setResult(await resultResponse.json());
+    }catch(caught){setError(caught.message);}finally{setBusy(false);}
+  };
   const importModel=async event=>{
     const file=event.target.files?.[0];event.target.value='';if(!file)return;setError('');
     const extension=file.name.split('.').pop().toLowerCase();if(!['glb','gltf'].includes(extension)){setError('First release accepts .glb or a self-contained .gltf file.');return;}
@@ -174,24 +197,24 @@ export default function Simulator(){
     setBusy(true);setError('');
     try{
       const scenario=annotationToScenario(annotations,environment,dimensions,source,unitsConfirmed);
-      const response=await fetch('/api/simulate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({scenario,samples:1_000_000,seed:2026})});const payload=await response.json().catch(()=>({}));if(!response.ok)throw new Error(payload.detail||'Simulation service rejected the scenario.');setResult(payload);
+      const response=await fetch('/api/simulate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({scenario,samples:DEFAULT_SAMPLES,seed:2026})});const payload=await response.json().catch(()=>({}));if(!response.ok)throw new Error(payload.detail||'Simulation service rejected the scenario.');setResult(payload);
     }catch(caught){setError(caught.message.includes('fetch')?'Local PyTorch service is not running. Start it with “npm run api”, then try again.':caught.message);}finally{setBusy(false);}
   };
   const blockingReason=useMemo(()=>!complete?'Review every object before running.':!unitsConfirmed?'Confirm the imported model uses metres.':!annotations.some(item=>item.reviewStatus==='confirmed'&&item.category==='material')?'Confirm at least one combustible material.':'',[complete,unitsConfirmed,annotations]);
 
   return <div className="simulator-page">
-    <header><a href="/"><ArrowLeft/> Evidence explorer</a><div><strong>3D risk screening · first release</strong><span>human-confirmed map</span></div><span>research prototype</span></header>
+    <header><a href="/"><ArrowLeft/> Evidence explorer</a><div><strong>3D spatial screening · first release</strong><span>human-confirmed map</span></div><span>research prototype</span></header>
     <main>
-      <section className="sim-visual"><div ref={host}/><div className="sim-toolbar"><button onClick={()=>fileInput.current?.click()}><FileUp/> Import GLB / glTF</button><input ref={fileInput} type="file" accept=".glb,.gltf,model/gltf-binary,model/gltf+json" onChange={importModel}/><button onClick={loadDemo}><RotateCcw/> Load demo</button></div><div className="sim-canvas-note">Click a mesh to review it · drag to orbit · scroll to zoom</div><div className="sim-legend"><span><i className="unreviewed-dot"/> unreviewed</span><span><i className="confirmed-dot"/> confirmed</span><span><i className="ignored-dot"/> ignored</span>{result&&<span><i className="risk-dot"/> upper-quartile risk</span>}</div></section>
+      <section className="sim-visual"><div ref={host}/><div className="sim-toolbar"><button onClick={()=>fileInput.current?.click()}><FileUp/> Import GLB / glTF</button><input ref={fileInput} type="file" accept=".glb,.gltf,model/gltf-binary,model/gltf+json" onChange={importModel}/><button onClick={()=>loadExactDemo(false)} disabled={busy}><RotateCcw/> Load cabin demo</button><button className="precomputed-button" onClick={()=>loadExactDemo(true)} disabled={busy}><Play/> View precomputed result</button></div><div className="sim-canvas-note">Click a mesh to review it · drag to orbit · scroll to zoom</div><div className="sim-legend"><span><i className="unreviewed-dot"/> unreviewed</span><span><i className="confirmed-dot"/> confirmed</span><span><i className="ignored-dot"/> ignored</span>{result&&<span><i className="risk-dot"/> upper-quartile relative index</span>}</div></section>
       <aside className="sim-sidebar">
         <div className="sim-warning"><AlertTriangle/><div><b>Relative screening—not CFD or fire probability</b><span>Do not use this prototype for mission-safety decisions.</span></div></div>
-        <div className="model-summary"><div><span>MODEL</span><b>{source.name}</b><small>{dimensions.map(value=>value.toFixed(2)).join(' × ')} m · {annotations.length} meshes</small></div><button onClick={nextUnreviewed} disabled={complete}>Review next <ChevronRight/></button></div>
-        <div className="review-progress"><div><span style={{width:`${annotations.length?reviewed/annotations.length*100:0}%`}}/></div><b>{reviewed} / {annotations.length} reviewed</b></div>
+        <div className="model-summary"><div><span>MODEL</span><b>{source.name}</b><small>{dimensions.map(value=>value.toFixed(2)).join(' × ')} m · {annotations.length} meshes</small></div><button onClick={nextUnreviewed} disabled={complete||Boolean(result)}>Review next <ChevronRight/></button></div>
+        <div className="review-progress"><div><span style={{width:`${result?.precomputed_fixture?100:annotations.length?reviewed/annotations.length*100:0}%`}}/></div><b>{result?.precomputed_fixture?`${result.assumption_context.mesh_confirmation.reviewed_object_count} / ${result.assumption_context.mesh_confirmation.total_object_count} fixture labels`: `${reviewed} / ${annotations.length} reviewed`}</b></div>
         {error&&<div className="sim-error">{error}</div>}
         {result?<ResultPanel result={result} onEdit={()=>setResult(null)}/>:<>
           <EnvironmentForm value={environment} onChange={setEnvironment}/>
           {selected?<AnnotationPanel item={selected} onCategory={changeCategory} onParams={editParams} onMaterial={materialType=>editSelected({materialType,params:defaultsFor('material',materialType)})} onConfirm={confirmSelected} onIgnore={ignoreSelected}/>:<div className="empty-selection">Click an object in the 3D view to classify it.</div>}
-          <div className="run-card"><label className="units-check"><input type="checkbox" checked={unitsConfirmed} onChange={event=>setUnitsConfirmed(event.target.checked)}/><span><b>I confirm model units are metres</b><small>Imported geometry is not automatically scaled.</small></span></label><button className="run-button" onClick={runSimulation} disabled={Boolean(blockingReason)||busy}><Play/>{busy?'Sampling 1,000,000 locations…':'Run confirmed scenario'}</button>{blockingReason&&<small className="blocking-reason">{blockingReason}</small>}</div>
+          <div className="run-card"><label className="units-check"><input type="checkbox" checked={unitsConfirmed} onChange={event=>setUnitsConfirmed(event.target.checked)}/><span><b>I confirm model units are metres</b><small>Imported geometry is not automatically scaled.</small></span></label><button className="run-button" onClick={runSimulation} disabled={Boolean(blockingReason)||busy}><Play/>{busy?`Sampling ${DEFAULT_SAMPLES.toLocaleString()} locations…`:'Run confirmed scenario'}</button>{blockingReason&&<small className="blocking-reason">{blockingReason}</small>}</div>
         </>}
         <EvidenceNote/>
       </aside>
@@ -220,7 +243,35 @@ function AnnotationPanel({item,onCategory,onParams,onMaterial,onConfirm,onIgnore
 }
 
 function ResultPanel({result,onEdit}){
-  return <section className="result-panel"><div className="result-heading"><div><span>COMPLETED SCREENING</span><h1>{result.samples.toLocaleString()} locations sampled</h1></div><button onClick={onEdit}>Edit map</button></div><div className="sim-metrics"><div><span>Mean index</span><b>{result.summary.mean_risk_index}</b></div><div><span>P95 index</span><b>{result.summary.p95_risk_index}</b></div><div><span>Peak voxel</span><b>{result.summary.maximum_voxel_risk_index}</b></div></div><h2>Ranked candidate hotspots</h2><ol className="hotspots">{result.hotspots.slice(0,8).map(hotspot=><li key={hotspot.rank}><b>#{hotspot.rank}</b><span>{hotspot.center_m.map(value=>value.toFixed(2)).join(', ')} m</span><strong>{hotspot.risk_index}</strong></li>)}</ol><details><summary>Model assumptions</summary><ul>{result.assumptions.map(item=><li key={item}>{item}</li>)}</ul></details></section>;
+  const [selectedKey,setSelectedKey]=useState(`rank-${result.hotspots[0]?.rank||1}`);
+  const researchSpot=result.research_spots?.[0];
+  const ranked=result.hotspots.slice(0,8);
+  const selected=selectedKey==='research'&&researchSpot?researchSpot:ranked.find(item=>`rank-${item.rank}`===selectedKey)||ranked[0];
+  const comparison=selected?.controlled_comparison||(
+    result.controlled_comparison&&selected?.voxel?.join(',')===result.controlled_comparison.target_voxel?.join(',')
+      ?result.controlled_comparison:null
+  );
+  const context=result.assumption_context;
+  const metric=(modern,legacy)=>result.summary[modern]??result.summary[legacy];
+  return <section className="result-panel">
+    <div className="result-heading"><div><span>COMPLETED SCREENING</span><h1>{result.samples.toLocaleString()} locations sampled</h1><small>{result.metric_name||'relative screening index'} · seed {result.seed} · {result.device}</small></div><button onClick={onEdit}>Edit map</button></div>
+    <div className="sim-metrics"><div><span>Mean relative index</span><b>{metric('mean_relative_screening_index','mean_risk_index')}</b></div><div><span>P95 relative index</span><b>{metric('p95_relative_screening_index','p95_risk_index')}</b></div><div><span>Peak voxel relative index</span><b>{metric('maximum_voxel_relative_screening_index','maximum_voxel_risk_index')}</b></div></div>
+    <h2>Ranked candidate hotspots</h2>
+    <ol className="hotspots">{ranked.map(hotspot=><li key={hotspot.rank}><button className={selected===hotspot?'active':''} onClick={()=>setSelectedKey(`rank-${hotspot.rank}`)}><b>#{hotspot.rank}</b><span>{hotspot.center_m.map(value=>value.toFixed(2)).join(', ')} m</span><strong>{hotspot.relative_screening_index??hotspot.risk_index}</strong></button></li>)}</ol>
+    {researchSpot&&<button className={`research-spot-button ${selected===researchSpot?'active':''}`} onClick={()=>setSelectedKey('research')}><Search/><span><b>{researchSpot.title}</b><small>Controlled overlap probe · relative index {researchSpot.relative_screening_index}</small></span></button>}
+    {selected&&<article className="hotspot-detail">
+      <div className="detail-title"><div><span>{selected.rank?`HOTSPOT #${selected.rank}`:'RESEARCH SPOT'}</span><h2>{selected.center_m.map(value=>value.toFixed(2)).join(', ')} metres</h2></div><div><small>RELATIVE SCREENING INDEX</small><strong>{selected.relative_screening_index??selected.risk_index}</strong></div></div>
+      {selected.selection_note&&<p className="selection-note">{selected.selection_note}</p>}
+      <div className="coverage-row"><span>Modeled detector coverage <b>{selected.detection_coverage}</b></span><span>Modeled suppression coverage <b>{selected.suppression_coverage}</b></span></div>
+      <section className="detail-section"><h3>Why it appeared</h3><p>These are same-sample counterfactual changes from the actual score. They do not add up because the formula multiplies interacting terms.</p><ol className="contributors">{selected.score_breakdown?.strongest_contributors.map(item=><li key={item.term}><span>{item.label}</span><b className={item.counterfactual_delta>=0?'raises':'lowers'}>{item.counterfactual_delta>=0?'+':''}{item.counterfactual_delta}</b></li>)}</ol></section>
+      <section className="detail-section"><h3>Nearby reviewed objects</h3><ul className="nearby-objects">{selected.nearby_objects?.map(item=><li key={`${item.type}-${item.id}`}><span><b>{item.id.replace(/^object-\d+-/,'')}</b><small>{item.type}</small></span><em>{item.distance_m.toFixed(2)} m {item.within_modeled_influence?'· in modeled influence':''}</em></li>)}</ul></section>
+      {comparison&&<section className="comparison-card"><span>CONTROLLED BEFORE / AFTER</span><h3>Same spot, detector moved</h3><p>Detector: {comparison.detector_position_before_m.join(', ')} m → {comparison.detector_position_after_m.join(', ')} m</p><div><span><small>Modeled coverage</small><b>{comparison.baseline.detection_coverage} → {comparison.after_move.detection_coverage}</b><em>+{comparison.change.detection_coverage}</em></span><span><small>Relative index</small><b>{comparison.baseline.relative_screening_index} → {comparison.after_move.relative_screening_index}</b><em>{comparison.change.relative_screening_index}</em></span></div><ul><li className={comparison.verification.same_sample_locations?'pass':''}><Check/> Same sampled locations: {String(comparison.verification.same_sample_locations)}</li><li className={comparison.verification.ignition_inputs_unchanged?'pass':''}><Check/> Ignition inputs unchanged: {String(comparison.verification.ignition_inputs_unchanged)}</li></ul><small>{comparison.interpretation}</small></section>}
+      {selected.evidence_search&&<section className="search-handoff"><Search/><div><span>RESEARCH HANDOFF</span><h3>{selected.evidence_search.query}</h3><p>{selected.evidence_search.reason} Airflow speed: <b>unknown</b>; the scenario only records vent location and illustrative influence.</p><a href={selected.evidence_search.url} target="_blank" rel="noreferrer">Open NASA PSI search <ExternalLink/></a></div></section>}
+    </article>}
+    {result.benchmark_summary&&<details className="result-details"><summary>Stability and speed basis</summary><p>{result.benchmark_summary.recommendation}</p><p>Region stability means the same voxel or an immediate neighbor remained among the top 10 across five seeds. Exact rankings can still change.</p></details>}
+    {context&&<details className="result-details" open><summary>Inputs, assumptions, and confirmations</summary><h3>User-entered cabin conditions</h3><ul>{context.user_entered_cabin_conditions.map(item=><li key={item.field}><b>{item.field}</b>: {item.value} · {item.used_in_score?'used in score':'recorded only, no score effect'}{item.note?` — ${item.note}`:''}</li>)}</ul><h3>Illustrative coefficients</h3><p>{context.coefficient_status}:</p><ul>{context.illustrative_coefficients.map(item=><li key={item}>{item}</li>)}</ul><h3>Geometry checks</h3><p>Metre units confirmed: <b>{String(context.mesh_confirmation.model_units_m_confirmed)}</b> · meshes reviewed: <b>{context.mesh_confirmation.reviewed_object_count} / {context.mesh_confirmation.total_object_count}</b></p><small>{context.mesh_confirmation.review_basis}</small></details>}
+    <details className="result-details"><summary>Validity limits and repeatability record</summary><ul>{result.assumptions.map(item=><li key={item}>{item}</li>)}</ul>{result.reproducibility&&<div className="fingerprints"><span>Scenario SHA-256 <code>{result.reproducibility.scenario_sha256}</code></span><span>Ignition-input SHA-256 <code>{result.reproducibility.ignition_inputs_sha256}</code></span><span>Sample-location SHA-256 <code>{result.reproducibility.sample_locations_sha256}</code></span></div>}</details>
+  </section>;
 }
 
 function EvidenceNote(){

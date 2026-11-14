@@ -13,12 +13,14 @@ source .venv/bin/activate
 npm run api
 ```
 
-In another terminal, run `npm run dev`, open `/simulator`, review every mesh, confirm metre units, and submit the scenario. The API accepts 1,000 to 2,000,000 samples and the interface uses 1,000,000.
+In another terminal, run `npm run dev`, open `/simulator`, review every mesh, confirm metre units, and submit the scenario. The API accepts 1,000 to 2,000,000 samples and the interface uses the benchmark-selected 100,000-sample default.
+
+Click **View precomputed result** to inspect the exact shipped `public/models/cabin-demo.glb` fixture immediately. Editing that map returns to the normal unreviewed state; it does not reuse fixture confirmations for a changed scenario.
 
 ## Run the CLI directly
 
 ```bash
-python simulator/engine.py --samples 1000000
+python simulator/engine.py --samples 100000
 ```
 
 The default result is written to `public/simulation/demo.json`. Use fewer samples while editing:
@@ -41,6 +43,17 @@ For every sampled point, the engine combines:
 - proximity to consequence zones such as egress or crew areas.
 
 The raw score is transformed to a bounded 0–100 index with `100 × (1 − exp(−raw))`. It is not a percentage probability. Every coefficient in the demo scenario is labelled as an illustrative assumption. The API also rejects incomplete object-review manifests and unconfirmed model units.
+
+For every ranked hotspot, the engine aggregates the actual formula terms and computes contributor deltas by rescoring the same sample points with one term neutralized. These counterfactual deltas explain direction and strength but do not sum to the index because the terms interact multiplicatively. Gravity, ambient temperature, and smoke yield are retained in the result and explicitly marked as having no current score effect.
+
+## Repeatability and controlled comparison
+
+```bash
+python simulator/benchmark.py
+python simulator/build_cabin_release.py
+```
+
+The benchmark runs the exact cabin fixture across seeds 2026–2030 at 50k, 100k, 250k, and 500k samples. It measures both exact top-25 overlap and whether the same one-voxel neighborhoods remain near the top. The release builder then moves one detector to the leading baseline hotspot and reruns the same seed, batch size, dimensions, and sample count. It verifies identical sample-location and ignition-input hashes before reporting the coverage and relative-index changes at that exact baseline voxel.
 
 ## First-release limits
 

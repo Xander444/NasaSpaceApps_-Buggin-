@@ -43,7 +43,9 @@ After activating `.venv` and installing `requirements.txt`, run `npm run check` 
 2. Click every mesh. The baseline recognizer suggests a role from the object name, but never confirms it.
 3. Correct and confirm the role, or explicitly ignore the object. Any edit invalidates its prior confirmation.
 4. Enter cabin oxygen and pressure, then confirm the model uses metres.
-5. Run one million sampled locations through the local PyTorch service and inspect ranked candidate hotspots.
+5. Run 100,000 sampled locations through the local PyTorch service and inspect ranked candidate hotspots. This default was selected from the included multi-seed CPU benchmark, rather than chosen arbitrarily.
+
+For the fastest judge path, click **View precomputed result**. It loads the exact committed `cabin-demo.glb` fixture and a repeatable result without bypassing the review and metre-unit gates for new simulations.
 
 The source model stays in the browser. The API receives derived geometry bounds, reviewed labels, a SHA-256 model hash, and the environment—not the CAD file. See `docs/ANNOTATION_CONTRACT.md`.
 
@@ -65,7 +67,21 @@ Complex source values remain raw text. For example, a fan sequence such as `0.9 
 npm run simulate
 ```
 
-The default scenario samples one million possible ignition locations in bounded PyTorch batches. It aggregates them into a 3D voxel field, ranks candidate hotspots, and reports detector and suppression coverage at each hotspot. Results are written to `public/simulation/demo.json`.
+The default scenario samples 100,000 possible locations in bounded PyTorch batches. It aggregates them into a 3D voxel field, ranks candidate hotspots, and reports detector and suppression coverage at each hotspot. Results are written to `public/simulation/demo.json`.
+
+Each hotspot now includes its location, nearby reviewed objects, mean scoring terms, and same-sample counterfactual contributor deltas calculated by the scoring engine itself. The deltas are deliberately shown as non-additive because the screening formula is multiplicative. Results also separate user-entered cabin conditions from illustrative coefficients, state which fields have no score effect, and record scenario, ignition-input, and sample-location hashes.
+
+The exact cabin fixture has two additional reproducibility artifacts:
+
+- `public/simulation/benchmark.json` records CPU timings and top-region stability across five seeds and four sample counts. On the development machine, 100,000 samples had 100% mean/minimum top-10 neighborhood retention, about 0.79 exact top-25 Jaccard overlap, and 0.048-second median latency.
+- `public/simulation/cabin-demo.json` contains the precomputed result, a same-location detector-move comparison, and a fabric/vent research probe that hands off a NASA PSI forced-airflow query while preserving airflow speed as unknown.
+
+Regenerate both artifacts with:
+
+```bash
+python simulator/benchmark.py
+python simulator/build_cabin_release.py
+```
 
 The current score is a **relative screening index**, not a fire probability, flame-spread simulation, CFD solution, engineering certification, or mission-safety recommendation. The included spacecraft layout and material coefficients are synthetic demonstration assumptions. See `simulator/README.md` and `simulator/scenario.schema.json`.
 

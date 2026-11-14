@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.2.0",
+  "name": "Exact cabin-demo.glb screening fixture",
+  "description": "Synthetic 13-mesh cabin supplied for repeatable demonstration; not a real spacecraft design.",
+  "source_model": {
+    "name": "cabin-demo.glb",
+    "format": "glb",
+    "sha256": "335206796c175bf3791b8ca0b76a3208462cb2268b5af32d601ccab43a29ac1a",
+    "path": "/models/cabin-demo.glb"
+  },
+  "compartment": {"dimensions_m": [6.0, 2.6, 3.0], "grid": [30, 13, 15]},
+  "environment": {"oxygen_percent": 21.0, "pressure_kpa": 101.325, "gravity_g": 0.0, "ambient_temperature_c": 22.0},
+  "materials": [
+    {"id": "object-002-plastic-wall-liner", "position_m": [3.0, 1.35, 0.03], "size_m": [5.8, 2.5, 0.06], "material_type": "plastic_pmma", "influence_radius_m": 0.35, "ignition_susceptibility": 0.72, "spread_potential": 0.64, "smoke_yield": 0.55, "basis": "illustrative UI preset; not a measured coefficient"},
+    {"id": "object-003-equipment-rack-panel", "position_m": [0.4, 1.1, 0.6], "size_m": [0.6, 2.0, 1.0], "material_type": "unknown_combustible", "influence_radius_m": 0.35, "ignition_susceptibility": 0.65, "spread_potential": 0.65, "smoke_yield": 0.65, "basis": "illustrative UI preset; not a measured coefficient"},
+    {"id": "object-011-fabric-curtain", "position_m": [2.2, 1.05, 2.4], "size_m": [1.2, 1.9, 0.04], "material_type": "fabric", "influence_radius_m": 0.35, "ignition_susceptibility": 0.68, "spread_potential": 0.78, "smoke_yield": 0.68, "basis": "illustrative UI preset; not a measured coefficient"},
+    {"id": "object-012-foam-packing-block", "position_m": [4.1, 0.35, 0.35], "size_m": [0.5, 0.5, 0.5], "material_type": "foam", "influence_radius_m": 0.35, "ignition_susceptibility": 0.82, "spread_potential": 0.76, "smoke_yield": 0.86, "basis": "illustrative UI preset; not a measured coefficient"}
+  ],
+  "ignition_sources": [
+    {"id": "object-004-power-distribution-box", "position_m": [0.3, 0.9, 1.6], "influence_radius_m": 0.75, "weight": 0.8, "basis": "illustrative UI preset; not a failure rate"},
+    {"id": "object-005-battery-pack", "position_m": [5.55, 0.3, 0.6], "influence_radius_m": 0.75, "weight": 0.8, "basis": "illustrative UI preset; not a failure rate"}
+  ],
+  "oxygen_sources": [
+    {"id": "object-006-oxygen-manifold", "position_m": [5.75, 0.7, 2.6], "influence_radius_m": 0.75, "oxygen_percent_boost": 8.0, "basis": "illustrative local boost; not a measured leak concentration"}
+  ],
+  "vents": [
+    {"id": "object-007-supply-vent", "position_m": [1.5, 2.3, 0.16], "influence_radius_m": 2.5, "strength": 0.65, "direction": [1, 0, 0], "airflow_speed_m_s": null, "basis": "location known; strength is illustrative and physical airflow speed is unknown"},
+    {"id": "object-008-return-vent", "position_m": [4.8, 0.4, 0.16], "influence_radius_m": 2.5, "strength": 0.65, "direction": [1, 0, 0], "airflow_speed_m_s": null, "basis": "location known; strength is illustrative and physical airflow speed is unknown"}
+  ],
+  "detectors": [
+    {"id": "object-009-smoke-detector", "position_m": [3.0, 2.2, 0.08], "influence_radius_m": 2.0, "effectiveness": 0.8, "basis": "illustrative radial coverage coefficient"}
+  ],
+  "suppressors": [
+    {"id": "object-010-portable-suppressor", "position_m": [4.6, 0.35, 2.8], "influence_radius_m": 1.5, "effectiveness": 0.65, "basis": "illustrative radial coverage coefficient"}
+  ],
+  "consequence_zones": [
+    {"id": "object-013-crew-egress-zone", "position_m": [3.0, 0.125, 1.5], "influence_radius_m": 1.25, "weight": 1.2, "basis": "illustrative consequence multiplier"}
+  ],
+  "confirmation": {
+    "model_units_m_confirmed": true,
+    "total_object_count": 13,
+    "reviewed_object_count": 13,
+    "review_basis": "Synthetic fixture mapping checked against the 13 descriptive mesh names; re-review is required if the GLB or scenario changes.",
+    "manifest": [
+      {"object_id": "object-001-aluminum-floor-panel", "object_name": "aluminum-floor-panel", "review_status": "ignored", "category": "structural_noncombustible"},
+      {"object_id": "object-002-plastic-wall-liner", "object_name": "plastic-wall-liner", "review_status": "confirmed", "category": "material"},
+      {"object_id": "object-003-equipment-rack-panel", "object_name": "equipment-rack-panel", "review_status": "confirmed", "category": "material"},
+      {"object_id": "object-004-power-distribution-box", "object_name": "power-distribution-box", "review_status": "confirmed", "category": "ignition_source"},
+      {"object_id": "object-005-battery-pack", "object_name": "battery-pack", "review_status": "confirmed", "category": "ignition_source"},
+      {"object_id": "object-006-oxygen-manifold", "object_name": "oxygen-manifold", "review_status": "confirmed", "category": "oxygen_source"},
+      {"object_id": "object-007-supply-vent", "object_name": "supply-vent", "review_status": "confirmed", "category": "vent"},
+      {"object_id": "object-008-return-vent", "object_name": "return-vent", "review_status": "confirmed", "category": "vent"},
+      {"object_id": "object-009-smoke-detector", "object_name": "smoke-detector", "review_status": "confirmed", "category": "detector"},
+      {"object_id": "object-010-portable-suppressor", "object_name": "portable-suppressor", "review_status": "confirmed", "category": "suppressor"},
+      {"object_id": "object-011-fabric-curtain", "object_name": "fabric-curtain", "review_status": "confirmed", "category": "material"},
+      {"object_id": "object-012-foam-packing-block", "object_name": "foam-packing-block", "review_status": "confirmed", "category": "material"},
+      {"object_id": "object-013-crew-egress-zone", "object_name": "crew-egress-zone", "review_status": "confirmed", "category": "consequence_zone"}
+    ]
+  },
+  "evidence_bindings": [
+    {"accession": "PSI-25", "use": "BASS-II solid-material, oxygen, and forced-flow variable context", "claim": "context only; no coefficient fitted"},
+    {"accession": "PSI-98", "use": "Saffire large-scale spacecraft-fire context", "claim": "context only; no vehicle geometry inferred"},
+    {"accession": "PSI-101", "use": "SAME-R smoke-detection context", "claim": "context only; coverage remains assumed"}
+  ]
+}
