@@ -6,6 +6,7 @@ import {loadIndex} from './search/loadIndex';
 import {createEngine} from './search/engine';
 import {parseQuery} from './search/conditions';
 import {fetchSemantic} from './search/semantic';
+import {parseExplorerHandoff} from './search/handoff';
 import ConditionEditor from './search/ConditionEditor';
 import {EvidenceDetail,ResultCard,Comparison} from './search/Evidence';
 import './styles.css';
@@ -19,7 +20,9 @@ function App(){
 }
 function Explorer({index}){
  const engine=useMemo(()=>createEngine(index),[index]);
- const [q,setQ]=useState(''),[conditions,setConditions]=useState([]),[program,setProgram]=useState(''),[familyName,setFamilyName]=useState(''),[problem,setProblem]=useState(''),[outcome,setOutcome]=useState(''),[otherOutcome,setOtherOutcome]=useState(''),[needed,setNeeded]=useState(''),[sort,setSort]=useState('relevance');
+ const initialHandoff=useMemo(()=>parseExplorerHandoff(window.location.search),[]);
+ const [handoff,setHandoff]=useState(initialHandoff);
+ const [q,setQ]=useState(initialHandoff?.query||''),[conditions,setConditions]=useState(initialHandoff?.conditions||[]),[program,setProgram]=useState(''),[familyName,setFamilyName]=useState(''),[problem,setProblem]=useState(''),[outcome,setOutcome]=useState(''),[otherOutcome,setOtherOutcome]=useState(''),[needed,setNeeded]=useState(''),[sort,setSort]=useState('relevance');
  const [selected,setSelected]=useState([]),[detail,setDetail]=useState(null),[showCompare,setShowCompare]=useState(false),[similar,setSimilar]=useState(null);
  const [enhance,setEnhance]=useState(false),[semanticState,setSemanticState]=useState({key:'',data:null,message:''});
  const address=import.meta.env.VITE_SEMANTIC_URL;
@@ -42,10 +45,12 @@ function Explorer({index}){
  const outside=selected.filter(id=>!visibleIds.has(id));
  const toggle=id=>setSelected(s=>s.includes(id)?s.filter(x=>x!==id):s.length<3?[...s,id]:s);
  const inspect=id=>{setDetail(id);setShowCompare(false);};
- const reset=()=>{setQ('');setConditions([]);setProgram('');setFamilyName('');setProblem('');setOutcome('');setOtherOutcome('');setNeeded('');setSort('relevance');setSimilar(null);setEnhance(false);};
+ const clearHandoff=()=>{setHandoff(null);window.history.replaceState({},'',window.location.pathname);};
+ const reset=()=>{setQ('');setConditions([]);setProgram('');setFamilyName('');setProblem('');setOutcome('');setOtherOutcome('');setNeeded('');setSort('relevance');setSimilar(null);setEnhance(false);clearHandoff();};
  return <>
  <section className="hero"><div><div className="eyebrow">MICROGRAVITY FIRE SAFETY EVIDENCE</div><h1>Find the evidence.<br/><em>Understand its limits.</em></h1><p>Ask a research question, inspect cited tests, and compare the conditions that matter to your work.</p></div><div className="signal"><span>Indexed evidence</span><b>{index.counts.investigation}</b><small>investigations · {index.counts.test} test rows</small><div className="mini"><span><Database/> NASA PSI</span><span>local index</span></div></div></section>
  <section className="insight"><div className="spark">✦</div><div><span>EVIDENCE BEFORE INTERPRETATION</span><p>Search surfaces reported evidence, objectives, and hypotheses with their original scope. A relevant study does not establish a safe operating condition.</p><details><summary>What is searchable?</summary><p>{index.coverage}</p><p>{index.counts.passage} passages · {index.counts.file} file-metadata records · {index.restricted_files_excluded} restricted files excluded. Index {index.index_version}.</p></details></div></section>
+ {handoff&&<SimulatorHandoff handoff={handoff} onClear={clearHandoff}/>}
  <section aria-label="Search data" className="search-area"><label className="question"><Search size={19}/><span className="sr-only">Research question</span><input maxLength={600} value={q} onChange={e=>{setQ(e.target.value);setSimilar(null);}} placeholder="e.g. Design a smoke detector"/></label>
  <div className="quick-queries">Try: {['Design a smoke detector','Extinguish liquid-fuel flames','PMMA'].map(text=><button key={text} onClick={()=>{setQ(text);setSimilar(null);}}>{text}</button>)}</div>
  <div className="filters">
@@ -66,5 +71,12 @@ function Explorer({index}){
  {result.related.length>0&&<details className="related" open={!result.verified.length}><summary>Related evidence with gaps · {result.related.length} investigations</summary><p>Required conditions have not been relaxed. These records are excluded from exact-match counts and exports.</p>{result.related.map(g=><ResultCard key={g.id} group={g} verified={false} index={index} selected={selected} toggle={toggle} onInspect={inspect}/>)}</details>}
  </section><aside>{selected.length>0&&<div className="selection"><span>{selected.length}/3 selected</span>{selected.map(id=><button key={id} onClick={()=>toggle(id)} aria-label={`Remove ${id} from comparison`}>{id} ×</button>)}<button onClick={()=>setSelected([])}>Clear selection</button></div>}{showCompare?<Comparison docs={selected.map(id=>engine.byId.get(id)).filter(Boolean)} index={index} result={result} onInspect={inspect}/>:<EvidenceDetail doc={engine.byId.get(detail)} index={index} selected={selected} toggle={toggle} onSimilar={setSimilar}/>}</aside></div>
  </>
+}
+
+function SimulatorHandoff({handoff,onClear}){
+ const c=handoff.context;
+ const vector=value=>value?.map(number=>number.toFixed(2)).join(', ');
+ const conditions=[c.oxygen_percent!==null&&`O₂ ${c.oxygen_percent}%`,c.pressure_kpa!==null&&`${c.pressure_kpa} kPa`,c.gravity_g!==null&&`${c.gravity_g} g`,c.ambient_temperature_c!==null&&`${c.ambient_temperature_c} °C`].filter(Boolean);
+ return <section className="handoff-banner" aria-label="Simulator search handoff"><div><span>SIMULATOR HANDOFF</span><h2>Evidence context for selected spot {vector(c.spot_m)}{c.spot_m?' m':''}</h2><p>{conditions.join(' · ')||'No cabin conditions supplied'}</p>{c.vent_id&&<p><b>{c.vent_id.replace(/^object-\d+-/,'')}</b>{c.vent_position_m?` at ${vector(c.vent_position_m)} m`:''} is recorded. Physical airflow speed: <strong>{c.airflow_speed_status}</strong>. {c.airflow_speed_status==='unknown'?'No airflow condition was applied.':''}</p>}<small>Oxygen and pressure are preferred search context. Gravity and temperature remain recorded scenario inputs; they are not treated as measured study conditions.</small></div><button onClick={onClear}>Dismiss context</button></section>;
 }
 createRoot(document.getElementById('root')).render(window.location.pathname.startsWith('/simulator')?<Suspense fallback={<div className="sim-error">Loading 3D viewer…</div>}><Simulator/></Suspense>:<App/>);
