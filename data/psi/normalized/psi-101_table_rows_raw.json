@@ -1,0 +1,1855 @@
+[
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 2,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "51",
+      "Description": "B.L. new formula",
+      "Date": "21-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.38",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "38"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 3,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "51a",
+      "Description": "B.L. new formula",
+      "Date": "22-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.38",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "261"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 4,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "61",
+      "Description": "Baseline Aging",
+      "Date": "2-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.38",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "38"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 5,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "61a",
+      "Description": "aged",
+      "Date": "2-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.38",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "807"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 6,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "62",
+      "Description": "High Temp aging",
+      "Date": "2-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.48",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "39"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 7,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "62a",
+      "Description": "aged",
+      "Date": "2-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.48",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "808"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 8,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "70",
+      "Description": "High temp aged STS det",
+      "Date": "24-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.48",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "720",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "747"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 9,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "73",
+      "Description": "Baseline Aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.38",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "33"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 10,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "73a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.38",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "560"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 11,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "75",
+      "Description": "Mid Temp aging (no Ptrak)",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "32"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 12,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "75a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "563"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 13,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "77",
+      "Description": "High Temp aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.48",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "31"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 14,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "77a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.48",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "559"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 15,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "85",
+      "Description": "Mid Temp aging run. Repeat 75",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "33"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 16,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "85a",
+      "Description": "aged",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "563"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 17,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "90",
+      "Description": "Mid Temp aging reburn 85",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "38"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 18,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "90a",
+      "Description": "aged",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "569"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 19,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "92",
+      "Description": "Baseline STS det",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.38",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "35"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 20,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "93",
+      "Description": "Mid Temp aging run 75 repeat",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "36"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 21,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "93a",
+      "Description": "aged",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.43",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "568"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 22,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "94",
+      "Description": "Mid Temp aging run mid high",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.45",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "42"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 23,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "94a",
+      "Description": "aged",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.45",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "567"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 24,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "101",
+      "Description": "No flow run w/ aging",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.48",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "29"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 25,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "101a",
+      "Description": "aged",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.48",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "561"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 26,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "102",
+      "Description": "No flow run w/ aging",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.48",
+      "Duration (sec)": "120",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "28"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 27,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "102a",
+      "Description": "aged",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.48",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "563"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 28,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "108",
+      "Description": "Low flow run w/aging",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "1",
+      "Rt/R0": "1.48",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "30"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 29,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "108a",
+      "Description": "aged",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "1",
+      "Rt/R0": "1.48",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "560"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 30,
+    "raw": {
+      "Sample Type": "Kapton",
+      "SAME Test #": "114",
+      "Description": "low flow run w STS no Ptrak",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "2",
+      "Rt/R0": "1.43",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "28"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 31,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "48",
+      "Description": "Low Temp",
+      "Date": "16-Jul",
+      "Inlet velocity (cm/s)": "8",
+      "Rt/R0": "1.304",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "62"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 32,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "53",
+      "Description": "HighTemp",
+      "Date": "22-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.35",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "1",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "52"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 33,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "59",
+      "Description": "baseline aged",
+      "Date": "30-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.327",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "24"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 34,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "59a",
+      "Description": "aged",
+      "Date": "30-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.327",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "856"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 35,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "60",
+      "Description": "Htemp ageing",
+      "Date": "30-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.35",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "49"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 36,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "60a",
+      "Description": "aged",
+      "Date": "30-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.35",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "856"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 37,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "65",
+      "Description": "Baseline long aging",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.327",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "50"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 38,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "65a",
+      "Description": "aged",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.327",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "1923"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 39,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "66",
+      "Description": "High T aging",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.36",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "42"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 40,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "66a",
+      "Description": "aged",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.36",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "837"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 41,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "67",
+      "Description": "High temp aged",
+      "Date": "24-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.35",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "720",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "751"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 42,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "72",
+      "Description": "Baseline STS det",
+      "Date": "25-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.327",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "42"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 43,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "86",
+      "Description": "Mid temp aging",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.345",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "50"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 44,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "86a",
+      "Description": "aged",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.345",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "628"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 45,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "91",
+      "Description": "Baseline STS det",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.327",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "46"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 46,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "99",
+      "Description": "No flow run w/aging",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.35",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "48"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 47,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "99a",
+      "Description": "aged",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.35",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "627"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 48,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "103",
+      "Description": "low flow run w/ aging",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "1",
+      "Rt/R0": "1.35",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "48"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 49,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "103a",
+      "Description": "aged",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "1",
+      "Rt/R0": "1.35",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "619"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 50,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "104",
+      "Description": "No flow run w/ aging",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.35",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "51"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 51,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "104a",
+      "Description": "aged",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.35",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "636"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 52,
+    "raw": {
+      "Sample Type": "Silicone",
+      "SAME Test #": "109",
+      "Description": "low flow run w STS",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "2",
+      "Rt/R0": "1.35",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "28"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 53,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "49",
+      "Description": "B.L. High RT/R0",
+      "Date": "19-Jul",
+      "Inlet velocity (cm/s)": "8",
+      "Rt/R0": "1.251",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "51"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 54,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "54",
+      "Description": "Baseline",
+      "Date": "29-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.245",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "57"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 55,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "55",
+      "Description": "High RT/R0 test aging",
+      "Date": "29-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.245",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "47"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 56,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "55a",
+      "Description": "aged",
+      "Date": "29-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.245",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "218"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 57,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "57",
+      "Description": "High RT/R0 reburn sample",
+      "Date": "29-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.253",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "n/a"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 58,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "68",
+      "Description": "High temp aged STS det",
+      "Date": "24-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.28",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "720",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "747"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 59,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "78",
+      "Description": "Baseline aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.245",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "37"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 60,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "78a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.245",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "581"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 61,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "80",
+      "Description": "High temp aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.28",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "40"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 62,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "80a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.28",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "580"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 63,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "82",
+      "Description": "Mid temp aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.265",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "39"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 64,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "82a",
+      "Description": "aged",
+      "Date": "27-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.265",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "579"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 65,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "88",
+      "Description": "Baseline STS det",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.245",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "n/a"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 66,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "96",
+      "Description": "No flow run w/aging",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.245",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "34"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 67,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "96a",
+      "Description": "aged",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.245",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "582"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 68,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "98",
+      "Description": "No flow run w/aging",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.28",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "37"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 69,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "98a",
+      "Description": "aged",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.28",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "585"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 70,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "106",
+      "Description": "No flow run w/aging",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.28",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "30"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 71,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "106a",
+      "Description": "aged",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.28",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "558"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 72,
+    "raw": {
+      "Sample Type": "Lampwick",
+      "SAME Test #": "110",
+      "Description": "low flow run w/STS",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "2",
+      "Rt/R0": "1.28",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "21"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 73,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "50",
+      "Description": "B.L. High RT/R0",
+      "Date": "20-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.452",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "33"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 74,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "56",
+      "Description": "Baseline",
+      "Date": "29-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.445",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "41"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 75,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "57",
+      "Description": "High RT/R0 reburn sample",
+      "Date": "29-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.253",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "n/a"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 76,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "58",
+      "Description": "Baseline aging",
+      "Date": "30-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.445",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "34"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 77,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "58a",
+      "Description": "aged",
+      "Date": "30-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.445",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "805"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 78,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "69",
+      "Description": "High temp aged STS det",
+      "Date": "24-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.45",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "720",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "745"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 79,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "79",
+      "Description": "Baseline aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.445",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "33"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 80,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "79a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.445",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "560"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 81,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "81",
+      "Description": "High temp aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.45",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "30"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 82,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "81a",
+      "Description": "aged",
+      "Date": "27-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.45",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "559"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 83,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "83",
+      "Description": "Mid temp aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.448",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "30"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 84,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "83a",
+      "Description": "aged",
+      "Date": "27-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.448",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "557"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 85,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "89",
+      "Description": "Baseline STS det",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.445",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "31"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 86,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "100",
+      "Description": "No flow run w/ aging",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.45",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "29"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 87,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "100a",
+      "Description": "aged",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.45",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "560"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 88,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "105",
+      "Description": "No flow run w/ aging",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.45",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "24"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 89,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "105a",
+      "Description": "aged",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.45",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "559"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 90,
+    "raw": {
+      "Sample Type": "Teflon",
+      "SAME Test #": "111",
+      "Description": "low flow run w/ STS",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "2",
+      "Rt/R0": "1.45",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "43"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 91,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "52",
+      "Description": "Baseline",
+      "Date": "22-Jul",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.22",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "n/a"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 92,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "63",
+      "Description": "Baseline Aging",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.22",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "56"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 93,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "63a",
+      "Description": "aged",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.22",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "840"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 94,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "64",
+      "Description": "High Temp aging",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.23",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "47"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 95,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "64a",
+      "Description": "aged",
+      "Date": "23-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.23",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "842"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 96,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "71",
+      "Description": "High temp aged STS det",
+      "Date": "24-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.23",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "720",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "750"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 97,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "74",
+      "Description": "Baseline Aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.22",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "48"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 98,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "74a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.22",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "623"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 99,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "76",
+      "Description": "High Temp aging",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.23",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "51"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 100,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "76a",
+      "Description": "aged",
+      "Date": "26-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.23",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "625"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 101,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "84",
+      "Description": "Mid Temp aging retry",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.225",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "53"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 102,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "84a",
+      "Description": "aged",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.225",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "632"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 103,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "87",
+      "Description": "Baseline STS det",
+      "Date": "30-Aug",
+      "Inlet velocity (cm/s)": "8.1",
+      "Rt/R0": "1.22",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "45"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 104,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "95",
+      "Description": "No flow run w/ aging",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.22",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "38"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 105,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "95a",
+      "Description": "aged",
+      "Date": "7-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.22",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "n/a"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 106,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "97",
+      "Description": "No flow run w/aging",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.23",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "48"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 107,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "97a",
+      "Description": "aged",
+      "Date": "8-Sep",
+      "Inlet velocity (cm/s)": "0",
+      "Rt/R0": "1.23",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "624"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 108,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "107",
+      "Description": "Low flow run w/aging",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "1",
+      "Rt/R0": "1.23",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "32"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 109,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "107a",
+      "Description": "aged",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "1",
+      "Rt/R0": "1.23",
+      "Duration (sec)": null,
+      "Primary aging time (sec)": null,
+      "Primary mixing time (sec)": null,
+      "Net aging time (sec)": "559"
+    }
+  },
+  {
+    "accession": "PSI-101",
+    "source_file": "PSI-101_Experimental table_SAME-R.csv",
+    "source_row": 110,
+    "raw": {
+      "Sample Type": "Pyrell",
+      "SAME Test #": "113",
+      "Description": "low flow run w STS",
+      "Date": "9-Sep",
+      "Inlet velocity (cm/s)": "2",
+      "Rt/R0": "1.23",
+      "Duration (sec)": "60",
+      "Primary aging time (sec)": "11",
+      "Primary mixing time (sec)": "8",
+      "Net aging time (sec)": "31"
+    }
+  }
+]

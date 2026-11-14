@@ -1,0 +1,38 @@
+{
+  "schema_version": "0.1.0",
+  "name": "Illustrative crew-module screening scenario",
+  "description": "Synthetic layout for software demonstration only; not a real vehicle.",
+  "compartment": {"dimensions_m": [8.0, 4.0, 3.0], "grid": [32, 16, 12]},
+  "environment": {"oxygen_percent": 21.0, "pressure_kpa": 101.325, "gravity_g": 0.0, "ambient_temperature_c": 22.0},
+  "ignition_sources": [
+    {"id": "power-distribution-a", "position_m": [1.4, 0.8, 1.2], "influence_radius_m": 0.8, "weight": 0.9, "basis": "illustrative assumption"},
+    {"id": "battery-pack-b", "position_m": [6.6, 3.1, 0.7], "influence_radius_m": 0.65, "weight": 1.0, "basis": "illustrative assumption"},
+    {"id": "galley-heater", "position_m": [4.5, 0.55, 1.35], "influence_radius_m": 0.7, "weight": 0.65, "basis": "illustrative assumption"}
+  ],
+  "materials": [
+    {"id": "left-wall-liner", "position_m": [4.0, 0.18, 1.5], "size_m": [7.5, 0.16, 2.7], "influence_radius_m": 0.35, "ignition_susceptibility": 0.58, "spread_potential": 0.63, "smoke_yield": 0.55, "basis": "illustrative coefficient; calibrate with NASA data"},
+    {"id": "equipment-rack-panels", "position_m": [1.5, 1.0, 1.25], "size_m": [1.2, 0.6, 2.1], "influence_radius_m": 0.3, "ignition_susceptibility": 0.72, "spread_potential": 0.7, "smoke_yield": 0.62, "basis": "illustrative coefficient; calibrate with NASA data"},
+    {"id": "battery-enclosure", "position_m": [6.6, 3.05, 0.75], "size_m": [1.0, 0.7, 1.1], "influence_radius_m": 0.25, "ignition_susceptibility": 0.82, "spread_potential": 0.66, "smoke_yield": 0.78, "basis": "illustrative coefficient; calibrate with NASA data"}
+  ],
+  "vents": [
+    {"id": "supply-a", "position_m": [0.3, 2.0, 2.6], "direction": [1.0, 0.0, -0.15], "influence_radius_m": 3.2, "strength": 0.8},
+    {"id": "return-b", "position_m": [7.7, 2.0, 2.4], "direction": [-1.0, 0.0, -0.1], "influence_radius_m": 3.0, "strength": 0.65}
+  ],
+  "detectors": [
+    {"id": "smoke-detector-forward", "position_m": [2.0, 2.0, 2.65], "influence_radius_m": 2.1, "effectiveness": 0.82},
+    {"id": "smoke-detector-aft", "position_m": [6.0, 2.0, 2.65], "influence_radius_m": 2.1, "effectiveness": 0.82}
+  ],
+  "suppressors": [
+    {"id": "portable-unit-forward", "position_m": [1.0, 3.4, 1.1], "influence_radius_m": 1.6, "effectiveness": 0.64},
+    {"id": "portable-unit-aft", "position_m": [7.0, 0.6, 1.1], "influence_radius_m": 1.6, "effectiveness": 0.64}
+  ],
+  "consequence_zones": [
+    {"id": "crew-sleep-area", "position_m": [5.7, 0.9, 1.2], "influence_radius_m": 1.2, "weight": 1.15},
+    {"id": "primary-egress", "position_m": [0.35, 2.0, 1.3], "influence_radius_m": 1.0, "weight": 1.4}
+  ],
+  "evidence_bindings": [
+    {"accession": "PSI-25", "use": "solid-fuel, oxygen and forced-flow variable definitions", "claim": "context only; demo coefficients are not fitted"},
+    {"accession": "PSI-98", "use": "large-scale spacecraft fire context", "claim": "context only; geometry is synthetic"},
+    {"accession": "PSI-101", "use": "smoke-detection context", "claim": "context only; detector coverage is assumed"}
+  ]
+}

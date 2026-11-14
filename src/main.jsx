@@ -1,7 +1,8 @@
-import React,{useMemo,useState} from 'react';
+import React,{lazy,Suspense,useMemo,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {Search,SlidersHorizontal,ExternalLink,X,GitCompare,Flame,ShieldCheck,Database,Info} from 'lucide-react';
 import {records,value} from './data'; import './styles.css';
+const Simulator=lazy(()=>import('./Simulator'));
 
 function Badge({children}){return <span className="badge">{children}</span>}
 function App(){
@@ -10,7 +11,7 @@ function App(){
  const shown=useMemo(()=>records.filter(r=>{const hay=JSON.stringify(r).toLowerCase();return hay.includes(q.toLowerCase())&&(program==='All'||r.program.startsWith(program))}).sort((a,b)=>sort==='complete'?b.completeness-a.completeness:sort==='name'?a.program.localeCompare(b.program):b.rank-a.rank),[q,program,sort]);
  const toggle=(r)=>setCompare(c=>c.some(x=>x.id===r.id)?c.filter(x=>x.id!==r.id):c.length<3?[...c,r]:c);
  return <div className="app">
-  <header><div className="brand"><div className="mark"><Flame size={20}/></div><div><strong>Flame in Freefall</strong><span>NASA Space Apps 2026 · evidence explorer</span></div></div><div className="status"><i/> Source-grounded prototype</div></header>
+  <header><div className="brand"><div className="mark"><Flame size={20}/></div><div><strong>Flame in Freefall</strong><span>NASA Space Apps 2026 · evidence explorer</span></div></div><a className="simlink" href="/simulator">3D risk prototype</a><div className="status"><i/> Source-grounded prototype</div></header>
   <main>
    <section className="hero"><div><div className="eyebrow">MICROGRAVITY FIRE SAFETY INTELLIGENCE</div><h1>Find the evidence.<br/><em>See the risk.</em></h1><p>Search and compare NASA combustion investigations across fuels, oxygen, airflow, and sensing—without filling gaps with guesses.</p></div><div className="signal"><span>Evidence coverage</span><b>7</b><small>indexed investigations</small><div className="mini"><span><Database/> NASA PSI</span><span><ShieldCheck/> cited</span></div></div></section>
    <section className="insight"><div className="spark">✦</div><div><span>GROUNDED SYNTHESIS</span><p><b>Ventilation is both a control and a hazard variable.</b> BASS-II shows solid flames depend on forced flow, while Saffire tests scale that question toward spacecraft conditions. Compare matched conditions before transferring a conclusion.</p></div></section>
@@ -25,4 +26,4 @@ function App(){
 function Detail({r,toggle,checked}){return <div className="panel"><div className="paneltop"><span>{r.id}</span><button onClick={()=>toggle(r)}>{checked?'Remove comparison':'Add to compare'}</button></div><h2>{r.program}</h2><p className="subtitle">{r.title}</p><div className="callout"><span>AI-GROUNDED INTERPRETATION</span><p>{r.insight}</p><small><Info/> Derived from indexed NASA description; no measurement values generated.</small></div><dl><Row k="Fuel / material" v={r.materials||r.fuel}/><Row k="Oxygen condition" v={value(r.oxygen)} missing={!r.oxygen}/><Row k="Flow condition" v={value(r.flow)} missing={!r.flow}/><Row k="Sensors" v={r.sensors.length?r.sensors.join(' · '):value(null)} missing={!r.sensors.length}/><Row k="Flight platform" v={r.platform}/><Row k="Period" v={r.years}/></dl><div className="finding"><span>SOURCE SUMMARY</span><p>{r.finding}</p></div><a className="source" href={r.source} target="_blank">Open NASA source <ExternalLink/></a>{r.doi&&<small className="doi">DOI {r.doi}</small>}</div>}
 function Row({k,v,missing}) {return <div><dt>{k}</dt><dd className={missing?'missing':''}>{v}</dd></div>}
 function Compare({items,close}){return <div className="panel compare"><div className="paneltop"><span>COMPARISON</span><button onClick={close}><X/></button></div><h2>{items.length?`${items.length} records side by side`:'Select records'}</h2>{!items.length?<p className="empty">Choose up to three records using the compare checkboxes.</p>:<div className="comparegrid">{items.map(r=><div key={r.id}><h3>{r.program}</h3><Row k="Fuel" v={r.fuel}/><Row k="O₂" v={value(r.oxygen)} missing={!r.oxygen}/><Row k="Flow" v={value(r.flow)} missing={!r.flow}/><Row k="Sensors" v={r.sensors.join(', ')||value(null)} missing={!r.sensors.length}/></div>)}</div>}</div>}
-createRoot(document.getElementById('root')).render(<App/>);
+createRoot(document.getElementById('root')).render(window.location.pathname.startsWith('/simulator')?<Suspense fallback={<div className="sim-error">Loading 3D viewer…</div>}><Simulator/></Suspense>:<App/>);

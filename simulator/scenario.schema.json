@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flame-in-freefall.local/schemas/scenario-0.1.json",
+  "title": "Flame in Freefall 3D screening scenario",
+  "type": "object",
+  "required": ["schema_version", "name", "compartment", "environment", "materials"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "name": {"type": "string", "minLength": 1},
+    "description": {"type": "string"},
+    "compartment": {
+      "type": "object",
+      "required": ["dimensions_m", "grid"],
+      "properties": {
+        "dimensions_m": {"$ref": "#/$defs/positiveVector3"},
+        "grid": {"type": "array", "prefixItems": [{"type": "integer", "minimum": 2}, {"type": "integer", "minimum": 2}, {"type": "integer", "minimum": 2}], "minItems": 3, "maxItems": 3}
+      }
+    },
+    "environment": {
+      "type": "object",
+      "required": ["oxygen_percent", "pressure_kpa", "gravity_g"],
+      "properties": {
+        "oxygen_percent": {"type": "number", "exclusiveMinimum": 0, "maximum": 100},
+        "pressure_kpa": {"type": "number", "exclusiveMinimum": 0},
+        "gravity_g": {"type": "number", "minimum": 0},
+        "ambient_temperature_c": {"type": "number"}
+      }
+    },
+    "materials": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/material"}},
+    "ignition_sources": {"type": "array", "items": {"$ref": "#/$defs/radialWeight"}},
+    "vents": {"type": "array", "items": {"$ref": "#/$defs/vent"}},
+    "detectors": {"type": "array", "items": {"$ref": "#/$defs/radialEffectiveness"}},
+    "suppressors": {"type": "array", "items": {"$ref": "#/$defs/radialEffectiveness"}},
+    "consequence_zones": {"type": "array", "items": {"$ref": "#/$defs/radialWeight"}},
+    "evidence_bindings": {"type": "array", "items": {"type": "object", "required": ["accession", "use"], "properties": {"accession": {"type": "string"}, "use": {"type": "string"}, "claim": {"type": "string"}}}}
+  },
+  "$defs": {
+    "vector3": {"type": "array", "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}], "minItems": 3, "maxItems": 3},
+    "positiveVector3": {"type": "array", "prefixItems": [{"type": "number", "exclusiveMinimum": 0}, {"type": "number", "exclusiveMinimum": 0}, {"type": "number", "exclusiveMinimum": 0}], "minItems": 3, "maxItems": 3},
+    "radialBase": {"type": "object", "required": ["id", "position_m", "influence_radius_m"], "properties": {"id": {"type": "string"}, "position_m": {"$ref": "#/$defs/vector3"}, "influence_radius_m": {"type": "number", "exclusiveMinimum": 0}, "basis": {"type": "string"}}},
+    "radialWeight": {"allOf": [{"$ref": "#/$defs/radialBase"}, {"type": "object", "required": ["weight"], "properties": {"weight": {"type": "number", "minimum": 0}}}]},
+    "radialEffectiveness": {"allOf": [{"$ref": "#/$defs/radialBase"}, {"type": "object", "required": ["effectiveness"], "properties": {"effectiveness": {"type": "number", "minimum": 0, "maximum": 1}}}]},
+    "vent": {"allOf": [{"$ref": "#/$defs/radialBase"}, {"type": "object", "required": ["direction", "strength"], "properties": {"direction": {"$ref": "#/$defs/vector3"}, "strength": {"type": "number", "minimum": 0}}}]},
+    "material": {"type": "object", "required": ["id", "position_m", "size_m", "ignition_susceptibility", "spread_potential", "basis"], "properties": {"id": {"type": "string"}, "position_m": {"$ref": "#/$defs/vector3"}, "size_m": {"$ref": "#/$defs/positiveVector3"}, "influence_radius_m": {"type": "number", "exclusiveMinimum": 0}, "ignition_susceptibility": {"type": "number", "minimum": 0, "maximum": 1}, "spread_potential": {"type": "number", "minimum": 0, "maximum": 1}, "smoke_yield": {"type": "number", "minimum": 0, "maximum": 1}, "basis": {"type": "string"}}}
+  }
+}
