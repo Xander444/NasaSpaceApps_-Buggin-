@@ -177,6 +177,7 @@ def import_all(accessions: list[str], output: Path) -> dict[str, Any]:
             raw = response.json()
             catalog.append(normalize_metadata(raw))
             inventory.extend(normalize_file_inventory(raw))
+            accession_rows = []
             for table in raw.get("experimentalTable", []):
                 if table.get("restricted") or not table.get("visible", True):
                     continue
@@ -190,7 +191,8 @@ def import_all(accessions: list[str], output: Path) -> dict[str, Any]:
                 })
                 if destination.suffix.lower() == ".csv":
                     generic_rows = parse_generic_csv(content, accession, table["file_name"])
-                    (normalized_dir / f"{accession.lower()}_table_rows_raw.json").write_text(json.dumps(generic_rows, indent=2) + "\n")
+                    accession_rows.extend(generic_rows)
+                    (normalized_dir / f"{accession.lower()}_table_rows_raw.json").write_text(json.dumps(accession_rows, indent=2) + "\n")
                     if accession == "PSI-25":
                         rows = parse_bass_ii_csv(content, table["file_name"])
                         (normalized_dir / "bass_ii_tests.json").write_text(json.dumps(rows, indent=2) + "\n")

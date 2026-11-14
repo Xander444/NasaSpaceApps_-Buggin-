@@ -26,3 +26,21 @@ class ImportTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+class MultiTableImportTests(unittest.TestCase):
+    def test_all_tables_survive_per_accession(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from unittest.mock import Mock, patch
+        from import_psi import import_all
+        response=Mock()
+        response.json.return_value={'accession':'PSI-X','experimentalTable':[{'file_name':'one.csv'},{'file_name':'two.csv'}]}
+        session=Mock();session.headers={};session.get.return_value=response
+        with tempfile.TemporaryDirectory() as folder:
+            root=Path(folder)
+            with patch('import_psi.ROOT',root), patch('import_psi.requests.Session',return_value=session), patch('import_psi.download_public_file',side_effect=[b'Test,Fuel\nA,PMMA\n',b'Test,Fuel\nB,wax\n']):
+                result=import_all(['PSI-X'],root/'data')
+            self.assertEqual(result['errors'],[])
+            rows=json.loads((root/'data/normalized/psi-x_table_rows_raw.json').read_text())
+            self.assertEqual([r['source_file'] for r in rows],['one.csv','two.csv'])

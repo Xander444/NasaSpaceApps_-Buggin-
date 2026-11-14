@@ -1,30 +1,70 @@
-import React,{lazy,Suspense,useMemo,useState} from 'react';
+import React,{lazy,Suspense,useEffect,useMemo,useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import {Search,SlidersHorizontal,ExternalLink,X,GitCompare,Flame,ShieldCheck,Database,Info} from 'lucide-react';
-import {family,records,value} from './data'; import './styles.css';
+import {Flame,Search,Database} from 'lucide-react';
+import {portfolio,family} from './data';
+import {loadIndex} from './search/loadIndex';
+import {createEngine} from './search/engine';
+import {parseQuery} from './search/conditions';
+import {fetchSemantic} from './search/semantic';
+import ConditionEditor from './search/ConditionEditor';
+import {EvidenceDetail,ResultCard,Comparison} from './search/Evidence';
+import './styles.css';
 const Simulator=lazy(()=>import('./Simulator'));
-
-function Badge({children}){return <span className="badge">{children}</span>}
 function App(){
- const [q,setQ]=useState(''); const [program,setProgram]=useState('All'); const [sort,setSort]=useState('rank'); const [selected,setSelected]=useState(records[0]); const [compare,setCompare]=useState([]);
- const programs=['All',...new Set(records.map(family))];
- const evidenceCount=records.filter(record=>record.id.startsWith('PSI-')).length;
- const shown=useMemo(()=>records.filter(r=>{const hay=JSON.stringify(r).toLowerCase();return hay.includes(q.toLowerCase())&&(program==='All'||family(r)===program)}).sort((a,b)=>sort==='complete'?b.completeness-a.completeness:sort==='name'?a.program.localeCompare(b.program):b.rank-a.rank),[q,program,sort]);
- const toggle=(r)=>setCompare(c=>c.some(x=>x.id===r.id)?c.filter(x=>x.id!==r.id):c.length<3?[...c,r]:c);
- return <div className="app">
-  <header><div className="brand"><div className="mark"><Flame size={20}/></div><div><strong>Flame in Freefall</strong><span>NASA Space Apps 2026 · evidence explorer</span></div></div><a className="simlink" href="/simulator">3D risk prototype</a><div className="status"><i/> Source-grounded prototype</div></header>
-  <main>
-   <section className="hero"><div><div className="eyebrow">MICROGRAVITY FIRE SAFETY INTELLIGENCE</div><h1>Find the evidence.<br/><em>See the risk.</em></h1><p>Search and compare NASA combustion investigations across fuels, oxygen, airflow, and sensing—without filling gaps with guesses.</p></div><div className="signal"><span>Evidence coverage</span><b>{evidenceCount}</b><small>indexed investigations</small><div className="mini"><span><Database/> NASA PSI</span><span><ShieldCheck/> cited</span></div></div></section>
-   <section className="insight"><div className="spark">✦</div><div><span>GROUNDED SYNTHESIS</span><p><b>Ventilation is both a control and a hazard variable.</b> BASS-II shows solid flames depend on forced flow, while Saffire tests scale that question toward spacecraft conditions. Compare matched conditions before transferring a conclusion.</p></div></section>
-   <section className="controls"><label><Search/><input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search fuels, sensors, findings…"/></label><div className="select"><SlidersHorizontal/><select value={program} onChange={e=>setProgram(e.target.value)}>{programs.map(x=><option key={x}>{x}</option>)}</select></div><select value={sort} onChange={e=>setSort(e.target.value)}><option value="rank">Mission relevance</option><option value="complete">Data completeness</option><option value="name">Program name</option></select></section>
-   <div className="workspace"><section className="results"><div className="sectionhead"><div><h2>Investigation records</h2><span>{shown.length} results · ranked by {sort==='rank'?'mission relevance':sort}</span></div><button className="comparebtn" disabled={!compare.length} onClick={()=>setSelected(null)}><GitCompare/> Compare {compare.length||''}</button></div>
-    <div className="cards">{shown.map((r,i)=><article className={'card '+(selected?.id===r.id?'active':'')} key={r.id} onClick={()=>setSelected(r)}><div className="rank">{String(i+1).padStart(2,'0')}</div><div className="cardbody"><div className="top"><div><span className="recordid">{r.id}</span><h3>{r.program}</h3></div><label className="check" onClick={e=>e.stopPropagation()}><input type="checkbox" checked={compare.some(x=>x.id===r.id)} onChange={()=>toggle(r)}/> compare</label></div><p>{r.title}</p><div className="badges"><Badge>{r.fuel}</Badge><Badge>{r.platform}</Badge></div><div className="meter"><span style={{width:r.completeness+'%'}}/><small>{r.completeness}% metadata coverage</small></div></div></article>)}</div>
-   </section>
-   <aside>{selected?<Detail r={selected} toggle={toggle} checked={compare.some(x=>x.id===selected.id)}/>:<Compare items={compare} close={()=>setSelected(records[0])}/>}</aside></div>
-  </main><footer><span>24 NASA PSI investigations · CSA catalog reviewed</span><span>Missing means unknown—not zero.</span></footer>
- </div>
+ const [index,setIndex]=useState(null),[loadError,setLoadError]=useState('');
+ useEffect(()=>{const controller=new AbortController();loadIndex(import.meta.env.BASE_URL,controller.signal).then(d=>{if(d.schema_version!==1)throw Error('Unsupported search schema');setIndex(d);}).catch(e=>{if(e.name!=='AbortError')setLoadError(e.message);});return ()=>controller.abort();},[]);
+ return <div className="app"><header><div className="brand"><div className="mark"><Flame size={20}/></div><div><strong>Flame in Freefall</strong><span>NASA Space Apps 2026 · evidence explorer</span></div></div><a className="simlink" href="/simulator">3D risk prototype ↗</a><div className="status"><i/> Source-grounded prototype</div></header>
+ <main>{loadError?<div role="alert" className="panel"><h1>Unable to load evidence</h1><p>{loadError}</p><button onClick={()=>location.reload()}>Retry</button></div>:!index?<p role="status">Loading the local evidence index…</p>:<Explorer index={index}/>}</main>
+ <footer><a href={portfolio.url} target="_blank" rel="noreferrer">{portfolio.title} ↗</a><span>Missing means unknown—not zero.</span></footer></div>
 }
-function Detail({r,toggle,checked}){return <div className="panel"><div className="paneltop"><span>{r.id}</span><button onClick={()=>toggle(r)}>{checked?'Remove comparison':'Add to compare'}</button></div><h2>{r.program}</h2><p className="subtitle">{r.title}</p><div className="callout"><span>SOURCE-GROUNDED INTERPRETATION</span><p>{r.insight}</p><small><Info/> Derived from indexed NASA description; no measurement values generated.</small></div><dl><Row k="Fuel / material" v={r.materials||r.fuel}/><Row k="Oxygen condition" v={value(r.oxygen)} missing={!r.oxygen}/><Row k="Flow condition" v={value(r.flow)} missing={!r.flow}/><Row k="Sensors" v={r.sensors.length?r.sensors.join(' · '):value(null)} missing={!r.sensors.length}/><Row k="Flight platform" v={r.platform}/><Row k="Period" v={r.years}/></dl><div className="finding"><span>SOURCE SUMMARY</span><p>{r.finding}</p></div><a className="source" href={r.source} target="_blank">Open NASA source <ExternalLink/></a>{r.doi&&<small className="doi">DOI {r.doi}</small>}</div>}
-function Row({k,v,missing}) {return <div><dt>{k}</dt><dd className={missing?'missing':''}>{v}</dd></div>}
-function Compare({items,close}){return <div className="panel compare"><div className="paneltop"><span>COMPARISON</span><button onClick={close}><X/></button></div><h2>{items.length?`${items.length} records side by side`:'Select records'}</h2>{!items.length?<p className="empty">Choose up to three records using the compare checkboxes.</p>:<div className="comparegrid">{items.map(r=><div key={r.id}><h3>{r.program}</h3><Row k="Fuel" v={r.fuel}/><Row k="O₂" v={value(r.oxygen)} missing={!r.oxygen}/><Row k="Flow" v={value(r.flow)} missing={!r.flow}/><Row k="Sensors" v={r.sensors.join(', ')||value(null)} missing={!r.sensors.length}/></div>)}</div>}</div>}
+function Explorer({index}){
+ const engine=useMemo(()=>createEngine(index),[index]);
+ const [q,setQ]=useState(''),[conditions,setConditions]=useState([]),[program,setProgram]=useState(''),[familyName,setFamilyName]=useState(''),[problem,setProblem]=useState(''),[outcome,setOutcome]=useState(''),[otherOutcome,setOtherOutcome]=useState(''),[needed,setNeeded]=useState(''),[sort,setSort]=useState('relevance');
+ const [selected,setSelected]=useState([]),[detail,setDetail]=useState(null),[showCompare,setShowCompare]=useState(false),[similar,setSimilar]=useState(null);
+ const [enhance,setEnhance]=useState(false),[semanticState,setSemanticState]=useState({key:'',data:null,message:''});
+ const address=import.meta.env.VITE_SEMANTIC_URL;
+ const fullQuery=[q,outcome==='other'?otherOutcome:''].filter(Boolean).join(' ');
+ const semanticKey=JSON.stringify([fullQuery,index.index_version,enhance,similar]);
+ useEffect(()=>{
+  const controller=new AbortController();let live=true;
+  if(!enhance||!fullQuery.trim()||similar){setSemanticState({key:semanticKey,data:null,message:enhance&&similar?'Keyword mode for related-data discovery.':''});return ()=>controller.abort();}
+  setSemanticState({key:semanticKey,data:null,message:'Loading semantic scores · keyword results remain available…'});
+  const timer=setTimeout(()=>{
+   const positive=parseQuery(fullQuery,index.config).positive.trim();
+   if(!positive){setSemanticState({key:semanticKey,data:null,message:'Keyword mode · no positive semantic query terms.'});return;}
+   fetchSemantic(address,positive,index.index_version,{signal:controller.signal}).then(data=>{if(live)setSemanticState({key:semanticKey,data,message:''});}).catch(e=>{if(live)setSemanticState({key:semanticKey,data:null,message:`Keyword fallback · ${e.name==='AbortError'?'semantic request timed out':e.message}`});});
+  },300);
+  return ()=>{live=false;clearTimeout(timer);controller.abort();};
+ },[semanticKey,address]);
+ const semantic=semanticState.key===semanticKey?semanticState.data:null;
+ const result=useMemo(()=>engine.search({q:fullQuery,conditions,program,familyName,problem,outcome:outcome==='other'?'':outcome,needed,sort,similar,semantic}),[engine,fullQuery,conditions,program,familyName,problem,outcome,needed,sort,similar,semantic]);
+ const visibleIds=new Set([...result.verified,...result.related].flatMap(g=>[g.id,...g.evidence.map(e=>e.id)]));
+ const outside=selected.filter(id=>!visibleIds.has(id));
+ const toggle=id=>setSelected(s=>s.includes(id)?s.filter(x=>x!==id):s.length<3?[...s,id]:s);
+ const inspect=id=>{setDetail(id);setShowCompare(false);};
+ const reset=()=>{setQ('');setConditions([]);setProgram('');setFamilyName('');setProblem('');setOutcome('');setOtherOutcome('');setNeeded('');setSort('relevance');setSimilar(null);setEnhance(false);};
+ return <>
+ <section className="hero"><div><div className="eyebrow">MICROGRAVITY FIRE SAFETY EVIDENCE</div><h1>Find the evidence.<br/><em>Understand its limits.</em></h1><p>Ask a research question, inspect cited tests, and compare the conditions that matter to your work.</p></div><div className="signal"><span>Indexed evidence</span><b>{index.counts.investigation}</b><small>investigations · {index.counts.test} test rows</small><div className="mini"><span><Database/> NASA PSI</span><span>local index</span></div></div></section>
+ <section className="insight"><div className="spark">✦</div><div><span>EVIDENCE BEFORE INTERPRETATION</span><p>Search surfaces reported evidence, objectives, and hypotheses with their original scope. A relevant study does not establish a safe operating condition.</p><details><summary>What is searchable?</summary><p>{index.coverage}</p><p>{index.counts.passage} passages · {index.counts.file} file-metadata records · {index.restricted_files_excluded} restricted files excluded. Index {index.index_version}.</p></details></div></section>
+ <section aria-label="Search data" className="search-area"><label className="question"><Search size={19}/><span className="sr-only">Research question</span><input maxLength={600} value={q} onChange={e=>{setQ(e.target.value);setSimilar(null);}} placeholder="e.g. Design a smoke detector"/></label>
+ <div className="quick-queries">Try: {['Design a smoke detector','Extinguish liquid-fuel flames','PMMA'].map(text=><button key={text} onClick={()=>{setQ(text);setSimilar(null);}}>{text}</button>)}</div>
+ <div className="filters">
+ <label>Problem<select value={problem} onChange={e=>setProblem(e.target.value)}><option value="">Any</option>{['prevention','detection','suppression'].map(x=><option key={x}>{x}</option>)}</select></label>
+ <label>Desired outcome<select value={outcome} onChange={e=>setOutcome(e.target.value)}><option value="">Any</option>{['flame spread','ignition','extinction','detector response','other'].map(x=><option key={x}>{x}</option>)}</select></label>{outcome==='other'&&<label>Other desired outcome<input value={otherOutcome} onChange={e=>setOtherOutcome(e.target.value)} maxLength={150}/></label>}
+ <label>Data needed<select value={needed} onChange={e=>setNeeded(e.target.value)}><option value="">Any</option>{['measurements','images/video','methods','findings'].map(x=><option key={x}>{x}</option>)}</select></label>
+ <label>Study family<select value={familyName} onChange={e=>setFamilyName(e.target.value)}><option value="">All families</option>{[...new Set(index.investigations.map(family))].sort().map(f=><option key={f}>{f}</option>)}</select></label>
+ <label>Program<select value={program} onChange={e=>setProgram(e.target.value)}><option value="">All programs</option>{index.investigations.map(i=><option key={i.id}>{i.program}</option>)}</select></label>
+ <label>Sort<select value={sort} onChange={e=>setSort(e.target.value)}><option value="relevance">Relevance</option><option value="name">Program name</option>{index.investigations.some(i=>i.publication_date)&&<option value="publication_date">Publication date · newest</option>}</select></label>
+ </div><ConditionEditor conditions={conditions} setConditions={setConditions}/>
+ <div className="search-toolbar"><label><input type="checkbox" checked={enhance} disabled={!address} onChange={e=>setEnhance(e.target.checked)}/> Optional semantic search</label><span>{!address?'Not configured · static search is ready':result.mode}</span><button onClick={reset}>Reset search</button></div>
+ </section>
+ <div aria-live="polite" className="search-status"><b>{result.browse?'Browse · neutral program ordering':result.mode}</b>{enhance&&semanticState.key===semanticKey&&semanticState.message&&<p>{semanticState.message}</p>}{semantic&&<p className="model-version">Model: {semantic.model_version}</p>}{result.notices.map(n=><p key={n}>{n}</p>)}{result.errors.map(e=><p role="alert" key={e}>{e}</p>)}{similar&&<p>Related-data mode: {similar.mode} · seed {similar.id} <button onClick={()=>setSimilar(null)}>Exit related search</button></p>}</div>
+ {outside.length>0&&<p className="warning">Selected outside current results: {outside.join(', ')}. Comparison selection is preserved; only currently verified test rows can be exported.</p>}
+ <div className="workspace"><section className="results"><div className="sectionhead"><div><h2>{result.browse?'Browse investigations':'Verified matches'}</h2><span>{result.verified.length} investigations · {result.verified.reduce((n,g)=>n+g.matchingTestCount,0)} matching test rows</span></div><button className="comparebtn" onClick={()=>setShowCompare(true)}>Compare {selected.length}/3</button></div>
+ {!result.verified.length&&<div className="empty-state"><h3>{result.errors.length?'Complete the condition controls':'No strong verified match'}</h3><p>Try another question or inspect the related evidence below. Unknown coverage does not establish that no matching data exists elsewhere.</p></div>}
+ {result.verified.map(g=><ResultCard key={g.id} group={g} verified index={index} selected={selected} toggle={toggle} onInspect={inspect}/>)}
+ {result.related.length>0&&<details className="related" open={!result.verified.length}><summary>Related evidence with gaps · {result.related.length} investigations</summary><p>Required conditions have not been relaxed. These records are excluded from exact-match counts and exports.</p>{result.related.map(g=><ResultCard key={g.id} group={g} verified={false} index={index} selected={selected} toggle={toggle} onInspect={inspect}/>)}</details>}
+ </section><aside>{selected.length>0&&<div className="selection"><span>{selected.length}/3 selected</span>{selected.map(id=><button key={id} onClick={()=>toggle(id)} aria-label={`Remove ${id} from comparison`}>{id} ×</button>)}<button onClick={()=>setSelected([])}>Clear selection</button></div>}{showCompare?<Comparison docs={selected.map(id=>engine.byId.get(id)).filter(Boolean)} index={index} result={result} onInspect={inspect}/>:<EvidenceDetail doc={engine.byId.get(detail)} index={index} selected={selected} toggle={toggle} onSimilar={setSimilar}/>}</aside></div>
+ </>
+}
 createRoot(document.getElementById('root')).render(window.location.pathname.startsWith('/simulator')?<Suspense fallback={<div className="sim-error">Loading 3D viewer…</div>}><Simulator/></Suspense>:<App/>);
