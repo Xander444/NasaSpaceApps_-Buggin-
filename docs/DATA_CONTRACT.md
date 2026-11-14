@@ -20,6 +20,9 @@ The data pipeline must preserve source facts separately from parsed or modeled v
 - `data/psi/tables/`: downloaded public experimental tables.
 - `data/psi/normalized/bass_ii_tests.json`: normalized BASS-II rows.
 - `data/psi/manifest.json`: import time, hashes, counts, and failures.
+- `data/source_review.json`: reproducible NASA/CSA search scope, inclusion decisions, and explicit exclusions.
+
+The November 2026 catalog contains 24 selected NASA PSI investigations, 16,354 indexed public files, 22 downloaded experimental tables, and 2,484 raw table rows. The search review found no CSA dataset eligible for the spacecraft-fire ranking; the atmospheric MOPITT match is documented but excluded.
 
 ## Pull request checklist
 

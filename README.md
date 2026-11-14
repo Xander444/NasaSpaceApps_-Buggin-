@@ -41,7 +41,9 @@ The source model stays in the browser. The API receives derived geometry bounds,
 npm run import:psi
 ```
 
-The importer currently covers BASS/BASS-II, FLEX, Saffire I–III, SAME/SAME-R, and a BASS modeling investigation. It indexes 1,511 public files, downloads eight official experimental tables, and preserves 663 experimental rows as raw source text. BASS-II has an additional normalized set of 129 test rows. See `data/psi/manifest.json` and `docs/DATA_CONTRACT.md`.
+The importer currently covers 24 relevant NASA PSI investigations spanning BASS/BASS-II, Saffire I–III, SAME/SAME-R, FLEX/FLEX-2, CFI, SPICE, SLICE, ACME, DAFT, and related modeling work. It indexes 16,354 public files, downloads 22 official experimental tables, and preserves 2,484 experimental rows as raw source text. BASS-II has an additional normalized set of 129 test rows. See `data/psi/manifest.json`, `data/source_review.json`, and `docs/DATA_CONTRACT.md`.
+
+The official NASA PSI search returned 26 combustion matches. Two keyword false positives were excluded with reasons recorded in `data/source_review.json`. The Canadian Space Agency open-data catalog was also checked: its combustion search returned MOPITT atmospheric carbon-monoxide data, which is useful for biomass-burning research but not comparable to enclosed-spacecraft microgravity fire experiments, so it is not included in rankings.
 
 Complex source values remain raw text. For example, a fan sequence such as `0.9 0.5 and down` is not silently converted into a single flow measurement.
 

@@ -20,7 +20,12 @@ import requests
 ROOT = Path(__file__).resolve().parents[1]
 API = "https://psi.nasa.gov/geode-py/ws/repo/investigations/{accession}"
 DOWNLOAD = "https://psi.nasa.gov/geode-py/ws/studies/{accession}/download"
-DEFAULT_ACCESSIONS = ["PSI-25", "PSI-26", "PSI-62", "PSI-69", "PSI-98", "PSI-99", "PSI-100", "PSI-101", "PSI-102"]
+DEFAULT_ACCESSIONS = [
+    "PSI-10", "PSI-20", "PSI-21", "PSI-22", "PSI-23", "PSI-25", "PSI-26",
+    "PSI-39", "PSI-47", "PSI-60", "PSI-62", "PSI-68", "PSI-69", "PSI-98",
+    "PSI-99", "PSI-100", "PSI-101", "PSI-102", "PSI-106", "PSI-107",
+    "PSI-115", "PSI-117", "PSI-142", "PSI-159",
+]
 
 
 def exact_number(value: str | None) -> float | None:
@@ -158,7 +163,7 @@ def parse_generic_csv(content: bytes, accession: str, source_name: str) -> list[
 
 def import_all(accessions: list[str], output: Path) -> dict[str, Any]:
     session = requests.Session()
-    session.headers["User-Agent"] = "FlameInFreefall/0.3 NASA-Space-Apps educational importer"
+    session.headers["User-Agent"] = "FlameInFreefall/0.4 NASA-Space-Apps educational importer"
     output.mkdir(parents=True, exist_ok=True)
     tables_dir = output / "tables"
     normalized_dir = output / "normalized"

@@ -1,8 +1,8 @@
 {
   "method": "masked cosine similarity over sourced investigation metadata",
   "warning": "Exploratory retrieval aid; not a fire-risk prediction or safety recommendation.",
-  "record_count": 7,
-  "feature_count": 51,
+  "record_count": 24,
+  "feature_count": 137,
   "results": [
     {
       "id": "PSI-25",
@@ -48,14 +48,15 @@
           ]
         },
         {
-          "id": "PSI-99",
-          "score": 0.1543,
+          "id": "PSI-21",
+          "score": 0.2582,
           "shared_evidence": [
-            "fuel_class:solid"
+            "focus:extinction",
+            "focus:flame shape"
           ]
         },
         {
-          "id": "PSI-100",
+          "id": "PSI-99",
           "score": 0.1543,
           "shared_evidence": [
             "fuel_class:solid"
@@ -164,19 +165,28 @@
       "id": "PSI-101",
       "nearest": [
         {
-          "id": "PSI-25",
-          "score": 0.0,
-          "shared_evidence": []
+          "id": "PSI-102",
+          "score": 0.4444,
+          "shared_evidence": [
+            "platform:ISS",
+            "fuel_class:smoke aerosol",
+            "focus:detection",
+            "sensors:particle sizing"
+          ]
         },
         {
-          "id": "PSI-26",
-          "score": 0.0,
-          "shared_evidence": []
+          "id": "PSI-115",
+          "score": 0.1361,
+          "shared_evidence": [
+            "fuel_class:smoke aerosol"
+          ]
         },
         {
-          "id": "PSI-98",
-          "score": 0.0,
-          "shared_evidence": []
+          "id": "PSI-47",
+          "score": 0.1179,
+          "shared_evidence": [
+            "platform:ISS"
+          ]
         }
       ]
     },
@@ -184,23 +194,547 @@
       "id": "PSI-69",
       "nearest": [
         {
+          "id": "PSI-39",
+          "score": 0.4264,
+          "shared_evidence": [
+            "platform:ISS CIR MDCA",
+            "fuel_class:liquid droplet",
+            "focus:cool flames",
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-68",
+          "score": 0.3198,
+          "shared_evidence": [
+            "platform:ISS CIR MDCA",
+            "fuel_class:liquid droplet",
+            "focus:extinction"
+          ]
+        },
+        {
           "id": "PSI-26",
           "score": 0.1231,
           "shared_evidence": [
             "focus:extinction"
           ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-10",
+      "nearest": [
+        {
+          "id": "PSI-21",
+          "score": 0.5262,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "fuel_class:gaseous diffusion flame",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction",
+            "sensors:temperature diagnostics"
+          ]
         },
         {
-          "id": "PSI-25",
-          "score": 0.0836,
+          "id": "PSI-20",
+          "score": 0.4903,
           "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "materials:nitrogen",
             "focus:extinction"
           ]
         },
         {
-          "id": "PSI-98",
+          "id": "PSI-23",
+          "score": 0.3698,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-20",
+      "nearest": [
+        {
+          "id": "PSI-10",
+          "score": 0.4903,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "materials:nitrogen",
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-23",
+          "score": 0.4714,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-21",
+          "score": 0.4472,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-21",
+      "nearest": [
+        {
+          "id": "PSI-10",
+          "score": 0.5262,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "fuel_class:gaseous diffusion flame",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction",
+            "sensors:temperature diagnostics"
+          ]
+        },
+        {
+          "id": "PSI-22",
+          "score": 0.4767,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "fuel_class:gaseous diffusion flame",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-20",
+          "score": 0.4472,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-22",
+      "nearest": [
+        {
+          "id": "PSI-21",
+          "score": 0.4767,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "fuel_class:gaseous diffusion flame",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-10",
+          "score": 0.3345,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "fuel_class:gaseous diffusion flame",
+            "materials:ethylene",
+            "materials:methane"
+          ]
+        },
+        {
+          "id": "PSI-106",
+          "score": 0.3198,
+          "shared_evidence": [
+            "fuel_class:gaseous diffusion flame",
+            "focus:flame stability",
+            "focus:soot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-23",
+      "nearest": [
+        {
+          "id": "PSI-20",
+          "score": 0.4714,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-21",
+          "score": 0.4216,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-10",
+          "score": 0.3698,
+          "shared_evidence": [
+            "platform:ISS CIR",
+            "materials:ethylene",
+            "materials:methane",
+            "focus:extinction"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-39",
+      "nearest": [
+        {
+          "id": "PSI-68",
+          "score": 0.5,
+          "shared_evidence": [
+            "platform:ISS CIR MDCA",
+            "fuel_class:liquid droplet",
+            "focus:extinction",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-69",
+          "score": 0.4264,
+          "shared_evidence": [
+            "platform:ISS CIR MDCA",
+            "fuel_class:liquid droplet",
+            "focus:cool flames",
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-21",
+          "score": 0.2236,
+          "shared_evidence": [
+            "focus:extinction",
+            "focus:soot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-47",
+      "nearest": [
+        {
+          "id": "PSI-101",
+          "score": 0.1179,
+          "shared_evidence": [
+            "platform:ISS"
+          ]
+        },
+        {
+          "id": "PSI-102",
+          "score": 0.1179,
+          "shared_evidence": [
+            "platform:ISS"
+          ]
+        },
+        {
+          "id": "PSI-25",
           "score": 0.0,
           "shared_evidence": []
+        }
+      ]
+    },
+    {
+      "id": "PSI-60",
+      "nearest": [
+        {
+          "id": "PSI-115",
+          "score": 0.1667,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        },
+        {
+          "id": "PSI-117",
+          "score": 0.1543,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        },
+        {
+          "id": "PSI-106",
+          "score": 0.1443,
+          "shared_evidence": [
+            "fuel_class:gaseous diffusion flame"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-62",
+      "nearest": [
+        {
+          "id": "PSI-26",
+          "score": 0.1443,
+          "shared_evidence": [
+            "fuel_class:solid"
+          ]
+        },
+        {
+          "id": "PSI-115",
+          "score": 0.1443,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        },
+        {
+          "id": "PSI-60",
+          "score": 0.1443,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-68",
+      "nearest": [
+        {
+          "id": "PSI-39",
+          "score": 0.5,
+          "shared_evidence": [
+            "platform:ISS CIR MDCA",
+            "fuel_class:liquid droplet",
+            "focus:extinction",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-69",
+          "score": 0.3198,
+          "shared_evidence": [
+            "platform:ISS CIR MDCA",
+            "fuel_class:liquid droplet",
+            "focus:extinction"
+          ]
+        },
+        {
+          "id": "PSI-21",
+          "score": 0.2236,
+          "shared_evidence": [
+            "focus:extinction",
+            "focus:soot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-102",
+      "nearest": [
+        {
+          "id": "PSI-101",
+          "score": 0.4444,
+          "shared_evidence": [
+            "platform:ISS",
+            "fuel_class:smoke aerosol",
+            "focus:detection",
+            "sensors:particle sizing"
+          ]
+        },
+        {
+          "id": "PSI-115",
+          "score": 0.1361,
+          "shared_evidence": [
+            "fuel_class:smoke aerosol"
+          ]
+        },
+        {
+          "id": "PSI-47",
+          "score": 0.1179,
+          "shared_evidence": [
+            "platform:ISS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-106",
+      "nearest": [
+        {
+          "id": "PSI-107",
+          "score": 0.3354,
+          "shared_evidence": [
+            "platform:ISS MSG",
+            "fuel_class:gaseous diffusion flame",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-22",
+          "score": 0.3198,
+          "shared_evidence": [
+            "fuel_class:gaseous diffusion flame",
+            "focus:flame stability",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-21",
+          "score": 0.2236,
+          "shared_evidence": [
+            "fuel_class:gaseous diffusion flame",
+            "focus:soot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-107",
+      "nearest": [
+        {
+          "id": "PSI-106",
+          "score": 0.3354,
+          "shared_evidence": [
+            "platform:ISS MSG",
+            "fuel_class:gaseous diffusion flame",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-21",
+          "score": 0.3,
+          "shared_evidence": [
+            "fuel_class:gaseous diffusion flame",
+            "materials:ethylene",
+            "focus:soot"
+          ]
+        },
+        {
+          "id": "PSI-22",
+          "score": 0.286,
+          "shared_evidence": [
+            "fuel_class:gaseous diffusion flame",
+            "materials:ethylene",
+            "focus:soot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-115",
+      "nearest": [
+        {
+          "id": "PSI-60",
+          "score": 0.1667,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        },
+        {
+          "id": "PSI-117",
+          "score": 0.1543,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        },
+        {
+          "id": "PSI-62",
+          "score": 0.1443,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-117",
+      "nearest": [
+        {
+          "id": "PSI-115",
+          "score": 0.1543,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        },
+        {
+          "id": "PSI-60",
+          "score": 0.1543,
+          "shared_evidence": [
+            "platform:Ground modeling"
+          ]
+        },
+        {
+          "id": "PSI-39",
+          "score": 0.1336,
+          "shared_evidence": [
+            "fuel_class:liquid droplet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PSI-142",
+      "nearest": [
+        {
+          "id": "PSI-106",
+          "score": 0.1443,
+          "shared_evidence": [
+            "focus:radiation"
+          ]
+        },
+        {
+          "id": "PSI-10",
+          "score": 0.1132,
+          "shared_evidence": [
+            "focus:radiation"
+          ]
+        },
+        {
+          "id": "PSI-25",
+          "score": 0.0,
+          "shared_evidence": []
+        }
+      ]
+    },
+    {
+      "id": "PSI-159",
+      "nearest": [
+        {
+          "id": "PSI-39",
+          "score": 0.1179,
+          "shared_evidence": [
+            "focus:cool flames"
+          ]
+        },
+        {
+          "id": "PSI-20",
+          "score": 0.1179,
+          "shared_evidence": [
+            "platform:ISS CIR"
+          ]
+        },
+        {
+          "id": "PSI-23",
+          "score": 0.1111,
+          "shared_evidence": [
+            "platform:ISS CIR"
+          ]
         }
       ]
     }

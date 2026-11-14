@@ -1,0 +1,482 @@
+[
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 2,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "17319",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH4",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "10",
+      "Notes": "Test Day - includes the year as the first two digits followed by the 3-digit day of the year (where any late-hour transition to the next day is neglected). MFC - identifies the maximum flow rate of the specified ACME Mass Flow Controller (MFC) in slpm on a nitrogen basis. Fuel conc. - (as diluted with nitrogen on a volume basis) was varied between tests and sometimes during tests where the listing here accounts for both. However, it does not account for extinction that sometimes occurred before the flame fully reached the lowest concentration. Flames ignited is the number ignited on that test day."
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 3,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "17324",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH5",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "5",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 4,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "17342",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH6",
+      "Fuel conc. Range": "40%",
+      "Flames ignited": "8",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 5,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "17356",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH7",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "3",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 6,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18003",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH8",
+      "Fuel conc. Range": "25%-40%",
+      "Flames ignited": "9",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 7,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18005",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH9",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "7",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 8,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18008",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH10",
+      "Fuel conc. Range": "25%-40%",
+      "Flames ignited": "8",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 9,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18011",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH11",
+      "Fuel conc. Range": "25%-40%",
+      "Flames ignited": "14",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 10,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18022",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH12",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "3",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 11,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18026",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH13",
+      "Fuel conc. Range": "25%-40%",
+      "Flames ignited": "16",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 12,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18032",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "40% CH14",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 13,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18039",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.05",
+      "Fuel Bottle": "100% CH4",
+      "Fuel conc. Range": "50%-80%",
+      "Flames ignited": "8",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 14,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18043",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.05",
+      "Fuel Bottle": "100% CH5",
+      "Fuel conc. Range": "50%-100%",
+      "Flames ignited": "10",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 15,
+    "raw": {
+      "Test Type": "Methane based test",
+      "Test Day": "18053",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.02",
+      "Fuel Bottle": "100% CH6",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "16",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 16,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18145",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "100% C2H4",
+      "Fuel conc. Range": "80%-100%",
+      "Flames ignited": "3",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 17,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18151",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "100% C2H5",
+      "Fuel conc. Range": "100%",
+      "Flames ignited": "2",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 18,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18177",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "100% C2H6",
+      "Fuel conc. Range": "80%-100%",
+      "Flames ignited": "9",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 19,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18186",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "100% C2H7",
+      "Fuel conc. Range": "60%-100%",
+      "Flames ignited": "14",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 20,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18192",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "100% C2H8",
+      "Fuel conc. Range": "50%-60%",
+      "Flames ignited": "10",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 21,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18199",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "100% C2H9",
+      "Fuel conc. Range": "40%-100%",
+      "Flames ignited": "16",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 22,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18214",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.05",
+      "Fuel Bottle": "100% C2H10",
+      "Fuel conc. Range": "100%",
+      "Flames ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 23,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18218",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.05",
+      "Fuel Bottle": "100% C2H11",
+      "Fuel conc. Range": "80%",
+      "Flames ignited": "18",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 24,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18235",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "50% C2H4",
+      "Fuel conc. Range": "50%",
+      "Flames ignited": "16",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 25,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18239",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.1",
+      "Fuel Bottle": "50% C2H5",
+      "Fuel conc. Range": "40%",
+      "Flames ignited": "14",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 26,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18241",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "50% C2H6",
+      "Fuel conc. Range": "10%-20%",
+      "Flames ignited": "6",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 27,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18249",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "50% C2H7",
+      "Fuel conc. Range": "10%-30%",
+      "Flames ignited": "12",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 28,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18253",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "50% C2H8",
+      "Fuel conc. Range": "15%-30%",
+      "Flames ignited": "14",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 29,
+    "raw": {
+      "Test Type": "Ethylene based test",
+      "Test Day": "18257",
+      "Fuel MFC": "0.1",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "50% C2H9",
+      "Fuel conc. Range": "15%-20%",
+      "Flames ignited": "15",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 30,
+    "raw": {
+      "Test Type": "Improved coflow tests",
+      "Test Day": "21041",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "30% C2H4",
+      "Fuel conc. Range": "0%-30%",
+      "Flames ignited": "9",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 31,
+    "raw": {
+      "Test Type": "Improved coflow tests",
+      "Test Day": "21046",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "30% C2H5",
+      "Fuel conc. Range": "15%-20%",
+      "Flames ignited": "16",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 32,
+    "raw": {
+      "Test Type": "Improved coflow tests",
+      "Test Day": "21050",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "40% CH4",
+      "Fuel conc. Range": "20%-40%",
+      "Flames ignited": "16",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-21",
+    "source_file": "PSI-21_Experimental table_CLD Flame.csv",
+    "source_row": 33,
+    "raw": {
+      "Test Type": "Improved coflow tests",
+      "Test Day": "21062",
+      "Fuel MFC": "0.2",
+      "N2 MFC": "0.2",
+      "Fuel Bottle": "40% CH5",
+      "Fuel conc. Range": "30%-40%",
+      "Flames ignited": "11",
+      "Notes": null
+    }
+  }
+]
