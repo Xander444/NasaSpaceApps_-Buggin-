@@ -4,15 +4,18 @@
 
 Owner focus: PyTorch engine, scenario model, calibration, validation, hotspot ranking, uncertainty, and 3D output contract.
 
-Current milestone: a reproducible Monte Carlo spatial screener that can process one million ignition locations in bounded batches.
+Current milestone: a reproducible Monte Carlo spatial screener that accepts a human-confirmed object map and processes one million candidate locations in bounded batches.
+
+The first-release UI imports GLB / self-contained glTF, suggests roles from mesh names, requires every mesh to be confirmed or ignored, hashes the source model, and submits the reviewed scenario to the local FastAPI service. Read `docs/ANNOTATION_CONTRACT.md` before changing this gate.
 
 Next work:
 
 1. Map BASS-II test conditions to material/flow calibration experiments.
-2. Add direction-aware transport and time steps.
+2. Add direction-aware transport, oxygen depletion, material consumption, and time steps.
 3. Add scenario comparison and sensitivity analysis.
 4. Validate that rankings remain stable across seeds and grid resolutions.
 5. Define out-of-evidence-range warnings.
+6. Build and evaluate a labeled recognition dataset before presenting any learned recognizer as AI.
 
 ## Data / study track
 
@@ -30,7 +33,7 @@ Then review `data/psi/manifest.json` and the normalized BASS-II rows. Follow `do
 
 Owner focus: goals, scenario input, study search, comparison, responsive UI, and the polished 3D experience.
 
-The current viewer is intentionally minimal. Follow `docs/FRONTEND_CONTRACT.md`; do not hard-code simulator values into React components.
+The current interface is a deliberately controlled first release. Follow `docs/FRONTEND_CONTRACT.md`; preserve the human-confirmation gate and do not hard-code evidence values into React components.
 
 ## Integration rule
 

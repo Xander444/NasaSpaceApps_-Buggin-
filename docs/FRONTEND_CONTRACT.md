@@ -10,6 +10,8 @@ The frontend can be redesigned freely as long as it consumes the versioned contr
 - Simulator result: `public/simulation/demo.json`
 - Scenario example: `simulator/demo_scenario.json`
 - Scenario schema: `simulator/scenario.schema.json`
+- Annotation rules: `docs/ANNOTATION_CONTRACT.md`
+- Live local endpoint: `POST /api/simulate`
 
 ## Simulator result fields
 
@@ -17,7 +19,7 @@ The frontend can be redesigned freely as long as it consumes the versioned contr
 - `summary`: overall relative screening indices.
 - `hotspots`: ranked 3D voxel centers with uncertainty and coverage.
 - `risk_voxels_p75`: compact `[x, y, z, risk]` list for visualization.
-- `scene`: materials, sources, vents, detectors, suppressors, and consequence zones.
+- `scene`: materials, ignition and oxygen sources, vents, detectors, suppressors, and consequence zones.
 - `assumptions`: must be accessible beside any result.
 - `evidence_bindings`: describes which NASA studies provide context.
 
@@ -25,13 +27,13 @@ The frontend can be redesigned freely as long as it consumes the versioned contr
 
 Use “risk index,” “screening,” “candidate hotspot,” and “coverage gap.” Do not display the index as a probability, predicted incident rate, safety certification, or mission approval.
 
+Do not call the current object-name heuristic AI, computer vision, or material recognition. Suggestions must remain visually distinct from confirmed labels. Changing a confirmed category or coefficient must invalidate the confirmation.
+
 ## UI work still open
 
-- Goal/scenario setup flow
-- Form editor for scenario JSON
 - 3D layer toggles
 - Hotspot selection and details
 - Side-by-side scenario comparison
 - Evidence drawer and citations
-- Responsive/mobile design
 - Accessibility and keyboard controls
+- Export/import of a reviewed annotation manifest

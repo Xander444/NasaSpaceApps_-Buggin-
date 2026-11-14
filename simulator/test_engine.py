@@ -36,6 +36,22 @@ class SimulatorTests(unittest.TestCase):
         covered = float(score_points(point, modified, device)["risk_index"][0])
         self.assertLessEqual(covered, base)
 
+    def test_local_oxygen_source_raises_nearby_score(self):
+        device = select_device("cpu")
+        point = torch.tensor([[6.9, 1.0, 1.1]], dtype=torch.float32)
+        enriched = float(score_points(point, self.scenario, device)["risk_index"][0])
+        modified = json.loads(json.dumps(self.scenario))
+        modified["oxygen_sources"] = []
+        baseline = float(score_points(point, modified, device)["risk_index"][0])
+        self.assertGreaterEqual(enriched, baseline)
+
+    def test_local_oxygen_is_bounded(self):
+        device = select_device("cpu")
+        point = torch.tensor([[6.9, 1.0, 1.1]], dtype=torch.float32)
+        local_oxygen = score_points(point, self.scenario, device)["local_oxygen_percent"]
+        self.assertTrue(bool(torch.all(local_oxygen <= 100)))
+        self.assertTrue(bool(torch.all(local_oxygen > 0)))
+
 
 if __name__ == "__main__":
     unittest.main()

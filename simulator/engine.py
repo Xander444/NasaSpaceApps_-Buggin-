@@ -33,20 +33,54 @@ def select_device(requested: str) -> torch.device:
 
 
 def validate_scenario(scenario: dict[str, Any]) -> None:
+    def bounded_number(value: Any, label: str, minimum: float | None = None,
+                       maximum: float | None = None) -> float:
+        try:
+            number = float(value)
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"{label} must be a number") from exc
+        if not math.isfinite(number):
+            raise ValueError(f"{label} must be finite")
+        if minimum is not None and number < minimum:
+            raise ValueError(f"{label} must be >= {minimum}")
+        if maximum is not None and number > maximum:
+            raise ValueError(f"{label} must be <= {maximum}")
+        return number
+
     dimensions = scenario.get("compartment", {}).get("dimensions_m")
     grid = scenario.get("compartment", {}).get("grid")
     if not dimensions or len(dimensions) != 3 or any(float(x) <= 0 for x in dimensions):
         raise ValueError("compartment.dimensions_m must contain three positive numbers")
     if not grid or len(grid) != 3 or any(int(x) < 2 for x in grid):
         raise ValueError("compartment.grid must contain three integers >= 2")
-    for collection in ("ignition_sources", "materials", "vents", "detectors", "suppressors", "consequence_zones"):
+    environment = scenario.get("environment", {})
+    bounded_number(environment.get("oxygen_percent"), "environment.oxygen_percent", 0.1, 100)
+    bounded_number(environment.get("pressure_kpa"), "environment.pressure_kpa", 0.1)
+    bounded_number(environment.get("gravity_g", 0), "environment.gravity_g", 0)
+    for collection in ("ignition_sources", "oxygen_sources", "materials", "vents", "detectors", "suppressors", "consequence_zones"):
         for item in scenario.get(collection, []):
             if "id" not in item:
                 raise ValueError(f"Every {collection} entry needs an id")
             if "position_m" in item and len(item["position_m"]) != 3:
                 raise ValueError(f"{collection}.{item['id']}.position_m must contain three numbers")
+            if collection != "materials":
+                bounded_number(item.get("influence_radius_m"), f"{collection}.{item['id']}.influence_radius_m", 0.0001)
     if not scenario.get("materials"):
         raise ValueError("At least one material region is required")
+    for item in scenario["materials"]:
+        if len(item.get("size_m", [])) != 3 or any(float(value) <= 0 for value in item["size_m"]):
+            raise ValueError(f"materials.{item['id']}.size_m must contain three positive numbers")
+        bounded_number(item.get("influence_radius_m", 0.35), f"materials.{item['id']}.influence_radius_m", 0.0001)
+        for field in ("ignition_susceptibility", "spread_potential", "smoke_yield"):
+            bounded_number(item.get(field, 0.5), f"materials.{item['id']}.{field}", 0, 1)
+    bounds = {
+        "ignition_sources": ("weight", 0, 2), "oxygen_sources": ("oxygen_percent_boost", 0, 100),
+        "vents": ("strength", 0, 2), "detectors": ("effectiveness", 0, 1),
+        "suppressors": ("effectiveness", 0, 1), "consequence_zones": ("weight", 0, 3),
+    }
+    for collection, (field, lower, upper) in bounds.items():
+        for item in scenario.get(collection, []):
+            bounded_number(item.get(field), f"{collection}.{item['id']}.{field}", lower, upper)
 
 
 def radial_field(points: torch.Tensor, items: list[dict[str, Any]], value_key: str,
@@ -84,7 +118,11 @@ def score_points(points: torch.Tensor, scenario: dict[str, Any],
     environment = scenario["environment"]
     oxygen = float(environment["oxygen_percent"])
     pressure = float(environment["pressure_kpa"])
-    oxygen_modifier = min(max((oxygen / 21.0) ** 1.5, 0.2), 2.5)
+    oxygen_boost = radial_field(
+        points, scenario.get("oxygen_sources", []), "oxygen_percent_boost", device, "sum"
+    ).clamp(0, max(0.0, 100.0 - oxygen))
+    local_oxygen = (oxygen + oxygen_boost).clamp(0.1, 100)
+    oxygen_modifier = ((local_oxygen / 21.0) ** 1.5).clamp(0.2, 2.5)
     pressure_modifier = min(max(math.sqrt(max(pressure, 1.0) / 101.325), 0.4), 1.5)
 
     source = radial_field(points, scenario.get("ignition_sources", []), "weight", device, "sum").clamp(0, 2)
@@ -104,6 +142,7 @@ def score_points(points: torch.Tensor, scenario: dict[str, Any],
     risk_index = 100 * (1 - torch.exp(-raw.clamp(min=0)))
     return {
         "risk_index": risk_index.clamp(0, 100), "source_exposure": source,
+        "local_oxygen_percent": local_oxygen,
         "ignition_susceptibility": ignition, "spread_potential": spread,
         "smoke_yield": smoke, "ventilation_influence": ventilation,
         "detection_coverage": detection, "suppression_coverage": suppression,
@@ -127,6 +166,8 @@ def percentile_from_histogram(histogram: torch.Tensor, percentile: float) -> flo
 
 def simulate(scenario: dict[str, Any], samples: int, batch_size: int, seed: int,
              device_name: str = "auto", top_k: int = 25) -> dict[str, Any]:
+    if samples < 1 or batch_size < 1 or top_k < 1:
+        raise ValueError("samples, batch_size, and top_k must be positive")
     validate_scenario(scenario)
     device = select_device(device_name)
     dimensions = tensor3(scenario["compartment"]["dimensions_m"], device)
@@ -192,6 +233,7 @@ def simulate(scenario: dict[str, Any], samples: int, batch_size: int, seed: int,
         "No CFD, chemistry, radiative heat transfer, oxygen depletion, or material consumption is solved.",
         "Material coefficients are scenario inputs and require calibration before decision use.",
         "Detector and suppressor effects are radial coverage approximations.",
+        "Local oxygen-source enrichment is a radial screening assumption, not a gas-dispersion solution.",
     ]
     return {
         "schema_version": "0.1.0", "scenario_name": scenario["name"],
@@ -208,6 +250,7 @@ def simulate(scenario: dict[str, Any], samples: int, batch_size: int, seed: int,
         "hotspots": hotspots, "risk_voxels_p75": compact_voxels,
         "scene": {
             "materials": scenario.get("materials", []), "ignition_sources": scenario.get("ignition_sources", []),
+            "oxygen_sources": scenario.get("oxygen_sources", []),
             "vents": scenario.get("vents", []), "detectors": scenario.get("detectors", []),
             "suppressors": scenario.get("suppressors", []), "consequence_zones": scenario.get("consequence_zones", []),
         },

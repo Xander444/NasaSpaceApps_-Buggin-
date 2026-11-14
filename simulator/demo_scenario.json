@@ -9,6 +9,9 @@
     {"id": "battery-pack-b", "position_m": [6.6, 3.1, 0.7], "influence_radius_m": 0.65, "weight": 1.0, "basis": "illustrative assumption"},
     {"id": "galley-heater", "position_m": [4.5, 0.55, 1.35], "influence_radius_m": 0.7, "weight": 0.65, "basis": "illustrative assumption"}
   ],
+  "oxygen_sources": [
+    {"id": "oxygen-manifold", "position_m": [6.9, 1.0, 1.1], "influence_radius_m": 0.75, "oxygen_percent_boost": 8.0, "basis": "illustrative leak-screening assumption; not a measured concentration"}
+  ],
   "materials": [
     {"id": "left-wall-liner", "position_m": [4.0, 0.18, 1.5], "size_m": [7.5, 0.16, 2.7], "influence_radius_m": 0.35, "ignition_susceptibility": 0.58, "spread_potential": 0.63, "smoke_yield": 0.55, "basis": "illustrative coefficient; calibrate with NASA data"},
     {"id": "equipment-rack-panels", "position_m": [1.5, 1.0, 1.25], "size_m": [1.2, 0.6, 2.1], "influence_radius_m": 0.3, "ignition_susceptibility": 0.72, "spread_potential": 0.7, "smoke_yield": 0.62, "basis": "illustrative coefficient; calibrate with NASA data"},
