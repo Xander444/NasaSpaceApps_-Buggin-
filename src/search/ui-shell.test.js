@@ -13,7 +13,7 @@ test('project overview is the default route and explains the challenge and appro
   assert.match(main,/THE CHALLENGE/);
   assert.match(main,/HOW WE SOLVE IT/);
   assert.match(main,/else page=<HomePage\/>/);
-  assert.match(main,/Who we are/);
+  assert.match(main,/Who We Are/);
 });
 
 test('approved annotation removals remain removed from the shared shell',()=>{
