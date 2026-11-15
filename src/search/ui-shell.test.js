@@ -12,6 +12,10 @@ test('project overview is the default route and explains the challenge and appro
   assert.match(main,/MICROGRAVITY FIRE SAFETY/);
   assert.match(main,/THE CHALLENGE/);
   assert.match(main,/HOW WE SOLVE IT/);
+  assert.match(main,/SCOPE &amp; VALIDITY/);
+  assert.match(main,/No verified partial-gravity combustion tests are currently indexed/);
+  assert.match(main,/Rocket-engine and propellant fires are outside the scope/);
+  assert.match(main,/illustrative relative screening index—not a fire prediction, CFD, probability, safety certification, or mission approval/);
   assert.match(main,/else page=<HomePage\/>/);
   assert.match(main,/Who We Are/);
 });

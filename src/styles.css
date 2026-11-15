@@ -61,6 +61,9 @@ button:disabled{cursor:not-allowed;opacity:.5}
 .challenge-solution>div+div{padding-left:60px;border-left:1px solid var(--line)}
 .challenge-solution h2,.project-flow h2,.trust-section h2,.simple-page h1{margin:0;font-size:clamp(38px,4.5vw,64px);font-weight:500;line-height:1.08;letter-spacing:-.04em}
 .challenge-solution p:last-child,.trust-section>p:last-of-type,.page-intro{color:#adbdc9;font-size:18px;line-height:1.75}
+.scope-note{display:grid;grid-template-columns:minmax(220px,.8fr) 1.2fr;gap:14px 44px;padding:34px 40px;margin:42px 0;border:1px solid #76503b;border-left:4px solid var(--orange);background:var(--space-raised)}
+.scope-note .section-label{margin-bottom:12px}.scope-note h2{margin:0;font-size:clamp(24px,3vw,36px);font-weight:500;line-height:1.12;letter-spacing:-.03em}
+.scope-note ul{margin:0;padding-left:19px;color:#c0ccd5;font-size:14px;line-height:1.65}.scope-note li+li{margin-top:7px}.scope-note a{grid-column:2;color:var(--blue-bright);text-decoration:none;font-size:13px;font-weight:600}.scope-note a:hover{color:var(--text)}
 .project-flow{padding:120px 0;border-bottom:1px solid var(--line)}
 .project-flow>h2{max-width:820px;margin-bottom:62px}
 .demo-intro{max-width:850px;margin:0 0 28px;color:var(--muted);font-size:17px;line-height:1.65}
@@ -180,6 +183,7 @@ button:disabled{cursor:not-allowed;opacity:.5}
 
 @media(max-width:960px){
  .challenge-solution{grid-template-columns:1fr}.challenge-solution>div,.challenge-solution>div+div{padding:70px 0}.challenge-solution>div+div{border-left:0;border-top:1px solid var(--line)}
+ .scope-note{grid-template-columns:1fr;padding:26px 24px}.scope-note a{grid-column:1}
  .app .workspace{grid-template-columns:1fr}.app .workspace>aside{order:-1;scroll-margin-top:12px}.app .workspace>aside>.panel{position:static;max-height:none}.app .hero{grid-template-columns:1fr 200px}
 }
 
