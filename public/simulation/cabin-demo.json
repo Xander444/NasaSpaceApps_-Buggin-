@@ -271,6 +271,7 @@
           "same_sample_locations_sha256": "b3f3f751b7e7ef2b70e1a8d226fb3b6cd83d823090de6946ada710847fb381d9",
           "ignition_inputs_unchanged": true,
           "ignition_inputs_sha256": "f01bfa6514b702a171750b925c660f59fcdb0e5e1e3df3c37420c9504f619a4e",
+          "only_detector_position_changed": true,
           "only_intended_change": "detector position in the copied scenario"
         },
         "interpretation": "This is a controlled model counterfactual, not evidence that the placement is operationally optimal."
@@ -14296,6 +14297,7 @@
       "same_sample_locations_sha256": "b3f3f751b7e7ef2b70e1a8d226fb3b6cd83d823090de6946ada710847fb381d9",
       "ignition_inputs_unchanged": true,
       "ignition_inputs_sha256": "f01bfa6514b702a171750b925c660f59fcdb0e5e1e3df3c37420c9504f619a4e",
+      "only_detector_position_changed": true,
       "only_intended_change": "detector position in the copied scenario"
     },
     "interpretation": "This is a controlled model counterfactual, not evidence that the placement is operationally optimal."
@@ -14509,7 +14511,7 @@
   ],
   "benchmark_summary": {
     "recommended_default_samples": 100000,
-    "recommendation": "Use 100,000 samples by default: median CPU latency was 0.048 s and mean top-10 region retention across seeds was 100%.",
+    "recommendation": "Use 100,000 samples by default: median CPU latency was 0.033 s and mean top-10 region retention across seeds was 100%.",
     "method": {
       "device": "cpu",
       "seeds": [
@@ -14526,6 +14528,7 @@
   "precomputed_fixture": {
     "model_path": "/models/cabin-demo.glb",
     "model_sha256": "335206796c175bf3791b8ca0b76a3208462cb2268b5af32d601ccab43a29ac1a",
+    "model_sha256_verified": true,
     "scenario_path": "simulator/cabin_demo_scenario.json",
     "result_status": "precomputed, repeatable synthetic research fixture"
   }

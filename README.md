@@ -75,7 +75,7 @@ Each hotspot now includes its location, nearby reviewed objects, mean scoring te
 
 The exact cabin fixture has two additional reproducibility artifacts:
 
-- `public/simulation/benchmark.json` records CPU timings and top-region stability across five seeds and four sample counts. On the development machine, 100,000 samples had 100% mean/minimum top-10 neighborhood retention, about 0.79 exact top-25 Jaccard overlap, and 0.048-second median latency.
+- `public/simulation/benchmark.json` records CPU timings and top-region stability across five seeds and four sample counts. In the latest validation run, 100,000 samples had 100% mean/minimum top-10 neighborhood retention, about 0.79 exact top-25 Jaccard overlap, and 0.033-second median model latency on the recorded CPU environment.
 - `public/simulation/cabin-demo.json` contains the precomputed result, a same-location detector-move comparison, and a fabric/vent research probe that hands off a NASA PSI forced-airflow query while preserving airflow speed as unknown.
 
 Regenerate both artifacts with:
@@ -86,6 +86,8 @@ python simulator/build_cabin_release.py
 ```
 
 The current score is a **relative screening index**, not a fire probability, flame-spread simulation, CFD solution, engineering certification, or mission-safety recommendation. The included spacecraft layout and material coefficients are synthetic demonstration assumptions. See `simulator/README.md` and `simulator/scenario.schema.json`.
+
+The software-validation procedure, exact fixture fingerprint, stability results, controlled detector comparison, maximum-request smoke test, and remaining scientific-validation gap are recorded in [`docs/SIMULATION_VALIDATION.md`](docs/SIMULATION_VALIDATION.md).
 
 ## PyTorch analysis
 

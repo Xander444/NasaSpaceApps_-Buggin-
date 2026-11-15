@@ -2,15 +2,35 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 from pathlib import Path
 
 from engine import ROOT, simulate
 
 
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def build_release(scenario_path: Path, benchmark_path: Path, output_path: Path) -> dict:
     scenario = json.loads(scenario_path.read_text())
     benchmark = json.loads(benchmark_path.read_text())
+    source_model = scenario.get("source_model", {})
+    public_model_path = ROOT / "public" / str(source_model.get("path", "")).lstrip("/")
+    if not public_model_path.is_file():
+        raise ValueError(f"Exact fixture model does not exist: {public_model_path}")
+    actual_model_sha256 = file_sha256(public_model_path)
+    expected_model_sha256 = source_model.get("sha256")
+    if actual_model_sha256 != expected_model_sha256:
+        raise ValueError(
+            "Exact fixture model SHA-256 does not match the reviewed scenario: "
+            f"expected {expected_model_sha256}, got {actual_model_sha256}"
+        )
     samples = int(benchmark["recommended_default_samples"])
     seed = 2026
     # This voxel intersects the curtain's modeled material influence and the
@@ -26,6 +46,11 @@ def build_release(scenario_path: Path, benchmark_path: Path, output_path: Path) 
     detector = modified["detectors"][0]
     original_position = detector["position_m"]
     detector["position_m"] = target["center_m"]
+    reconstructed = copy.deepcopy(modified)
+    reconstructed["detectors"][0]["position_m"] = original_position
+    only_detector_position_changed = reconstructed == scenario
+    if not only_detector_position_changed:
+        raise ValueError("Controlled comparison changed more than the selected detector position")
     changed = simulate(
         modified, samples, min(100_000, samples), seed, "cpu", 25,
         probe_voxels=[target["voxel"]],
@@ -56,6 +81,7 @@ def build_release(scenario_path: Path, benchmark_path: Path, output_path: Path) 
             "same_sample_locations_sha256": baseline["reproducibility"]["sample_locations_sha256"],
             "ignition_inputs_unchanged": baseline["reproducibility"]["ignition_inputs_sha256"] == changed["reproducibility"]["ignition_inputs_sha256"],
             "ignition_inputs_sha256": baseline["reproducibility"]["ignition_inputs_sha256"],
+            "only_detector_position_changed": only_detector_position_changed,
             "only_intended_change": "detector position in the copied scenario",
         },
         "interpretation": "This is a controlled model counterfactual, not evidence that the placement is operationally optimal.",
@@ -73,7 +99,8 @@ def build_release(scenario_path: Path, benchmark_path: Path, output_path: Path) 
     }
     baseline["precomputed_fixture"] = {
         "model_path": scenario["source_model"]["path"],
-        "model_sha256": scenario["source_model"]["sha256"],
+        "model_sha256": actual_model_sha256,
+        "model_sha256_verified": True,
         "scenario_path": "simulator/cabin_demo_scenario.json",
         "result_status": "precomputed, repeatable synthetic research fixture",
     }

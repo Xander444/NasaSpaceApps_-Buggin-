@@ -15,6 +15,7 @@ from typing import Any
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
+SUPPORTED_SCENARIO_VERSIONS = {"0.1.0", "0.2.0"}
 
 AGGREGATE_FIELDS = (
     "source_exposure", "ignition_susceptibility", "local_oxygen_percent",
@@ -88,32 +89,76 @@ def validate_scenario(scenario: dict[str, Any]) -> None:
             raise ValueError(f"{label} must be <= {high}")
         return number
 
-    dimensions = scenario.get("compartment", {}).get("dimensions_m")
-    grid = scenario.get("compartment", {}).get("grid")
-    if not dimensions or len(dimensions) != 3 or any(float(x) <= 0 for x in dimensions):
-        raise ValueError("compartment.dimensions_m must contain three positive numbers")
-    if not grid or len(grid) != 3 or any(int(x) < 2 for x in grid):
+    def finite_vector(value: Any, label: str, *, positive: bool = False) -> list[float]:
+        if not isinstance(value, (list, tuple)) or len(value) != 3:
+            raise ValueError(f"{label} must contain three numbers")
+        minimum = 0.0000001 if positive else None
+        return [bounded(component, f"{label}[{index}]", minimum)
+                for index, component in enumerate(value)]
+
+    if not isinstance(scenario, dict):
+        raise ValueError("Scenario must be an object")
+    schema_version = scenario.get("schema_version")
+    if schema_version not in SUPPORTED_SCENARIO_VERSIONS:
+        versions = ", ".join(sorted(SUPPORTED_SCENARIO_VERSIONS))
+        raise ValueError(f"scenario.schema_version must be one of: {versions}")
+    if schema_version == "0.2.0":
+        source_model = scenario.get("source_model")
+        if not isinstance(source_model, dict) or not all(
+                isinstance(source_model.get(field), str) and source_model[field].strip()
+                for field in ("name", "format", "sha256")):
+            raise ValueError("scenario.source_model must identify the reviewed model")
+        if not isinstance(scenario.get("confirmation"), dict):
+            raise ValueError("scenario.confirmation must be an object for schema 0.2.0")
+    if not isinstance(scenario.get("name"), str) or not scenario["name"].strip():
+        raise ValueError("scenario.name must be a non-empty string")
+    compartment = scenario.get("compartment")
+    if not isinstance(compartment, dict):
+        raise ValueError("scenario.compartment must be an object")
+    dimensions = compartment.get("dimensions_m")
+    grid = compartment.get("grid")
+    dimensions = finite_vector(dimensions, "compartment.dimensions_m", positive=True)
+    if (not isinstance(grid, (list, tuple)) or len(grid) != 3 or
+            any(isinstance(value, bool) or not isinstance(value, int) or value < 2 for value in grid)):
         raise ValueError("compartment.grid must contain three integers >= 2")
-    environment = scenario.get("environment", {})
+    environment = scenario.get("environment")
+    if not isinstance(environment, dict):
+        raise ValueError("scenario.environment must be an object")
     bounded(environment.get("oxygen_percent"), "environment.oxygen_percent", 0.1, 100)
     bounded(environment.get("pressure_kpa"), "environment.pressure_kpa", 0.1)
-    bounded(environment.get("gravity_g", 0), "environment.gravity_g", 0)
+    bounded(environment.get("gravity_g"), "environment.gravity_g", 0)
+    if "ambient_temperature_c" in environment:
+        bounded(environment["ambient_temperature_c"], "environment.ambient_temperature_c")
+
+    seen_ids: dict[str, str] = {}
     for collection in ("ignition_sources", "oxygen_sources", "materials", "vents", "detectors", "suppressors", "consequence_zones"):
-        for item in scenario.get(collection, []):
-            if "id" not in item:
-                raise ValueError(f"Every {collection} entry needs an id")
-            if "position_m" in item and len(item["position_m"]) != 3:
-                raise ValueError(f"{collection}.{item['id']}.position_m must contain three numbers")
+        items = scenario.get(collection, [])
+        if not isinstance(items, list):
+            raise ValueError(f"scenario.{collection} must be an array")
+        for item in items:
+            if not isinstance(item, dict):
+                raise ValueError(f"Every {collection} entry must be an object")
+            identifier = item.get("id")
+            if not isinstance(identifier, str) or not identifier.strip():
+                raise ValueError(f"Every {collection} entry needs a non-empty id")
+            if identifier in seen_ids:
+                raise ValueError(
+                    f"Object id {identifier} appears in both {seen_ids[identifier]} and {collection}"
+                )
+            seen_ids[identifier] = collection
+            position = finite_vector(item.get("position_m"), f"{collection}.{identifier}.position_m")
+            if any(component < 0 or component > dimensions[index]
+                   for index, component in enumerate(position)):
+                raise ValueError(f"{collection}.{identifier}.position_m lies outside the compartment")
             if collection != "materials":
-                bounded(item.get("influence_radius_m"), f"{collection}.{item['id']}.influence_radius_m", 0.0001)
+                bounded(item.get("influence_radius_m"), f"{collection}.{identifier}.influence_radius_m", 0.0001)
     if not scenario.get("materials"):
         raise ValueError("At least one material region is required")
     for item in scenario["materials"]:
-        if len(item.get("size_m", [])) != 3 or any(float(value) <= 0 for value in item["size_m"]):
-            raise ValueError(f"materials.{item['id']}.size_m must contain three positive numbers")
-        bounded(item.get("influence_radius_m", 0.35), f"materials.{item['id']}.influence_radius_m", 0.0001)
+        finite_vector(item.get("size_m"), f"materials.{item['id']}.size_m", positive=True)
+        bounded(item.get("influence_radius_m"), f"materials.{item['id']}.influence_radius_m", 0.0001)
         for field in ("ignition_susceptibility", "spread_potential", "smoke_yield"):
-            bounded(item.get(field, 0.5), f"materials.{item['id']}.{field}", 0, 1)
+            bounded(item.get(field), f"materials.{item['id']}.{field}", 0, 1)
     bounds = {
         "ignition_sources": ("weight", 0, 2), "oxygen_sources": ("oxygen_percent_boost", 0, 100),
         "vents": ("strength", 0, 2), "detectors": ("effectiveness", 0, 1),
@@ -122,6 +167,8 @@ def validate_scenario(scenario: dict[str, Any]) -> None:
     for collection, (field, low, high) in bounds.items():
         for item in scenario.get(collection, []):
             bounded(item.get(field), f"{collection}.{item['id']}.{field}", low, high)
+    for item in scenario.get("vents", []):
+        finite_vector(item.get("direction"), f"vents.{item['id']}.direction")
 
 
 def radial_field(points: torch.Tensor, items: list[dict[str, Any]], value_key: str,
@@ -146,10 +193,10 @@ def material_fields(points: torch.Tensor, materials: list[dict[str, Any]],
         half = tensor3(material["size_m"], device) / 2
         outside = torch.clamp(torch.abs(points - center) - half, min=0)
         distance = torch.linalg.vector_norm(outside, dim=1)
-        falloff = torch.exp(-distance / max(float(material.get("influence_radius_m", 0.35)), 1e-4))
+        falloff = torch.exp(-distance / max(float(material["influence_radius_m"]), 1e-4))
         ignition.append(float(material["ignition_susceptibility"]) * falloff)
         spread.append(float(material["spread_potential"]) * falloff)
-        smoke.append(float(material.get("smoke_yield", 0.5)) * falloff)
+        smoke.append(float(material["smoke_yield"]) * falloff)
     return tuple(torch.stack(field, dim=1).max(dim=1).values for field in (ignition, spread, smoke))
 
 
@@ -301,6 +348,10 @@ def flat_voxel(voxel: list[int], grid: torch.Tensor) -> int:
 def simulate(scenario: dict[str, Any], samples: int, batch_size: int, seed: int,
              device_name: str = "auto", top_k: int = 25,
              probe_voxels: list[list[int]] | None = None) -> dict[str, Any]:
+    integer_inputs = {"samples": samples, "batch_size": batch_size, "seed": seed, "top_k": top_k}
+    if any(isinstance(value, bool) or not isinstance(value, int)
+           for value in integer_inputs.values()):
+        raise ValueError("samples, batch_size, seed, and top_k must be integers")
     if samples < 1 or batch_size < 1 or top_k < 1:
         raise ValueError("samples, batch_size, and top_k must be positive")
     validate_scenario(scenario)

@@ -6,7 +6,7 @@ Owner focus: PyTorch engine, scenario model, calibration, validation, hotspot ra
 
 Current milestone: a reproducible Monte Carlo spatial screener that accepts a human-confirmed object map and processes one million candidate locations in bounded batches.
 
-The first-release UI imports GLB / self-contained glTF, suggests roles from mesh names, requires every mesh to be confirmed or ignored, hashes the source model, and submits the reviewed scenario to the local FastAPI service. Read `docs/ANNOTATION_CONTRACT.md` before changing this gate.
+The first-release UI imports GLB / self-contained glTF, suggests roles from mesh names, requires every mesh to be confirmed or ignored, hashes the source model, and submits the reviewed scenario to the local FastAPI service. Read `docs/ANNOTATION_CONTRACT.md` before changing this gate and `docs/SIMULATION_VALIDATION.md` before changing the score, benchmark, default sample count, or release fixture.
 
 Next work:
 

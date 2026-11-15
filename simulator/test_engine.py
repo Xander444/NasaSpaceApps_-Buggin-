@@ -1,11 +1,13 @@
 import json
 import copy
 import unittest
+import tempfile
 from pathlib import Path
 
 import torch
 
 from engine import ROOT, ignition_input_hash, score_points, select_device, simulate, validate_scenario
+from build_cabin_release import build_release
 
 
 class SimulatorTests(unittest.TestCase):
@@ -14,6 +16,60 @@ class SimulatorTests(unittest.TestCase):
 
     def test_demo_scenario_is_valid(self):
         validate_scenario(self.scenario)
+        reviewed = json.loads((ROOT / "simulator/cabin_demo_scenario.json").read_text())
+        validate_scenario(reviewed)
+
+    def test_unknown_scenario_version_is_rejected(self):
+        invalid = copy.deepcopy(self.scenario)
+        invalid["schema_version"] = "9.9.9"
+        with self.assertRaisesRegex(ValueError, "schema_version must be one of"):
+            validate_scenario(invalid)
+
+    def test_reviewed_scenario_version_requires_model_and_confirmation(self):
+        invalid = copy.deepcopy(self.scenario)
+        invalid["schema_version"] = "0.2.0"
+        with self.assertRaisesRegex(ValueError, "source_model"):
+            validate_scenario(invalid)
+
+    def test_non_finite_geometry_and_fractional_grid_are_rejected(self):
+        invalid = copy.deepcopy(self.scenario)
+        invalid["compartment"]["dimensions_m"][0] = float("nan")
+        with self.assertRaisesRegex(ValueError, "must be finite"):
+            validate_scenario(invalid)
+        invalid = copy.deepcopy(self.scenario)
+        invalid["compartment"]["grid"][1] = 13.5
+        with self.assertRaisesRegex(ValueError, "three integers"):
+            validate_scenario(invalid)
+
+    def test_missing_values_are_rejected_instead_of_defaulted(self):
+        invalid = copy.deepcopy(self.scenario)
+        del invalid["materials"][0]["ignition_susceptibility"]
+        with self.assertRaisesRegex(ValueError, "ignition_susceptibility must be a number"):
+            validate_scenario(invalid)
+        invalid = copy.deepcopy(self.scenario)
+        del invalid["environment"]["gravity_g"]
+        with self.assertRaisesRegex(ValueError, "gravity_g must be a number"):
+            validate_scenario(invalid)
+
+    def test_malformed_collections_are_rejected_cleanly(self):
+        invalid = copy.deepcopy(self.scenario)
+        invalid["detectors"] = {"not": "an array"}
+        with self.assertRaisesRegex(ValueError, "scenario.detectors must be an array"):
+            validate_scenario(invalid)
+
+    def test_object_positions_and_ids_are_validated(self):
+        invalid = copy.deepcopy(self.scenario)
+        invalid["detectors"][0]["position_m"][0] = 100
+        with self.assertRaisesRegex(ValueError, "outside the compartment"):
+            validate_scenario(invalid)
+        invalid = copy.deepcopy(self.scenario)
+        invalid["detectors"][0]["id"] = invalid["materials"][0]["id"]
+        with self.assertRaisesRegex(ValueError, "appears in both"):
+            validate_scenario(invalid)
+
+    def test_sampling_arguments_require_integers(self):
+        with self.assertRaisesRegex(ValueError, "must be integers"):
+            simulate(self.scenario, 1000.0, 1000, 42, "cpu", 5)
 
     def test_scores_are_bounded(self):
         device = select_device("cpu")
@@ -37,6 +93,19 @@ class SimulatorTests(unittest.TestCase):
         self.assertEqual(first["summary"], second["summary"])
         self.assertEqual(first["hotspots"], second["hotspots"])
         self.assertEqual(first["reproducibility"], second["reproducibility"])
+
+    def test_seeded_sample_locations_are_batch_size_invariant(self):
+        first = simulate(self.scenario, 20_000, 20_000, 42, "cpu", 5)
+        second = simulate(self.scenario, 20_000, 2_000, 42, "cpu", 5)
+        third = simulate(self.scenario, 20_000, 20_000, 43, "cpu", 5)
+        self.assertEqual(
+            first["reproducibility"]["sample_locations_sha256"],
+            second["reproducibility"]["sample_locations_sha256"],
+        )
+        self.assertNotEqual(
+            first["reproducibility"]["sample_locations_sha256"],
+            third["reproducibility"]["sample_locations_sha256"],
+        )
 
     def test_hotspot_explanation_comes_from_aggregated_calculation(self):
         result = simulate(self.scenario, 20_000, 5_000, 42, "cpu", 5)
@@ -65,6 +134,16 @@ class SimulatorTests(unittest.TestCase):
         modified["oxygen_sources"] = []
         baseline = float(score_points(point, modified, device)["risk_index"][0])
         self.assertGreaterEqual(enriched, baseline)
+
+    def test_global_oxygen_and_pressure_changes_have_expected_direction(self):
+        device = select_device("cpu")
+        point = torch.tensor([[1.4, 0.8, 1.2]], dtype=torch.float32)
+        baseline = float(score_points(point, self.scenario, device)["risk_index"][0])
+        reduced = copy.deepcopy(self.scenario)
+        reduced["environment"]["oxygen_percent"] = 15
+        reduced["environment"]["pressure_kpa"] = 70
+        changed = float(score_points(point, reduced, device)["risk_index"][0])
+        self.assertLess(changed, baseline)
 
     def test_local_oxygen_is_bounded(self):
         device = select_device("cpu")
@@ -108,10 +187,26 @@ class SimulatorTests(unittest.TestCase):
         result = json.loads((ROOT / "public/simulation/cabin-demo.json").read_text())
         comparison = result["controlled_comparison"]
         self.assertEqual(result["precomputed_fixture"]["model_sha256"], "335206796c175bf3791b8ca0b76a3208462cb2268b5af32d601ccab43a29ac1a")
+        self.assertTrue(result["precomputed_fixture"]["model_sha256_verified"])
         self.assertTrue(comparison["verification"]["same_sample_locations"])
         self.assertTrue(comparison["verification"]["ignition_inputs_unchanged"])
+        self.assertTrue(comparison["verification"]["only_detector_position_changed"])
         self.assertGreater(comparison["change"]["detection_coverage"], 0)
         self.assertLess(comparison["change"]["relative_screening_index"], 0)
+
+    def test_release_builder_rejects_fixture_hash_mismatch(self):
+        scenario = json.loads((ROOT / "simulator/cabin_demo_scenario.json").read_text())
+        scenario["source_model"]["sha256"] = "0" * 64
+        with tempfile.TemporaryDirectory() as directory:
+            scenario_path = Path(directory) / "scenario.json"
+            output_path = Path(directory) / "result.json"
+            scenario_path.write_text(json.dumps(scenario))
+            with self.assertRaisesRegex(ValueError, "SHA-256 does not match"):
+                build_release(
+                    scenario_path,
+                    ROOT / "public/simulation/benchmark.json",
+                    output_path,
+                )
 
 
 if __name__ == "__main__":

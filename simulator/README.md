@@ -1,4 +1,4 @@
-# 3D Fire-Risk Screening Engine
+# 3D Spatial Screening Engine
 
 This module samples millions of possible locations inside a human-reviewed 3D compartment map, scores each location in batches with PyTorch, aggregates results into a voxel grid, and ranks candidate hotspots.
 
@@ -42,7 +42,7 @@ For every sampled point, the engine combines:
 - suppression coverage gaps; and
 - proximity to consequence zones such as egress or crew areas.
 
-The raw score is transformed to a bounded 0–100 index with `100 × (1 − exp(−raw))`. It is not a percentage probability. Every coefficient in the demo scenario is labelled as an illustrative assumption. The API also rejects incomplete object-review manifests and unconfirmed model units.
+The raw score is transformed to a bounded 0–100 index with `100 × (1 − exp(−raw))`. It is not a percentage probability. Every coefficient in the demo scenario is labelled as an illustrative assumption. The API rejects incomplete object-review manifests, unconfirmed model units, scored objects that do not match their confirmed roles, duplicate roles, and non-finite or out-of-compartment geometry.
 
 For every ranked hotspot, the engine aggregates the actual formula terms and computes contributor deltas by rescoring the same sample points with one term neutralized. These counterfactual deltas explain direction and strength but do not sum to the index because the terms interact multiplicatively. Gravity, ambient temperature, and smoke yield are retained in the result and explicitly marked as having no current score effect.
 
@@ -53,7 +53,7 @@ python simulator/benchmark.py
 python simulator/build_cabin_release.py
 ```
 
-The benchmark runs the exact cabin fixture across seeds 2026–2030 at 50k, 100k, 250k, and 500k samples. It measures both exact top-25 overlap and whether the same one-voxel neighborhoods remain near the top. The release builder then moves one detector to the leading baseline hotspot and reruns the same seed, batch size, dimensions, and sample count. It verifies identical sample-location and ignition-input hashes before reporting the coverage and relative-index changes at that exact baseline voxel.
+The benchmark runs the exact cabin fixture across seeds 2026–2030 at 50k, 100k, 250k, and 500k samples. It measures both exact top-25 overlap and whether the same one-voxel neighborhoods remain near the top. The release builder verifies the exact GLB file hash, then moves one detector to the leading baseline hotspot and reruns the same seed, batch size, dimensions, and sample count. It verifies that only the detector position changed and that sample-location and ignition-input hashes remain identical before reporting the coverage and relative-index changes at that exact baseline voxel.
 
 ## First-release limits
 
@@ -68,6 +68,5 @@ The benchmark runs the exact cabin fixture across seeds 2026–2030 at 50k, 100k
 
 1. Replace illustrative material coefficients with versioned calibration outputs derived from test-level NASA evidence.
 2. Add directed transport, oxygen depletion, material consumption, and time steps.
-3. Add oxygen depletion and material consumption.
-4. Compare predictions against held-out experiments.
-5. Use validated CFD for high-consequence engineering decisions.
+3. Compare model behavior against held-out experiments.
+4. Use validated CFD for high-consequence engineering decisions.
