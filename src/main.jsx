@@ -55,8 +55,8 @@ function SourcesPage(){
 }
 
 function AboutPage(){
- const members=['Project lead / product','Evidence and data','Simulation and validation','Frontend and experience'];
- return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Sample team copy: We are a multidisciplinary NASA Space Apps team combining research, data, simulation, and design. Replace this paragraph with the team’s real story before release.</p><div className="sample-note">SAMPLE TEAM CONTENT · Replace names, roles, and biographies.</div><div className="team-grid">{members.map((role,index)=><article key={role}><span>{String(index+1).padStart(2,'0')}</span><h2>Team member name</h2><h3>{role}</h3><p>Sample biography: add this person’s background, project contribution, and the question they are helping the team answer.</p></article>)}</div></main></PageShell>;
+ const members=['Alexander','Gabriel','Elisabeth','Lily'];
+ return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Meet the four members of our team.</p><div className="team-grid">{members.map((name,index)=><article key={name}><span>{String(index+1).padStart(2,'0')}</span><h2>{name}</h2><p>Marianopolis’ Student</p></article>)}</div></main></PageShell>;
 }
 
 function EvidencePage(){
