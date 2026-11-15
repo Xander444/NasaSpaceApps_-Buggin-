@@ -46,6 +46,9 @@ test('evidence explorer exposes a guided, controllable, low-density workflow',()
   const evidence=read('./Evidence.jsx');
   assert.match(main,/01 · SEARCH/);
   assert.match(main,/02 · REVIEW/);
+  assert.match(main,/Try an oxygen and pressure scenario/);
+  assert.match(main,/These examples come from the challenge brief, not from a PSI test/);
+  assert.match(main,/No indexed test row matches all preferred conditions/);
   assert.match(main,/aria-pressed=\{!siMode\}/);
   assert.match(main,/filter-disclosure/);
   assert.match(main,/Compare selected/);
