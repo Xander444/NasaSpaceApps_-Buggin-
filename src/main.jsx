@@ -14,10 +14,10 @@ const Simulator=lazy(()=>import('./Simulator'));
 
 const links=[
  {href:'/',label:'Project',key:'project'},
- {href:'/evidence',label:'Evidence explorer',key:'evidence'},
- {href:'/simulator',label:'Cabin screening',key:'simulator'},
+ {href:'/evidence',label:'Evidence Explorer',key:'evidence'},
+ {href:'/simulator',label:'Cabin Screening',key:'simulator'},
  {href:'/sources',label:'Sources',key:'sources'},
- {href:'/about',label:'Who we are',key:'about'},
+ {href:'/about',label:'Who We Are',key:'about'},
 ];
 
 function SiteHeader({active}){
@@ -55,8 +55,13 @@ function SourcesPage(){
 }
 
 function AboutPage(){
- const members=['Alexander','Gabriel','Elisabeth','Lily'];
- return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Meet the four members of our team.</p><div className="team-grid">{members.map((name,index)=><article key={name}><span>{String(index+1).padStart(2,'0')}</span><h2>{name}</h2><p>Marianopolis’ Student</p></article>)}</div></main></PageShell>;
+ const members=[
+  {name:'Gabriel Ramos Rodriguez',bio:'Professional Larper'},
+  {name:'Alexander Vatch',bio:'Too cool to have a bio'},
+  {name:'Elisabeth Wei',bio:'Among Us!!'},
+  {name:'Lily Ma',bio:'I chose the bio for everyone'},
+ ];
+ return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Meet the four members of our team.</p><div className="team-grid">{members.map(({name,bio},index)=><article key={name}><span>{String(index+1).padStart(2,'0')}</span><h2>{name}</h2><p>{bio}</p></article>)}</div></main></PageShell>;
 }
 
 function EvidencePage(){
