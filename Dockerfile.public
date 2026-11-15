@@ -27,9 +27,14 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PORT=8000 \
     SIMULATOR_MAX_CONCURRENT=2
 
+
 WORKDIR /app
 
+# Tell Node.js to treat the search engine as ES modules
+COPY package.json ./
+
 COPY requirements.txt requirements-research.txt ./
+
 
 RUN pip install --no-cache-dir \
     -r requirements.txt \
