@@ -11,6 +11,7 @@ import json
 import math
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlencode
 
 import torch
 
@@ -295,7 +296,7 @@ def point_to_box_distance(point: list[float], center: list[float], size: list[fl
     return math.sqrt(sum(value * value for value in outside))
 
 
-def nearby_objects(center: list[float], scenario: dict[str, Any], limit: int = 8) -> list[dict[str, Any]]:
+def nearby_objects(center: list[float], scenario: dict[str, Any], limit: int | None = 8) -> list[dict[str, Any]]:
     objects: list[dict[str, Any]] = []
     collections = (
         ("materials", "material"), ("ignition_sources", "ignition source"),
@@ -310,28 +311,84 @@ def nearby_objects(center: list[float], scenario: dict[str, Any], limit: int = 8
             radius = float(item.get("influence_radius_m", 0))
             objects.append({
                 "id": item["id"], "type": label, "distance_m": round(distance, 4),
+                "position_m": [round(float(value), 4) for value in item["position_m"]],
                 "influence_radius_m": round(radius, 4),
                 "within_modeled_influence": distance <= radius,
                 "material_type": item.get("material_type"),
             })
-    return sorted(objects, key=lambda item: (item["distance_m"], item["type"], item["id"]))[:limit]
+    ranked = sorted(objects, key=lambda item: (item["distance_m"], item["type"], item["id"]))
+    return ranked if limit is None else ranked[:limit]
 
 
-def evidence_search_for(nearby: list[dict[str, Any]]) -> dict[str, Any] | None:
+def psi_search_url(query: str) -> str:
+    return "https://psi.nasa.gov/physci/repo/search?" + urlencode({
+        "q": query, "data_source": "psi", "data_type": "investigation",
+    })
+
+
+def handoff_object(item: dict[str, Any]) -> dict[str, Any]:
+    return {key: item.get(key) for key in (
+        "id", "type", "position_m", "distance_m", "influence_radius_m",
+        "within_modeled_influence", "material_type",
+    )}
+
+
+def evidence_searches_for(nearby: list[dict[str, Any]], detection_coverage: float,
+                          suppression_coverage: float) -> list[dict[str, Any]]:
+    searches: list[dict[str, Any]] = []
     fabric = next((item for item in nearby if item["type"] == "material" and item["within_modeled_influence"] and
                    (item.get("material_type") == "fabric" or "fabric" in item["id"].lower() or
                     "curtain" in item["id"].lower())), None)
     vent = next((item for item in nearby if item["type"] == "vent" and item["within_modeled_influence"]), None)
-    if not fabric or not vent:
-        return None
-    return {
-        "label": "Search evidence: solid-material flammability under forced airflow",
-        "query": "solid material flammability forced airflow microgravity fabric",
-        "url": "https://psi.nasa.gov/physci/repo/search?q=solid%20material%20flammability%20forced%20airflow%20microgravity&data_source=psi&data_type=investigation",
-        "reason": f"This location is within the modeled influence of {fabric['id']} and {vent['id']}.",
-        "airflow_speed": None,
-        "airflow_speed_status": "unknown — the scenario gives a vent location and illustrative influence, not a physical airflow speed",
-    }
+    if fabric and vent:
+        query = "solid material flammability forced airflow microgravity fabric"
+        searches.append({
+            "area": "flammability",
+            "label": "Solid-material flammability under forced airflow",
+            "query": query,
+            "url": psi_search_url(query),
+            "reason": f"This location is within the modeled influence of {fabric['id']} and {vent['id']}.",
+            "relevant_objects": [handoff_object(fabric), handoff_object(vent)],
+            "airflow_speed": None,
+            "airflow_speed_status": "unknown — the scenario gives a vent location and illustrative influence, not a physical airflow speed",
+        })
+
+    detector = next((item for item in nearby if item["type"] == "detector"), None)
+    detector_query = "spacecraft smoke detector response placement microgravity aerosols"
+    detector_reason = (
+        f"Nearest confirmed detector {detector['id']} is {detector['distance_m']:.2f} m away; "
+        f"modeled coverage at this spot is {detection_coverage:.3f}."
+        if detector else
+        f"No confirmed detector is present; modeled coverage at this spot is {detection_coverage:.3f}."
+    )
+    searches.append({
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": detector_query,
+        "url": psi_search_url(detector_query),
+        "reason": detector_reason,
+        "relevant_objects": [handoff_object(detector)] if detector else [],
+        "modeled_coverage": round(detection_coverage, 4),
+    })
+
+    suppressor = next((item for item in nearby if item["type"] == "suppressor"), None)
+    suppression_query = "spacecraft fire suppression extinguishment microgravity solid materials"
+    suppression_reason = (
+        f"Nearest confirmed suppressor {suppressor['id']} is {suppressor['distance_m']:.2f} m away; "
+        f"modeled coverage at this spot is {suppression_coverage:.3f}."
+        if suppressor else
+        f"No confirmed suppressor is present; modeled coverage at this spot is {suppression_coverage:.3f}."
+    )
+    searches.append({
+        "area": "suppression",
+        "label": "Suppression and extinguishment coverage",
+        "query": suppression_query,
+        "url": psi_search_url(suppression_query),
+        "reason": suppression_reason,
+        "relevant_objects": [handoff_object(suppressor)] if suppressor else [],
+        "modeled_coverage": round(suppression_coverage, 4),
+    })
+    return searches
 
 
 def voxel_coordinates(flat_index: int, grid: torch.Tensor) -> list[int]:
@@ -393,7 +450,13 @@ def simulate(scenario: dict[str, Any], samples: int, batch_size: int, seed: int,
     def hotspot_record(flat_index: int, rank: int | None = None) -> dict[str, Any]:
         voxel = voxel_coordinates(flat_index, grid)
         center = ((torch.tensor(voxel, device=device) + 0.5) / grid * dimensions).tolist()
-        nearby = nearby_objects(center, scenario)
+        all_nearby = nearby_objects(center, scenario, limit=None)
+        nearby = all_nearby[:8]
+        detection_coverage = float(field_means["detection_coverage"][flat_index])
+        suppression_coverage = float(field_means["suppression_coverage"][flat_index])
+        evidence_searches = evidence_searches_for(
+            all_nearby, detection_coverage, suppression_coverage,
+        )
         contributions = [{
             "term": field.removeprefix("delta_"), "label": CONTRIBUTION_LABELS[field],
             "counterfactual_delta": round(float(field_means[field][flat_index]), 4),
@@ -408,8 +471,8 @@ def simulate(scenario: dict[str, Any], samples: int, batch_size: int, seed: int,
             "risk_index": round(float(means[flat_index]), 4),
             "standard_error": round(float(standard_errors[flat_index]), 4),
             "sample_count": int(counts[flat_index]),
-            "detection_coverage": round(float(field_means["detection_coverage"][flat_index]), 4),
-            "suppression_coverage": round(float(field_means["suppression_coverage"][flat_index]), 4),
+            "detection_coverage": round(detection_coverage, 4),
+            "suppression_coverage": round(suppression_coverage, 4),
             "nearby_objects": nearby,
             "score_breakdown": {
                 "method": "mean actual terms and same-sample counterfactual deltas from the scoring calculation",
@@ -418,7 +481,8 @@ def simulate(scenario: dict[str, Any], samples: int, batch_size: int, seed: int,
                 "strongest_contributors": contributions[:5],
                 "all_counterfactual_contributors": contributions,
             },
-            "evidence_search": evidence_search_for(nearby),
+            "evidence_search": evidence_searches[0] if evidence_searches else None,
+            "evidence_searches": evidence_searches,
         }
         if rank is not None:
             record["rank"] = rank

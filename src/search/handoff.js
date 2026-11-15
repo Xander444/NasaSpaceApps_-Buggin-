@@ -25,14 +25,45 @@ const preferredNumeric = (field, value, unit) => ({
   mode: 'preferred',
 });
 
+const cleanText = (value, maximum = 120) => String(value || '').trim().slice(0, maximum);
+
+const normalizeContextObject = object => {
+  if (!object || typeof object !== 'object') return null;
+  const id = cleanText(object.id);
+  const type = cleanText(object.type, 60);
+  if (!id || !type) return null;
+  const position = Array.isArray(object.position_m) && object.position_m.length === 3
+    && object.position_m.every(value => finiteNumber(value) !== null)
+    ? object.position_m.map(Number) : null;
+  return {
+    id,
+    type,
+    position_m: position,
+    distance_m: finiteNumber(object.distance_m),
+    influence_radius_m: finiteNumber(object.influence_radius_m),
+    within_modeled_influence: object.within_modeled_influence === true,
+  };
+};
+
+const parseContextObjects = value => {
+  if (!value || value.length > 4000) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.slice(0, 6).map(normalizeContextObject).filter(Boolean) : [];
+  } catch {
+    return [];
+  }
+};
+
 /**
  * Build a portable, source-grounded explorer handoff. A vent location is
  * context only unless the scenario supplies a finite physical airflow speed.
  */
-export function buildExplorerHandoff({ query, environment = {}, spot_m, vent = null }, basePath = '/evidence') {
+export function buildExplorerHandoff({ query, area = '', environment = {}, spot_m, objects = [], vent = null }, basePath = '/evidence') {
   const params = new URLSearchParams();
   params.set('handoff', SIMULATOR_HANDOFF);
   if (String(query || '').trim()) params.set('q', String(query).trim());
+  if (cleanText(area, 40)) params.set('area', cleanText(area, 40));
   setNumber(params, 'oxygen_percent', environment.oxygen_percent);
   setNumber(params, 'pressure_kpa', environment.pressure_kpa);
   setNumber(params, 'gravity_g', environment.gravity_g);
@@ -40,6 +71,8 @@ export function buildExplorerHandoff({ query, environment = {}, spot_m, vent = n
   if (Array.isArray(spot_m) && spot_m.length === 3 && spot_m.every(value => finiteNumber(value) !== null)) {
     params.set('spot_m', spot_m.map(Number).join(','));
   }
+  const contextObjects = (Array.isArray(objects) ? objects : []).slice(0, 6).map(normalizeContextObject).filter(Boolean);
+  if (contextObjects.length) params.set('objects', JSON.stringify(contextObjects));
   if (vent) {
     if (vent.id) params.set('vent_id', vent.id);
     if (Array.isArray(vent.position_m) && vent.position_m.length === 3 && vent.position_m.every(value => finiteNumber(value) !== null)) {
@@ -79,6 +112,8 @@ export function parseExplorerHandoff(search) {
       gravity_g: gravity,
       ambient_temperature_c: temperature,
       spot_m: parseVector(params.get('spot_m')),
+      area: cleanText(params.get('area'), 40) || null,
+      objects: parseContextObjects(params.get('objects')),
       vent_id: ventId,
       vent_position_m: parseVector(params.get('vent_position_m')),
       airflow_speed_m_s: airflow,

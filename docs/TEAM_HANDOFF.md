@@ -4,9 +4,11 @@
 
 Owner focus: PyTorch engine, scenario model, calibration, validation, hotspot ranking, uncertainty, and 3D output contract.
 
-Current milestone: a reproducible Monte Carlo spatial screener that accepts a human-confirmed object map and processes one million candidate locations in bounded batches.
+Current milestone: a reproducible Monte Carlo spatial screener that accepts a human-confirmed object map and uses the benchmark-selected 100,000-location default in bounded batches. The API supports up to two million locations per request.
 
 The first-release UI imports GLB / self-contained glTF, suggests roles from mesh names, requires every mesh to be confirmed or ignored, hashes the source model, and submits the reviewed scenario to the local FastAPI service. Read `docs/ANNOTATION_CONTRACT.md` before changing this gate and `docs/SIMULATION_VALIDATION.md` before changing the score, benchmark, default sample count, or release fixture.
+
+Nested transforms, rotations, and model scale are resolved in world space. The scorer and hotspot overlay share normalized coordinates and world-axis-aligned object bounds. Detector, suppression, and applicable flammability handoffs carry the selected spot, cabin conditions, and relevant confirmed objects into the evidence explorer. Public backend setup and static outage fallback are documented in `docs/BACKEND_DEPLOYMENT.md`.
 
 Next work:
 

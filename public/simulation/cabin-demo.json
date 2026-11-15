@@ -56,6 +56,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -64,6 +69,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.522,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -72,6 +82,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.9075,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -80,6 +95,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 1.35,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -88,6 +108,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.5323,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -96,6 +121,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.9159,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -104,6 +134,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 3.0464,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -112,6 +147,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.3016,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -228,7 +268,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.30 m away; modeled coverage at this spot is 0.206.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.3016,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2062
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.30 m away; modeled coverage at this spot is 0.206.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.3016,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2062
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.92 m away; modeled coverage at this spot is 0.096.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.9159,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0956
+        }
+      ],
       "rank": 1,
       "controlled_comparison": {
         "title": "Move the detector to the selected hotspot and rerun the same locations",
@@ -299,6 +409,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -307,6 +422,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5385,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -315,6 +435,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -323,6 +448,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.6877,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -331,6 +461,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 1.9605,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -339,6 +474,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.6478,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -347,6 +487,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.9967,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -355,6 +500,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.4004,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -471,7 +621,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.00 m away; modeled coverage at this spot is 0.261.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 2.9967,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2606
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.00 m away; modeled coverage at this spot is 0.261.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.9967,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2606
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.47 m away; modeled coverage at this spot is 0.008.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.4724,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0076
+        }
+      ],
       "rank": 2
     },
     {
@@ -496,6 +716,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -504,6 +729,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.5025,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -512,6 +742,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.7096,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -520,6 +755,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 1.15,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -528,6 +768,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.5441,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -536,6 +781,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.8465,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -544,6 +794,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.8706,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -552,6 +807,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.1401,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -668,7 +928,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.14 m away; modeled coverage at this spot is 0.232.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.1401,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2317
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.14 m away; modeled coverage at this spot is 0.232.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.1401,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2317
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.85 m away; modeled coverage at this spot is 0.107.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.8465,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.1066
+        }
+      ],
       "rank": 3
     },
     {
@@ -693,6 +1023,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -701,6 +1036,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -709,6 +1049,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -717,6 +1062,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.8244,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -725,6 +1075,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.0697,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -733,6 +1088,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.8374,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -741,6 +1101,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.1655,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -749,6 +1114,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.5976,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -865,7 +1235,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.17 m away; modeled coverage at this spot is 0.233.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.1655,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2332
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.17 m away; modeled coverage at this spot is 0.233.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.1655,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2332
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.66 m away; modeled coverage at this spot is 0.005.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.6564,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0053
+        }
+      ],
       "rank": 4
     },
     {
@@ -890,6 +1330,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -898,6 +1343,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5385,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -906,6 +1356,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -914,6 +1369,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.8244,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -922,6 +1382,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.2099,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -930,6 +1395,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.7894,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -938,6 +1408,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.2528,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -946,6 +1421,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.5864,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -1062,7 +1542,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.25 m away; modeled coverage at this spot is 0.214.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.2528,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2135
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.25 m away; modeled coverage at this spot is 0.214.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.2528,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2135
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.64 m away; modeled coverage at this spot is 0.006.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.6371,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0055
+        }
+      ],
       "rank": 5
     },
     {
@@ -1087,6 +1637,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -1095,6 +1650,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5745,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -1103,6 +1663,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -1111,6 +1676,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.6877,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -1119,6 +1689,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.108,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -1127,6 +1702,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.5963,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -1135,6 +1715,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.0888,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -1143,6 +1728,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.3886,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -1259,7 +1849,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.09 m away; modeled coverage at this spot is 0.241.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.0888,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2408
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.09 m away; modeled coverage at this spot is 0.241.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.0888,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2408
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.45 m away; modeled coverage at this spot is 0.008.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.4522,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0081
+        }
+      ],
       "rank": 6
     },
     {
@@ -1284,6 +1944,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -1292,6 +1957,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5385,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -1300,6 +1970,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -1308,6 +1983,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.8244,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -1316,6 +1996,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 1.94,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -1324,6 +2009,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.8984,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -1332,6 +2022,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.0888,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -1340,6 +2035,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.6197,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -1456,7 +2156,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.09 m away; modeled coverage at this spot is 0.247.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.0888,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2473
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.09 m away; modeled coverage at this spot is 0.247.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.0888,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2473
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.68 m away; modeled coverage at this spot is 0.005.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.6843,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0053
+        }
+      ],
       "rank": 7
     },
     {
@@ -1481,6 +2251,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -1489,6 +2264,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5745,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -1497,6 +2277,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -1505,6 +2290,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.6877,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -1513,6 +2303,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 1.8231,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -1521,6 +2316,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.713,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -1529,6 +2329,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.9155,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -1537,6 +2342,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.4238,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -1653,7 +2463,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 2.92 m away; modeled coverage at this spot is 0.281.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 2.9155,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2807
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 2.92 m away; modeled coverage at this spot is 0.281.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.9155,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2807
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.50 m away; modeled coverage at this spot is 0.008.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.5014,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0075
+        }
+      ],
       "rank": 8
     },
     {
@@ -1678,6 +2558,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -1686,6 +2571,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.6403,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -1694,6 +2584,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -1702,6 +2597,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.8244,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -1710,6 +2610,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.3587,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -1718,6 +2623,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.7551,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -1726,6 +2636,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.3497,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -1734,6 +2649,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.585,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -1850,7 +2770,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.35 m away; modeled coverage at this spot is 0.199.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.3497,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.1988
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.35 m away; modeled coverage at this spot is 0.199.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.3497,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.1988
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.63 m away; modeled coverage at this spot is 0.006.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.6263,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0055
+        }
+      ],
       "rank": 9
     },
     {
@@ -1875,6 +2865,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -1883,6 +2878,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.5134,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -1891,6 +2891,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.559,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -1899,6 +2904,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 0.95,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -1907,6 +2917,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.5715,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -1915,6 +2930,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.6983,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -1923,6 +2943,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.7897,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -1931,6 +2956,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.9834,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -2047,7 +3077,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 2.98 m away; modeled coverage at this spot is 0.263.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 2.9834,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2629
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 2.98 m away; modeled coverage at this spot is 0.263.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.9834,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2629
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.79 m away; modeled coverage at this spot is 0.116.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.7897,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.1161
+        }
+      ],
       "rank": 10
     },
     {
@@ -2072,6 +3172,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -2080,6 +3185,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.7,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -2088,6 +3198,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.84,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -2096,6 +3211,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.9699,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -2104,6 +3224,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 1.9869,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -2112,6 +3237,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.8724,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -2120,6 +3250,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.1068,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -2128,6 +3263,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.5753,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -2244,7 +3384,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.11 m away; modeled coverage at this spot is 0.237.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.1068,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2368
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.11 m away; modeled coverage at this spot is 0.237.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.1068,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2368
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.73 m away; modeled coverage at this spot is 0.004.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.7331,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0044
+        }
+      ],
       "rank": 11
     },
     {
@@ -2269,6 +3479,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -2277,6 +3492,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.5408,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -2285,6 +3505,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.7096,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -2293,6 +3518,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 1.15,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -2301,6 +3531,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.5204,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -2309,6 +3544,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.85,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -2317,6 +3557,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.8897,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -2325,6 +3570,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.0233,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -2441,7 +3691,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.02 m away; modeled coverage at this spot is 0.254.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.0233,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2544
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.02 m away; modeled coverage at this spot is 0.254.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.0233,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2544
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.85 m away; modeled coverage at this spot is 0.107.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.85,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.107
+        }
+      ],
       "rank": 12
     },
     {
@@ -2466,6 +3786,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -2474,6 +3799,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.6708,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -2482,6 +3812,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -2490,6 +3825,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.6877,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -2498,6 +3838,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.2635,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -2506,6 +3851,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.5594,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -2514,6 +3864,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.1907,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -2522,6 +3877,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.3871,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -2638,7 +3998,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.19 m away; modeled coverage at this spot is 0.225.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.1907,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2252
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.19 m away; modeled coverage at this spot is 0.225.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.1907,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2252
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.44 m away; modeled coverage at this spot is 0.008.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.441,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.008
+        }
+      ],
       "rank": 13
     },
     {
@@ -2663,6 +4093,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -2671,6 +4106,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5745,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -2679,6 +4119,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -2687,6 +4132,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.9719,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -2695,6 +4145,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.0697,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -2703,6 +4158,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 3.0856,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -2711,6 +4171,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.265,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -2719,6 +4184,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.8161,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -2835,7 +4305,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.27 m away; modeled coverage at this spot is 0.211.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.265,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2111
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.27 m away; modeled coverage at this spot is 0.211.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.265,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2111
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.87 m away; modeled coverage at this spot is 0.003.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.8685,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0034
+        }
+      ],
       "rank": 14
     },
     {
@@ -2860,6 +4400,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -2868,6 +4413,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.728,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -2876,6 +4426,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.84,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -2884,6 +4439,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.844,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -2892,6 +4452,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 1.8729,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -2900,6 +4465,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.6853,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -2908,6 +4478,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.9347,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -2916,6 +4491,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.3768,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -3032,7 +4612,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 2.93 m away; modeled coverage at this spot is 0.273.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 2.9347,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2726
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 2.93 m away; modeled coverage at this spot is 0.273.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.9347,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2726
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.55 m away; modeled coverage at this spot is 0.007.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.5522,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0065
+        }
+      ],
       "rank": 15
     },
     {
@@ -3057,6 +4707,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -3065,6 +4720,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.559,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -3073,6 +4733,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.9075,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -3081,6 +4746,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 1.35,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -3089,6 +4759,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.5085,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -3097,6 +4772,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.9193,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -3105,6 +4785,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 3.0644,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -3113,6 +4798,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.1907,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -3229,7 +4919,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.19 m away; modeled coverage at this spot is 0.220.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.1907,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2204
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.19 m away; modeled coverage at this spot is 0.220.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.1907,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2204
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.92 m away; modeled coverage at this spot is 0.096.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.9193,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0964
+        }
+      ],
       "rank": 16
     },
     {
@@ -3254,6 +5014,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -3262,6 +5027,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.559,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -3270,6 +5040,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.9506,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -3278,6 +5053,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 1.35,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -3286,6 +5066,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.5715,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -3294,6 +5079,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.9262,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -3302,6 +5092,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 3.0415,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -3310,6 +5105,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.4206,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -3426,7 +5226,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.42 m away; modeled coverage at this spot is 0.191.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.4206,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.1907
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.42 m away; modeled coverage at this spot is 0.191.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.4206,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.1907
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.93 m away; modeled coverage at this spot is 0.099.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.9262,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0992
+        }
+      ],
       "rank": 17
     },
     {
@@ -3451,6 +5321,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -3459,6 +5334,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.3219,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -3467,6 +5347,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.6727,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -3475,6 +5360,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 0.75,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -3483,6 +5373,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.5299,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -3491,6 +5386,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.6139,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -3499,6 +5399,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.7464,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -3507,6 +5412,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.832,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -3623,7 +5533,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 2.83 m away; modeled coverage at this spot is 0.296.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 2.832,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2962
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 2.83 m away; modeled coverage at this spot is 0.296.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.832,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2962
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.75 m away; modeled coverage at this spot is 0.118.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.7464,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.1183
+        }
+      ],
       "rank": 18
     },
     {
@@ -3648,6 +5628,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -3656,6 +5641,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.728,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -3664,6 +5654,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.84,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -3672,6 +5667,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 1.8514,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -3680,6 +5680,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.9699,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -3688,6 +5693,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.9327,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -3696,6 +5706,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.0286,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -3704,6 +5719,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.5976,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -3820,7 +5840,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.03 m away; modeled coverage at this spot is 0.249.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.0286,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2485
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.03 m away; modeled coverage at this spot is 0.249.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.0286,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2485
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.76 m away; modeled coverage at this spot is 0.004.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.7605,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0041
+        }
+      ],
       "rank": 19
     },
     {
@@ -3845,6 +5935,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -3853,6 +5948,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.5408,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -3861,6 +5961,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.7639,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -3869,6 +5974,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 1.15,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -3877,6 +5987,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.5831,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -3885,6 +6000,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.857,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -3893,6 +6013,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.8654,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -3901,6 +6026,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.265,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -4017,7 +6147,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.27 m away; modeled coverage at this spot is 0.212.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.265,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2122
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.27 m away; modeled coverage at this spot is 0.212.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.265,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2122
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.86 m away; modeled coverage at this spot is 0.106.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.857,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.106
+        }
+      ],
       "rank": 20
     },
     {
@@ -4042,6 +6242,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -4050,6 +6255,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.6403,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -4058,6 +6268,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -4066,6 +6281,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 1.8231,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -4074,6 +6294,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.8244,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -4082,6 +6307,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.9716,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -4090,6 +6320,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.0233,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -4098,6 +6333,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.6527,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -4214,7 +6454,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.02 m away; modeled coverage at this spot is 0.259.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.0233,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2594
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.02 m away; modeled coverage at this spot is 0.259.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.0233,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2594
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.72 m away; modeled coverage at this spot is 0.004.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.7204,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0045
+        }
+      ],
       "rank": 21
     },
     {
@@ -4239,6 +6549,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -4247,6 +6562,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.755,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -4255,6 +6575,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.84,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -4263,6 +6588,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.844,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -4271,6 +6601,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.0267,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -4279,6 +6614,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.6345,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -4287,6 +6627,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.0286,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -4295,6 +6640,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.3649,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -4411,7 +6761,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.03 m away; modeled coverage at this spot is 0.256.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.0286,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2558
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.03 m away; modeled coverage at this spot is 0.256.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.0286,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2558
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.53 m away; modeled coverage at this spot is 0.007.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.5324,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.007
+        }
+      ],
       "rank": 22
     },
     {
@@ -4436,6 +6856,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -4444,6 +6869,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.728,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -4452,6 +6882,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.84,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -4460,6 +6895,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.9699,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -4468,6 +6908,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.1325,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -4476,6 +6921,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.825,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -4484,6 +6934,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.1957,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -4492,6 +6947,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.5641,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -4608,7 +7068,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.20 m away; modeled coverage at this spot is 0.220.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.1957,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.2196
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.20 m away; modeled coverage at this spot is 0.220.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.1957,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.2196
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.71 m away; modeled coverage at this spot is 0.005.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.7141,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0045
+        }
+      ],
       "rank": 23
     },
     {
@@ -4633,6 +7163,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 0.0,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "unknown_combustible"
@@ -4641,6 +7176,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 0.5385,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -4649,6 +7189,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 1.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -4657,6 +7202,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 1.9719,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "fabric"
@@ -4665,6 +7215,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.1917,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -4673,6 +7228,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 3.0283,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -4681,6 +7241,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 3.3377,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -4689,6 +7254,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.7951,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -4805,7 +7375,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 3.34 m away; modeled coverage at this spot is 0.199.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 3.3377,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.1988
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 3.34 m away; modeled coverage at this spot is 0.199.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 3.3377,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.1988
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 4.84 m away; modeled coverage at this spot is 0.004.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 4.8417,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0036
+        }
+      ],
       "rank": 24
     },
     {
@@ -4830,6 +7470,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 0.04,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "plastic_pmma"
@@ -4838,6 +7483,11 @@
           "id": "object-008-return-vent",
           "type": "vent",
           "distance_m": 0.5134,
+          "position_m": [
+            4.8,
+            0.4,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -4846,6 +7496,11 @@
           "id": "object-005-battery-pack",
           "type": "ignition source",
           "distance_m": 0.5937,
+          "position_m": [
+            5.55,
+            0.3,
+            0.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": true,
           "material_type": null
@@ -4854,6 +7509,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 0.95,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -4862,6 +7522,11 @@
           "id": "object-006-oxygen-manifold",
           "type": "oxygen source",
           "distance_m": 2.548,
+          "position_m": [
+            5.75,
+            0.7,
+            2.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -4870,6 +7535,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.7186,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -4878,6 +7548,11 @@
           "id": "object-010-portable-suppressor",
           "type": "suppressor",
           "distance_m": 2.7933,
+          "position_m": [
+            4.6,
+            0.35,
+            2.8
+          ],
           "influence_radius_m": 1.5,
           "within_modeled_influence": false,
           "material_type": null
@@ -4886,6 +7561,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.8601,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -5002,7 +7682,77 @@
           }
         ]
       },
-      "evidence_search": null,
+      "evidence_search": {
+        "area": "detection",
+        "label": "Detector response and coverage",
+        "query": "spacecraft smoke detector response placement microgravity aerosols",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+        "reason": "Nearest confirmed detector object-009-smoke-detector is 2.86 m away; modeled coverage at this spot is 0.288.",
+        "relevant_objects": [
+          {
+            "id": "object-009-smoke-detector",
+            "type": "detector",
+            "position_m": [
+              3.0,
+              2.2,
+              0.08
+            ],
+            "distance_m": 2.8601,
+            "influence_radius_m": 2.0,
+            "within_modeled_influence": false,
+            "material_type": null
+          }
+        ],
+        "modeled_coverage": 0.288
+      },
+      "evidence_searches": [
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 2.86 m away; modeled coverage at this spot is 0.288.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.8601,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.288
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 2.79 m away; modeled coverage at this spot is 0.117.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 2.7933,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.1166
+        }
+      ],
       "rank": 25
     }
   ],
@@ -5029,6 +7779,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 0.1281,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "fabric"
@@ -5037,6 +7792,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 1.562,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "unknown_combustible"
@@ -5045,6 +7805,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 1.9723,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -5053,6 +7818,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.1586,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -5061,6 +7831,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 2.24,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -5069,6 +7844,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.4961,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -5077,6 +7857,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.5746,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -5085,6 +7870,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.1245,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -5202,13 +7992,127 @@
         ]
       },
       "evidence_search": {
-        "label": "Search evidence: solid-material flammability under forced airflow",
+        "area": "flammability",
+        "label": "Solid-material flammability under forced airflow",
         "query": "solid material flammability forced airflow microgravity fabric",
-        "url": "https://psi.nasa.gov/physci/repo/search?q=solid%20material%20flammability%20forced%20airflow%20microgravity&data_source=psi&data_type=investigation",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=solid+material+flammability+forced+airflow+microgravity+fabric&data_source=psi&data_type=investigation",
         "reason": "This location is within the modeled influence of object-011-fabric-curtain and object-007-supply-vent.",
+        "relevant_objects": [
+          {
+            "id": "object-011-fabric-curtain",
+            "type": "material",
+            "position_m": [
+              2.2,
+              1.05,
+              2.4
+            ],
+            "distance_m": 0.1281,
+            "influence_radius_m": 0.35,
+            "within_modeled_influence": true,
+            "material_type": "fabric"
+          },
+          {
+            "id": "object-007-supply-vent",
+            "type": "vent",
+            "position_m": [
+              1.5,
+              2.3,
+              0.16
+            ],
+            "distance_m": 2.1586,
+            "influence_radius_m": 2.5,
+            "within_modeled_influence": true,
+            "material_type": null
+          }
+        ],
         "airflow_speed": null,
         "airflow_speed_status": "unknown \u2014 the scenario gives a vent location and illustrative influence, not a physical airflow speed"
       },
+      "evidence_searches": [
+        {
+          "area": "flammability",
+          "label": "Solid-material flammability under forced airflow",
+          "query": "solid material flammability forced airflow microgravity fabric",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=solid+material+flammability+forced+airflow+microgravity+fabric&data_source=psi&data_type=investigation",
+          "reason": "This location is within the modeled influence of object-011-fabric-curtain and object-007-supply-vent.",
+          "relevant_objects": [
+            {
+              "id": "object-011-fabric-curtain",
+              "type": "material",
+              "position_m": [
+                2.2,
+                1.05,
+                2.4
+              ],
+              "distance_m": 0.1281,
+              "influence_radius_m": 0.35,
+              "within_modeled_influence": true,
+              "material_type": "fabric"
+            },
+            {
+              "id": "object-007-supply-vent",
+              "type": "vent",
+              "position_m": [
+                1.5,
+                2.3,
+                0.16
+              ],
+              "distance_m": 2.1586,
+              "influence_radius_m": 2.5,
+              "within_modeled_influence": true,
+              "material_type": null
+            }
+          ],
+          "airflow_speed": null,
+          "airflow_speed_status": "unknown \u2014 the scenario gives a vent location and illustrative influence, not a physical airflow speed"
+        },
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 2.57 m away; modeled coverage at this spot is 0.350.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.5746,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.3504
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 3.42 m away; modeled coverage at this spot is 0.048.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 3.4238,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0481
+        }
+      ],
       "title": "Fabric + vent evidence-search spot",
       "selection_note": "Controlled geometry probe where the curtain and supply-vent influence regions overlap; shown for research context and not inserted into the ranked top-hotspot list."
     }
@@ -14325,6 +17229,11 @@
           "id": "object-011-fabric-curtain",
           "type": "material",
           "distance_m": 0.1281,
+          "position_m": [
+            2.2,
+            1.05,
+            2.4
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": true,
           "material_type": "fabric"
@@ -14333,6 +17242,11 @@
           "id": "object-003-equipment-rack-panel",
           "type": "material",
           "distance_m": 1.562,
+          "position_m": [
+            0.4,
+            1.1,
+            0.6
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "unknown_combustible"
@@ -14341,6 +17255,11 @@
           "id": "object-004-power-distribution-box",
           "type": "ignition source",
           "distance_m": 1.9723,
+          "position_m": [
+            0.3,
+            0.9,
+            1.6
+          ],
           "influence_radius_m": 0.75,
           "within_modeled_influence": false,
           "material_type": null
@@ -14349,6 +17268,11 @@
           "id": "object-007-supply-vent",
           "type": "vent",
           "distance_m": 2.1586,
+          "position_m": [
+            1.5,
+            2.3,
+            0.16
+          ],
           "influence_radius_m": 2.5,
           "within_modeled_influence": true,
           "material_type": null
@@ -14357,6 +17281,11 @@
           "id": "object-002-plastic-wall-liner",
           "type": "material",
           "distance_m": 2.24,
+          "position_m": [
+            3.0,
+            1.35,
+            0.03
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "plastic_pmma"
@@ -14365,6 +17294,11 @@
           "id": "object-013-crew-egress-zone",
           "type": "consequence zone",
           "distance_m": 2.4961,
+          "position_m": [
+            3.0,
+            0.125,
+            1.5
+          ],
           "influence_radius_m": 1.25,
           "within_modeled_influence": false,
           "material_type": null
@@ -14373,6 +17307,11 @@
           "id": "object-009-smoke-detector",
           "type": "detector",
           "distance_m": 2.5746,
+          "position_m": [
+            3.0,
+            2.2,
+            0.08
+          ],
           "influence_radius_m": 2.0,
           "within_modeled_influence": false,
           "material_type": null
@@ -14381,6 +17320,11 @@
           "id": "object-012-foam-packing-block",
           "type": "material",
           "distance_m": 3.1245,
+          "position_m": [
+            4.1,
+            0.35,
+            0.35
+          ],
           "influence_radius_m": 0.35,
           "within_modeled_influence": false,
           "material_type": "foam"
@@ -14498,20 +17442,134 @@
         ]
       },
       "evidence_search": {
-        "label": "Search evidence: solid-material flammability under forced airflow",
+        "area": "flammability",
+        "label": "Solid-material flammability under forced airflow",
         "query": "solid material flammability forced airflow microgravity fabric",
-        "url": "https://psi.nasa.gov/physci/repo/search?q=solid%20material%20flammability%20forced%20airflow%20microgravity&data_source=psi&data_type=investigation",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=solid+material+flammability+forced+airflow+microgravity+fabric&data_source=psi&data_type=investigation",
         "reason": "This location is within the modeled influence of object-011-fabric-curtain and object-007-supply-vent.",
+        "relevant_objects": [
+          {
+            "id": "object-011-fabric-curtain",
+            "type": "material",
+            "position_m": [
+              2.2,
+              1.05,
+              2.4
+            ],
+            "distance_m": 0.1281,
+            "influence_radius_m": 0.35,
+            "within_modeled_influence": true,
+            "material_type": "fabric"
+          },
+          {
+            "id": "object-007-supply-vent",
+            "type": "vent",
+            "position_m": [
+              1.5,
+              2.3,
+              0.16
+            ],
+            "distance_m": 2.1586,
+            "influence_radius_m": 2.5,
+            "within_modeled_influence": true,
+            "material_type": null
+          }
+        ],
         "airflow_speed": null,
         "airflow_speed_status": "unknown \u2014 the scenario gives a vent location and illustrative influence, not a physical airflow speed"
       },
+      "evidence_searches": [
+        {
+          "area": "flammability",
+          "label": "Solid-material flammability under forced airflow",
+          "query": "solid material flammability forced airflow microgravity fabric",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=solid+material+flammability+forced+airflow+microgravity+fabric&data_source=psi&data_type=investigation",
+          "reason": "This location is within the modeled influence of object-011-fabric-curtain and object-007-supply-vent.",
+          "relevant_objects": [
+            {
+              "id": "object-011-fabric-curtain",
+              "type": "material",
+              "position_m": [
+                2.2,
+                1.05,
+                2.4
+              ],
+              "distance_m": 0.1281,
+              "influence_radius_m": 0.35,
+              "within_modeled_influence": true,
+              "material_type": "fabric"
+            },
+            {
+              "id": "object-007-supply-vent",
+              "type": "vent",
+              "position_m": [
+                1.5,
+                2.3,
+                0.16
+              ],
+              "distance_m": 2.1586,
+              "influence_radius_m": 2.5,
+              "within_modeled_influence": true,
+              "material_type": null
+            }
+          ],
+          "airflow_speed": null,
+          "airflow_speed_status": "unknown \u2014 the scenario gives a vent location and illustrative influence, not a physical airflow speed"
+        },
+        {
+          "area": "detection",
+          "label": "Detector response and coverage",
+          "query": "spacecraft smoke detector response placement microgravity aerosols",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+smoke+detector+response+placement+microgravity+aerosols&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed detector object-009-smoke-detector is 2.57 m away; modeled coverage at this spot is 0.350.",
+          "relevant_objects": [
+            {
+              "id": "object-009-smoke-detector",
+              "type": "detector",
+              "position_m": [
+                3.0,
+                2.2,
+                0.08
+              ],
+              "distance_m": 2.5746,
+              "influence_radius_m": 2.0,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.3504
+        },
+        {
+          "area": "suppression",
+          "label": "Suppression and extinguishment coverage",
+          "query": "spacecraft fire suppression extinguishment microgravity solid materials",
+          "url": "https://psi.nasa.gov/physci/repo/search?q=spacecraft+fire+suppression+extinguishment+microgravity+solid+materials&data_source=psi&data_type=investigation",
+          "reason": "Nearest confirmed suppressor object-010-portable-suppressor is 3.42 m away; modeled coverage at this spot is 0.048.",
+          "relevant_objects": [
+            {
+              "id": "object-010-portable-suppressor",
+              "type": "suppressor",
+              "position_m": [
+                4.6,
+                0.35,
+                2.8
+              ],
+              "distance_m": 3.4238,
+              "influence_radius_m": 1.5,
+              "within_modeled_influence": false,
+              "material_type": null
+            }
+          ],
+          "modeled_coverage": 0.0481
+        }
+      ],
       "title": "Fabric + vent evidence-search spot",
       "selection_note": "Controlled geometry probe where the curtain and supply-vent influence regions overlap; shown for research context and not inserted into the ranked top-hotspot list."
     }
   ],
   "benchmark_summary": {
     "recommended_default_samples": 100000,
-    "recommendation": "Use 100,000 samples by default: median CPU latency was 0.033 s and mean top-10 region retention across seeds was 100%.",
+    "recommendation": "Use 100,000 samples by default: median CPU latency was 0.030 s and mean top-10 region retention across seeds was 100%.",
     "method": {
       "device": "cpu",
       "seeds": [

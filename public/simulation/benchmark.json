@@ -22,14 +22,14 @@
     {
       "samples": 50000,
       "run_seconds": [
-        0.025,
-        0.0257,
-        0.0254,
-        0.0266,
-        0.0474
+        0.0264,
+        0.0262,
+        0.024,
+        0.0259,
+        0.0466
       ],
-      "median_seconds": 0.0257,
-      "maximum_seconds": 0.0474,
+      "median_seconds": 0.0262,
+      "maximum_seconds": 0.0466,
       "mean_top10_region_retention": 0.955,
       "minimum_top10_region_retention": 0.85,
       "mean_exact_top25_jaccard": 0.6816,
@@ -189,14 +189,14 @@
     {
       "samples": 100000,
       "run_seconds": [
-        0.0382,
-        0.0318,
-        0.062,
-        0.0332,
-        0.0322
+        0.0335,
+        0.0299,
+        0.0301,
+        0.0301,
+        0.0299
       ],
-      "median_seconds": 0.0332,
-      "maximum_seconds": 0.062,
+      "median_seconds": 0.0301,
+      "maximum_seconds": 0.0335,
       "mean_top10_region_retention": 1.0,
       "minimum_top10_region_retention": 1.0,
       "mean_exact_top25_jaccard": 0.7947,
@@ -356,14 +356,14 @@
     {
       "samples": 250000,
       "run_seconds": [
-        0.0646,
-        0.0637,
-        0.0619,
-        0.0638,
-        0.0983
+        0.0592,
+        0.0597,
+        0.063,
+        0.0589,
+        0.0603
       ],
-      "median_seconds": 0.0638,
-      "maximum_seconds": 0.0983,
+      "median_seconds": 0.0597,
+      "maximum_seconds": 0.063,
       "mean_top10_region_retention": 1.0,
       "minimum_top10_region_retention": 1.0,
       "mean_exact_top25_jaccard": 0.8254,
@@ -523,14 +523,14 @@
     {
       "samples": 500000,
       "run_seconds": [
-        0.1357,
-        0.1128,
-        0.1166,
-        0.1632,
-        0.1157
+        0.1074,
+        0.1294,
+        0.1318,
+        0.1,
+        0.103
       ],
-      "median_seconds": 0.1166,
-      "maximum_seconds": 0.1632,
+      "median_seconds": 0.1074,
+      "maximum_seconds": 0.1318,
       "mean_top10_region_retention": 1.0,
       "minimum_top10_region_retention": 1.0,
       "mean_exact_top25_jaccard": 0.833,
@@ -689,5 +689,5 @@
     }
   ],
   "recommended_default_samples": 100000,
-  "recommendation": "Use 100,000 samples by default: median CPU latency was 0.033 s and mean top-10 region retention across seeds was 100%."
+  "recommendation": "Use 100,000 samples by default: median CPU latency was 0.030 s and mean top-10 region retention across seeds was 100%."
 }

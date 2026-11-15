@@ -46,6 +46,8 @@ The raw score is transformed to a bounded 0–100 index with `100 × (1 − exp(
 
 For every ranked hotspot, the engine aggregates the actual formula terms and computes contributor deltas by rescoring the same sample points with one term neutralized. These counterfactual deltas explain direction and strength but do not sum to the index because the terms interact multiplicatively. Gravity, ambient temperature, and smoke yield are retained in the result and explicitly marked as having no current score effect.
 
+Each selected spot also creates research handoffs for detector response and suppression; material-and-vent overlap adds a flammability handoff. The explorer link carries the spot, user-entered cabin conditions, and the relevant confirmed objects. A vent location never becomes an airflow-speed condition unless the scenario supplies a finite physical speed.
+
 ## Repeatability and controlled comparison
 
 ```bash
@@ -63,6 +65,11 @@ The benchmark runs the exact cabin fixture across seeds 2026–2030 at 50k, 100k
 - Local oxygen enrichment is radial and bounded; it is not a leak or gas-dispersion model.
 - Material presets are uncalibrated assumptions and require validated calibration data before engineering use.
 - The browser accepts GLB and self-contained glTF only. Models must be split into meaningful meshes.
+- Nested transforms and model scale are honored in world space. The overlay and scorer share normalized world coordinates, but scoring uses world-axis-aligned boxes; a large rotated mesh can over-approximate occupied space.
+
+## Public backend
+
+The static site can point to a separately deployed API through `VITE_SIMULATOR_API_URL`. The API applies an explicit browser-origin allowlist and a bounded concurrency guard. The exact precomputed cabin is fetched from the static site and remains available when the API is offline. See `docs/BACKEND_DEPLOYMENT.md` for the container and deployment contract.
 
 ## Extension path
 

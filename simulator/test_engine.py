@@ -178,10 +178,29 @@ class SimulatorTests(unittest.TestCase):
     def test_fabric_vent_search_keeps_airflow_speed_unknown(self):
         scenario = json.loads((ROOT / "simulator/cabin_demo_scenario.json").read_text())
         result = simulate(scenario, 10_000, 10_000, 2026, "cpu", 5, [[8, 10, 11]])
-        search = result["probes"]["8,10,11"]["evidence_search"]
+        probe = result["probes"]["8,10,11"]
+        self.assertEqual(
+            [search["area"] for search in probe["evidence_searches"]],
+            ["flammability", "detection", "suppression"],
+        )
+        search = probe["evidence_searches"][0]
         self.assertIn("forced airflow", search["query"])
         self.assertIsNone(search["airflow_speed"])
         self.assertIn("unknown", search["airflow_speed_status"])
+        self.assertEqual(
+            [item["type"] for item in search["relevant_objects"]],
+            ["material", "vent"],
+        )
+
+    def test_detector_and_suppression_handoffs_match_scored_coverage(self):
+        scenario = json.loads((ROOT / "simulator/cabin_demo_scenario.json").read_text())
+        result = simulate(scenario, 10_000, 10_000, 2026, "cpu", 5, [[8, 10, 11]])
+        probe = result["probes"]["8,10,11"]
+        searches = {search["area"]: search for search in probe["evidence_searches"]}
+        self.assertEqual(searches["detection"]["relevant_objects"][0]["type"], "detector")
+        self.assertEqual(searches["suppression"]["relevant_objects"][0]["type"], "suppressor")
+        self.assertEqual(searches["detection"]["modeled_coverage"], probe["detection_coverage"])
+        self.assertEqual(searches["suppression"]["modeled_coverage"], probe["suppression_coverage"])
 
     def test_precomputed_exact_glb_release_has_verified_counterfactual(self):
         result = json.loads((ROOT / "public/simulation/cabin-demo.json").read_text())
@@ -193,6 +212,12 @@ class SimulatorTests(unittest.TestCase):
         self.assertTrue(comparison["verification"]["only_detector_position_changed"])
         self.assertGreater(comparison["change"]["detection_coverage"], 0)
         self.assertLess(comparison["change"]["relative_screening_index"], 0)
+        for hotspot in result["hotspots"]:
+            searches = {search["area"]: search for search in hotspot["evidence_searches"]}
+            self.assertIn("detection", searches)
+            self.assertIn("suppression", searches)
+            self.assertEqual(searches["detection"]["relevant_objects"][0]["type"], "detector")
+            self.assertEqual(searches["suppression"]["relevant_objects"][0]["type"], "suppressor")
 
     def test_release_builder_rejects_fixture_hash_mismatch(self):
         scenario = json.loads((ROOT / "simulator/cabin_demo_scenario.json").read_text())

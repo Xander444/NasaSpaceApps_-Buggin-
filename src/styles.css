@@ -153,6 +153,7 @@ button:disabled{cursor:not-allowed;opacity:.5}
 .app .comparison-row{padding:14px 0;border-bottom:1px solid var(--line);font-size:12px}.app .comparison-row ul{padding-left:18px}.app .button-row{display:flex;gap:10px;flex-wrap:wrap}
 .app .handoff-banner{display:flex;justify-content:space-between;gap:24px;margin:0 0 22px;padding:20px;border:1px solid var(--blue);background:var(--space-raised)}
 .app .handoff-banner span{font:10px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:var(--blue-bright)}.app .handoff-banner h2{font-size:18px;margin:7px 0}.app .handoff-banner p{margin:5px 0;color:#b9c5ce;font-size:12px;line-height:1.55}.app .handoff-banner strong{color:var(--orange-soft)}.app .handoff-banner small{display:block;max-width:850px;margin-top:10px;color:#7f92a1}.app .handoff-banner button{white-space:nowrap}
+.app .handoff-objects{margin-top:12px;padding:10px 12px;border-left:2px solid var(--orange);background:#120f0d}.app .handoff-objects b{display:block;color:#d9e1e7;font-size:11px}.app .handoff-objects ul{margin:7px 0 0;padding-left:18px;color:#9fb0bc;font-size:11px;line-height:1.6}.app .handoff-objects strong{color:var(--orange-soft)}
 .app .model-version{overflow-wrap:anywhere;font-size:10px}
 
 @media(max-width:960px){
