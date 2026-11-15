@@ -13,7 +13,9 @@ import ConditionEditor from './search/ConditionEditor';
 import {EvidenceDetail,ResultCard,Comparison} from './search/Evidence';
 import './styles.css';
 import DemoPath from './DemoPath';
+import {appHref,stripBasePath} from './routes';
 const Simulator=lazy(()=>import('./Simulator'));
+const siteHref=path=>appHref(path,import.meta.env.BASE_URL);
 
 // Handle GitHub Pages SPA routing redirects from 404.html
 (function() {
@@ -27,15 +29,15 @@ const Simulator=lazy(()=>import('./Simulator'));
 })();
 
 const links=[
- {href:'/',label:'Project',key:'project'},
- {href:'/evidence',label:'Evidence Explorer',key:'evidence'},
- {href:'/simulator',label:'Cabin Screening',key:'simulator'},
- {href:'/sources',label:'Sources',key:'sources'},
- {href:'/about',label:'Who We Are',key:'about'},
+ {href:siteHref('/'),label:'Project',key:'project'},
+ {href:siteHref('/evidence'),label:'Evidence Explorer',key:'evidence'},
+ {href:siteHref('/simulator'),label:'Cabin Screening',key:'simulator'},
+ {href:siteHref('/sources'),label:'Sources',key:'sources'},
+ {href:siteHref('/about'),label:'Who We Are',key:'about'},
 ];
 
 function SiteHeader({active}){
- return <header className="site-header"><div className="header-line"><a className="wordmark" href="/" aria-label="Flame in Freefall home"><strong>Flame in Freefall</strong><span>Fire safety evidence for exploration</span></a><span className="event-name">NASA SPACE APPS · 2026</span></div><nav aria-label="Primary navigation">{links.map(link=><a className={active===link.key?'active':''} href={link.href} key={link.key}>{link.label}</a>)}</nav></header>;
+ return <header className="site-header"><div className="header-line"><a className="wordmark" href={siteHref('/')} aria-label="Flame in Freefall home"><strong>Flame in Freefall</strong><span>Fire safety evidence for exploration</span></a><span className="event-name">NASA SPACE APPS · 2026</span></div><nav aria-label="Primary navigation">{links.map(link=><a className={active===link.key?'active':''} href={link.href} key={link.key}>{link.label}</a>)}</nav></header>;
 }
 
 function SiteFooter(){
@@ -48,11 +50,11 @@ function PageShell({active,children}){
 
 function HomePage(){
  return <PageShell active="project"><main id="project" className="project-page">
-  <section className="project-hero"><div className="hero-copy"><p className="eyebrow centered">MICROGRAVITY FIRE SAFETY</p><h1>Find the fire safety evidence that fits the mission.</h1><p className="lede">A clear, source-grounded workspace for exploring combustion research and screening spacecraft interiors, without presenting assumptions as measured fact.</p><div className="hero-actions"><a className="primary-action" href="/evidence">Explore the evidence <span aria-hidden="true">→</span></a><a className="secondary-action" href="/simulator">View cabin screening</a></div></div></section>
+  <section className="project-hero"><div className="hero-copy"><p className="eyebrow centered">MICROGRAVITY FIRE SAFETY</p><h1>Find the fire safety evidence that fits the mission.</h1><p className="lede">A clear, source-grounded workspace for exploring combustion research and screening spacecraft interiors, without presenting assumptions as measured fact.</p><div className="hero-actions"><a className="primary-action" href={siteHref('/evidence')}>Explore the evidence <span aria-hidden="true">→</span></a><a className="secondary-action" href={siteHref('/simulator')}>View cabin screening</a></div></div></section>
   <section className="challenge-solution" aria-labelledby="challenge-title"><div><p className="section-label">THE CHALLENGE</p><h2 id="challenge-title">Turn decades of microgravity combustion research into usable fire safety insight.</h2><p>Create an interactive, SI-powered dashboard that summarizes, ranks, and interprets microgravity combustion findings for human space exploration.</p></div><div><p className="section-label">HOW WE SOLVE IT</p><h2>Connect published evidence to an explainable cabin screen.</h2><p>Users search sourced studies, compare test conditions, confirm objects in a 3D cabin, rank candidate hotspots, and carry a selected spot and its conditions back into evidence search.</p></div></section>
   <section className="project-flow" aria-labelledby="flow-title"><p className="section-label">GUIDED DEMO</p><h2 id="flow-title">Follow one question to an explainable hotspot.</h2><p className="demo-intro">Move from project context to sourced evidence, then inspect a reproducible cabin-screening example and its modeled contributors.</p><DemoPath currentStep="project"/></section>
   <section className="project-facts" aria-label="Project facts"><div><strong>24</strong><p>combustion investigations in the current curated explorer</p></div><div><strong>100k</strong><p>default candidate locations in the precomputed cabin screen</p></div><div><strong>1 rule</strong><p>If a value is missing, show unknown. Never invent it.</p></div></section>
-  <section className="trust-section"><p className="section-label">DESIGNED FOR TRUST</p><h2>Useful because the limits stay visible.</h2><p>The interface keeps reported measurements, user-entered cabin conditions, illustrative coefficients, and missing data distinct. Every research result should be easy to trace back to its source.</p><div className="text-links"><a href="/sources">Review project sources →</a><a href="/about">Meet the team →</a></div></section>
+  <section className="trust-section"><p className="section-label">DESIGNED FOR TRUST</p><h2>Useful because the limits stay visible.</h2><p>The interface keeps reported measurements, user-entered cabin conditions, illustrative coefficients, and missing data distinct. Every research result should be easy to trace back to its source.</p><div className="text-links"><a href={siteHref('/sources')}>Review project sources →</a><a href={siteHref('/about')}>Meet the team →</a></div></section>
  </main></PageShell>;
 }
 
@@ -156,7 +158,7 @@ function SimulatorHandoff({handoff,onClear}){
  const conditions=[c.oxygen_percent!==null&&`O₂ ${c.oxygen_percent}%`,c.pressure_kpa!==null&&`${c.pressure_kpa} kPa`,c.gravity_g!==null&&`${c.gravity_g} g`,c.ambient_temperature_c!==null&&`${c.ambient_temperature_c} °C`].filter(Boolean);
  return <section className="handoff-banner" aria-label="Simulator search handoff"><div><span>SIMULATOR HANDOFF{c.area?` · ${c.area.toUpperCase()}`:''}</span><h2>Evidence context for selected spot {vector(c.spot_m)}{c.spot_m?' m':''}</h2><p>{conditions.join(' · ')||'No cabin conditions supplied'}</p>{c.objects?.length>0&&<div className="handoff-objects"><b>Relevant confirmed objects</b><ul>{c.objects.map(object=><li key={`${object.type}-${object.id}`}><strong>{object.id.replace(/^object-\d+-/,'')}</strong> · {object.type}{object.position_m?` at ${vector(object.position_m)} m`:''}{object.distance_m!==null?` · ${object.distance_m.toFixed(2)} m from spot`:''}</li>)}</ul></div>}{c.vent_id&&<p><b>{c.vent_id.replace(/^object-\d+-/,'')}</b>{c.vent_position_m?` at ${vector(c.vent_position_m)} m`:''} is recorded. Physical airflow speed: <strong>{c.airflow_speed_status}</strong>. {c.airflow_speed_status==='unknown'?'No airflow condition was applied.':''}</p>}<small>Oxygen and pressure are preferred search context. Object locations, gravity, and temperature remain recorded scenario context; they are not treated as measured study conditions.</small></div><button onClick={onClear}>Dismiss context</button></section>;
 }
-const path=window.location.pathname.replace(/\/+$/,'')||'/';
+const path=stripBasePath(window.location.pathname,import.meta.env.BASE_URL).replace(/\/+$/,'')||'/';
 let page;
 if(path==='/simulator'||path==='/screening')page=<Suspense fallback={<div className="sim-error">Loading 3D viewer…</div>}><Simulator/></Suspense>;
 else if(path==='/evidence')page=<EvidencePage/>;

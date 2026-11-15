@@ -1,3 +1,5 @@
+import {appHref} from './routes';
+
 const steps=[
   {id:'project',label:'Project',href:'/'},
   {id:'evidence',label:'Evidence',href:'/evidence'},
@@ -8,7 +10,7 @@ const steps=[
 export default function DemoPath({currentStep,compact=false}){
   return <nav className={`demo-path${compact?' compact':''}`} aria-label="Guided demo path">
     <ol>{steps.map((step,index)=><li key={step.id}>
-      <a href={step.href} aria-current={currentStep===step.id?'step':undefined}>
+      <a href={appHref(step.href,import.meta.env.BASE_URL)} aria-current={currentStep===step.id?'step':undefined}>
         <span>{String(index+1).padStart(2,'0')}</span>{step.label}
       </a>
     </li>)}</ol>

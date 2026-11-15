@@ -1,3 +1,4 @@
+import {appHref} from './routes';
 import React,{useCallback,useEffect,useMemo,useRef,useState} from 'react';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
@@ -191,7 +192,7 @@ export default function Simulator(){
   const blockingReason=useMemo(()=>!complete?'Review every object before running.':!unitsConfirmed?'Confirm the imported model uses metres.':!annotations.some(item=>item.reviewStatus==='confirmed'&&item.category==='material')?'Confirm at least one combustible material.':'',[complete,unitsConfirmed,annotations]);
 
   return <div className="simulator-page">
-    <header><a href="/"><ArrowLeft/> Project</a><div><strong>Cabin screening</strong><span>human-confirmed 3D map</span></div><a className="sim-evidence-link" href="/evidence">Evidence explorer</a></header>
+    <header><a href={appHref('/',import.meta.env.BASE_URL)}><ArrowLeft/> Project</a><div><strong>Cabin screening</strong><span>human-confirmed 3D map</span></div><a className="sim-evidence-link" href={appHref('/evidence',import.meta.env.BASE_URL)}>Evidence explorer</a></header>
     <main>
       <section className="sim-visual"><div ref={host}/><div className="sim-toolbar"><button onClick={()=>fileInput.current?.click()}><FileUp/> Import GLB / glTF</button><input ref={fileInput} type="file" accept=".glb,.gltf,model/gltf-binary,model/gltf+json" onChange={importModel}/><button onClick={()=>loadExactDemo(false)} disabled={busy}><RotateCcw/> Load cabin demo</button><button className="precomputed-button" onClick={()=>loadExactDemo(true)} disabled={busy}><Play/> View precomputed result</button></div><div className="sim-canvas-note">Click a mesh to review it · drag to orbit · scroll to zoom</div><div className="sim-legend"><span><i className="unreviewed-dot"/> unreviewed</span><span><i className="confirmed-dot"/> confirmed</span><span><i className="ignored-dot"/> ignored</span>{result&&<span><i className="risk-dot"/> upper-quartile relative index</span>}</div></section>
       <aside className="sim-sidebar">
