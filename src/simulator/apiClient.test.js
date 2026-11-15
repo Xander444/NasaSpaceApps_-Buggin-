@@ -21,8 +21,8 @@ test('rejected input keeps the backend validation message',async()=>{
   );
 });
 
-test('capacity and server failures remain retryable service errors',async()=>{
-  for(const status of [503,500]){
+test('gateway, capacity, and server failures remain retryable service errors',async()=>{
+  for(const status of [502,503,500]){
     await assert.rejects(
       requestSimulation({scenario:{},fetchImpl:async()=>response({detail:'temporarily unavailable'},{ok:false,status})}),
       error=>error instanceof SimulationServiceError&&error.kind==='service-unavailable'&&error.status===status,

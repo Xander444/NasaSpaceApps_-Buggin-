@@ -71,6 +71,8 @@ Use a short sentence when punctuation would make an important limitation harder 
 - `/sources` lists primary records and the official challenge resources.
 - `/about` introduces the team. Replace all sample text before submission.
 
+The guided demo should follow `/` → `/evidence` → `/simulator?demo=1` → the precomputed candidate-hotspot explanation. The precomputed result must be identified as a separate sample, not a result for the currently displayed cabin.
+
 ## Before merging a frontend change
 
 - [ ] The page works at mobile and desktop widths.

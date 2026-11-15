@@ -63,6 +63,10 @@
 .review-progress>div{height:5px;background:#1b2731;overflow:hidden}.review-progress>div span{display:block;height:100%;background:var(--blue-bright);transition:width .2s}
 .review-progress b{font:9px 'IBM Plex Mono',monospace;color:var(--muted)}
 .sim-error{padding:11px;margin-bottom:13px;border-left:3px solid var(--orange);background:#2c1712;color:#ffad91;font-size:11px;line-height:1.45}
+.sim-error p{margin:0 0 8px}
+.sim-error-actions{display:flex;flex-wrap:wrap;gap:7px}
+.sim-error-actions button,.sim-error>button{font-size:9px}
+#hotspot-explanation{scroll-margin-top:16px}
 
 .environment,.annotation-panel,.run-card,.result-panel,.evidence-note{border-top:1px solid var(--line);padding:15px 0}
 .environment summary,.evidence-note summary{cursor:pointer;font:10px 'IBM Plex Mono',monospace;color:#c8d3db;text-transform:uppercase}

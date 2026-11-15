@@ -16,6 +16,28 @@ test('project overview is the default route and explains the challenge and appro
   assert.match(main,/Who We Are/);
 });
 
+test('guided demo connects project, evidence, cabin screening, and hotspot details',()=>{
+  const simulator=read('../Simulator.jsx');
+  const demoPath=read('../DemoPath.jsx');
+  assert.match(demoPath,/href:'\/evidence'/);
+  assert.match(demoPath,/href:'\/simulator\?demo=1'/);
+  assert.match(demoPath,/href:'\/simulator\?demo=1#hotspot-explanation'/);
+  assert.match(main,/DemoPath currentStep="project"/);
+  assert.match(main,/DemoPath currentStep="evidence"/);
+  assert.match(simulator,/DemoPath currentStep=\{result\?\.precomputed_fixture\?'hotspot':'cabin'\}/);
+  assert.match(simulator,/loadExactDemo\(true\)/);
+});
+
+test('loading, empty, and API-offline states offer recovery actions',()=>{
+  const simulator=read('../Simulator.jsx');
+  assert.match(main,/Retry loading evidence/);
+  assert.match(main,/Reset search/);
+  assert.match(simulator,/role="alert"/);
+  assert.match(simulator,/Retry simulation/);
+  assert.match(simulator,/View precomputed result/);
+  assert.match(simulator,/Retry precomputed result/);
+});
+
 test('approved annotation removals remain removed from the shared shell',()=>{
   assert.doesNotMatch(main,/Missing means unknown(?:—|-)not zero/);
   assert.doesNotMatch(main,/RESEARCH PROTOTYPE/i);
