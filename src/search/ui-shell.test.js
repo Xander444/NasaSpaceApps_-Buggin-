@@ -93,3 +93,17 @@ test('source register includes the curated NASA PSI set and cited references',()
   assert.match(sourcePage,/file inventories are indexed as metadata only/i);
 });
 
+test('homepage connects control evidence and shared hardware with source links',()=>{
+  assert.match(main,/FROM STUDIES TO FIRE-SAFETY QUESTIONS/);
+  assert.match(main,/SAME and SAME-R study smoke\/aerosol measurements and detector response/);
+  assert.match(main,/DAFT\/DAFT-2 examines aerosol-measurement instrumentation with dust/);
+  assert.match(main,/Potential Earth applications/);
+  assert.match(main,/INVESTIGATIONS &amp; TEST HARDWARE/);
+  assert.match(main,/Six gaseous-flame investigations use the ACME hardware family in the CIR/);
+  assert.match(main,/Multi-user Droplet Combustion Apparatus in the CIR/);
+  assert.match(main,/fan-driven duct built for SPICE/);
+  for(const accession of ['PSI-10','PSI-20','PSI-21','PSI-22','PSI-23','PSI-159','PSI-39','PSI-68','PSI-69','PSI-25','PSI-26','PSI-106','PSI-107','PSI-47','PSI-98','PSI-99','PSI-100']){
+    assert.ok(main.includes(`'${accession}'`),`missing cited investigation ${accession}`);
+  }
+});
+
