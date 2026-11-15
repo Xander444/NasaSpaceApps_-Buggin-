@@ -15,6 +15,17 @@ import './styles.css';
 import DemoPath from './DemoPath';
 const Simulator=lazy(()=>import('./Simulator'));
 
+// Handle GitHub Pages SPA routing redirects from 404.html
+(function() {
+  var qa = window.location.search;
+  if (qa && qa.indexOf('?p=') === 0) {
+    var redirectPath = qa.slice(3).split('&q=')[0].replace(/~and~/g, '&');
+    window.history.replaceState(null, null,
+      window.location.pathname.slice(0, -1) + redirectPath
+    );
+  }
+})();
+
 const links=[
  {href:'/',label:'Project',key:'project'},
  {href:'/evidence',label:'Evidence Explorer',key:'evidence'},
