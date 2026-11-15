@@ -1,0 +1,3 @@
+# Optional server SDK compatible with the project's Python 3.9 environment.
+google-genai==1.47.0
+httpx==0.28.1

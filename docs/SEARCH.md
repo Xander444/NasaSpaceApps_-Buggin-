@@ -151,3 +151,7 @@ The fabric-and-vent probe creates a shareable explorer URL containing the existi
 A vent location is not an airflow measurement. When the scenario records `airflow_speed_m_s: null`, the URL explicitly carries `airflow_speed_m_s=unknown`, the explorer displays that status, and no airflow condition is created. Only a finite physical speed can populate an airflow condition.
 
 The real pinned model was downloaded and exercised; hybrid evaluation uses actual service scores, not mocks. Browser interaction and desktop/narrow visual QA could not run because the computer-use browser host was unavailable. Local HTTP checks for `/` and `/simulator` returned 200; this is route verification only. The production build retains the pre-existing large simulator chunk warning. No simulator coefficient or workflow was changed.
+
+## Optional Gemini-guided research
+
+The explicit AI-guided path, offline summary artifact, private setup helper, local launcher, API limits, session caches and verification are documented in [GEMINI_RESEARCH.md](GEMINI_RESEARCH.md). Keyword search remains an independent no-AI mode; Gemini never replaces the deterministic joint-condition gate.

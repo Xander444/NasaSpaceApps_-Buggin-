@@ -1,6 +1,12 @@
 """Local API for confirmed, browser-authored screening scenarios."""
 from __future__ import annotations
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from research.api import router as research_router
+from research.middleware import ResearchLimits
+
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
@@ -20,6 +26,9 @@ app = FastAPI(
     version="0.4.0",
     description="Runs only scenarios whose object labels and model scale were reviewed by a person.",
 )
+
+app.include_router(research_router)
+app.add_middleware(ResearchLimits)
 
 CATEGORY_COLLECTIONS = {
     "materials": "material",

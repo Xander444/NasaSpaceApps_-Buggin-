@@ -120,3 +120,7 @@ Start with `docs/TEAM_HANDOFF.md` and `docs/THEME_GUIDE.md`. Data, frontend, stu
 ## Next architecture slice
 
 Calibrate simulator inputs against verified test-level evidence, design a labeled recognition evaluation set, add directed/time-dependent transport, implement sensitivity analysis, and validate rankings against held-out investigations. Split any learned model by investigation—not random row—to prevent data leakage.
+
+## Optional Gemini-guided research
+
+The evidence explorer now offers independent **Keyword search (no AI)** and **AI-guided search** actions. AI guidance uses prebuilt cited study cards, optional clarification, exact-source recommendation excerpts and session-scoped caching. See [Gemini research setup and verification](docs/GEMINI_RESEARCH.md). `npm run research:dev` launches the API and frontend together; credentials are entered only through the private `npm run research:key` terminal helper. Static keyword search needs neither.

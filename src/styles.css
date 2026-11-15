@@ -173,3 +173,13 @@ button:disabled{cursor:not-allowed;opacity:.5}
  .wordmark span{display:none}.event-name{letter-spacing:.08em}.site-header nav{gap:20px}.project-hero h1{font-size:45px}.eyebrow.centered{text-align:left}.challenge-solution h2,.project-flow h2,.trust-section h2,.simple-page h1{font-size:38px}.project-flow li{grid-template-columns:1fr}.project-flow li>span{font-size:15px}.team-grid article{padding:28px}.source-list>a{grid-template-columns:34px 1fr;min-height:130px}.source-list>a>strong{display:none}
  .app .hero h1{font-size:44px}.app .filters{grid-template-columns:1fr}.app .condition{padding:10px}.app .sectionhead{padding:16px}.app .evidence-card,.app .panel{padding:16px}.app .search-toolbar>button{margin-left:0}.app dl>div{grid-template-columns:1fr}.app .top,.app .paneltop{flex-wrap:wrap}
 }
+
+.research-panel {margin: 1.5rem 0; border: 1px solid var(--line, #253443);}
+.research-panel .paneltop {display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;}
+.research-field {display:flex; flex-direction:column; gap:.4rem; margin:.8rem 0;}
+.research-field input {width:100%; min-width:0; padding:.7rem; border:1px solid #365571; background:#0b1117; color:#eef5fa;}
+.research-panel fieldset {min-width:0; margin:1rem 0; border:1px solid #365571;}
+.research-panel article {border-top:1px solid #365571; margin-top:1rem; padding-top:1rem;}
+.research-panel blockquote {margin:1rem 0; padding-left:1rem; border-left:3px solid #3a8dcc;}
+.research-panel [aria-pressed="true"] {background:#16344b; color:#eef5fa;}
+.research-panel .button-row {flex-wrap:wrap;}

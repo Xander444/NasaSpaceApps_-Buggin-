@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "index_version": "d9bdc73c7ae1526b6ed1",
+  "runtime": "v24.22.0",
+  "platform": "darwin",
+  "initialization_ms": 58.742,
+  "document_count": 18627,
+  "queries": [
+    {
+      "split": "tuning",
+      "query": "Design a smoke detector",
+      "expected": [
+        "PSI-102",
+        "PSI-101"
+      ],
+      "rationale": "SAME approach reports detector-response analysis; SAME-R objective and impacts discuss smoke size and advanced detector technology.",
+      "sources": [
+        "PSI-102:approach",
+        "PSI-101:research_impacts"
+      ],
+      "keyword": {
+        "top3": [
+          "PSI-102",
+          "PSI-115",
+          "PSI-101"
+        ],
+        "milliseconds": 72.729,
+        "cache_milliseconds": 0.052,
+        "expected_recall": 1
+      },
+      "hybrid": null,
+      "semantic_error": null
+    },
+    {
+      "split": "tuning",
+      "query": "Extinguish liquid-fuel flames",
+      "expected": [
+        "PSI-69"
+      ],
+      "rationale": "FLEX objective explicitly studies liquid-fuel limits, suppressants and extinction.",
+      "sources": [
+        "PSI-69:objective"
+      ],
+      "keyword": {
+        "top3": [
+          "PSI-69",
+          "PSI-26",
+          "PSI-68"
+        ],
+        "milliseconds": 61.495,
+        "cache_milliseconds": 0.042,
+        "expected_recall": 1
+      },
+      "hybrid": null,
+      "semantic_error": null
+    },
+    {
+      "split": "tuning",
+      "query": "PMMA initial oxygen",
+      "expected": [
+        "PSI-25"
+      ],
+      "rationale": "BASS-II table includes PMMA sample descriptions with calibrated initial oxygen, including B1 at 22.2% vol; free text does not apply a numeric filter.",
+      "sources": [
+        "PSI-25:CSV row 2"
+      ],
+      "keyword": {
+        "top3": [
+          "PSI-25",
+          "PSI-99",
+          "PSI-26"
+        ],
+        "milliseconds": 45.236,
+        "cache_milliseconds": 0.052,
+        "expected_recall": 1
+      },
+      "hybrid": null,
+      "semantic_error": null
+    },
+    {
+      "split": "held-out",
+      "query": "alarms for spacecraft smoke",
+      "expected": [
+        "PSI-102",
+        "PSI-101"
+      ],
+      "rationale": "SAME/SAME-R describe detectors and smoke; alarm is a documented detection alias.",
+      "sources": [
+        "PSI-102:approach",
+        "PSI-101:hypothesis"
+      ],
+      "keyword": {
+        "top3": [
+          "PSI-102",
+          "PSI-115",
+          "PSI-101"
+        ],
+        "milliseconds": 45.012,
+        "cache_milliseconds": 0.036,
+        "expected_recall": 1
+      },
+      "hybrid": null,
+      "semantic_error": null
+    },
+    {
+      "split": "held-out",
+      "query": "liquid droplet extinction",
+      "expected": [
+        "PSI-69"
+      ],
+      "rationale": "FLEX approach describes liquid droplet combustion and radiative extinction sequences.",
+      "sources": [
+        "PSI-69:approach"
+      ],
+      "keyword": {
+        "top3": [
+          "PSI-39",
+          "PSI-69",
+          "PSI-68"
+        ],
+        "milliseconds": 46.339,
+        "cache_milliseconds": 0.051,
+        "expected_recall": 1
+      },
+      "hybrid": null,
+      "semantic_error": null
+    },
+    {
+      "split": "held-out",
+      "query": "large scale fabric fire growth",
+      "expected": [
+        "PSI-98",
+        "PSI-99",
+        "PSI-100"
+      ],
+      "rationale": "Saffire objectives address large-scale growth; their approaches describe fabric and material sample configurations.",
+      "sources": [
+        "PSI-98:objective",
+        "PSI-99:objective",
+        "PSI-100:objective"
+      ],
+      "keyword": {
+        "top3": [
+          "PSI-100",
+          "PSI-98",
+          "PSI-99"
+        ],
+        "milliseconds": 53.542,
+        "cache_milliseconds": 0.027,
+        "expected_recall": 1
+      },
+      "hybrid": null,
+      "semantic_error": null
+    },
+    {
+      "split": "held-out",
+      "query": "quantum banana investment",
+      "expected": [],
+      "rationale": "No indexed combustion topic supports these terms.",
+      "sources": [],
+      "keyword": {
+        "top3": [],
+        "milliseconds": 47.756,
+        "cache_milliseconds": 0.051,
+        "expected_recall": 1
+      },
+      "hybrid": null,
+      "semantic_error": null
+    }
+  ],
+  "limitations": [
+    "Small manually reviewed retrieval set; labels do not validate scientific claims.",
+    "Timing is a single local run, not a latency guarantee.",
+    "Per-row gravity and many sensor fields remain unknown.",
+    "Semantic-only admission threshold is heuristic; inspect cited evidence."
+  ]
+}

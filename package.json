@@ -17,15 +17,23 @@
     "test:search": "node --test src/search/*.test.js",
     "search:evaluate": "node analysis/evaluate_search.mjs",
     "semantic:serve": "python3 analysis/semantic_service.py",
-    "check": "npm run test:search && python3 -m unittest discover -s analysis -p \"test_*.py\" && python3 -m unittest discover -s simulator -p \"test_*.py\" && npm run build"
+    "check": "npm run test:search && npm run test:research-ui && python3 -m unittest discover -s research -p \"test_*.py\" && python3 -m unittest discover -s analysis -p \"test_*.py\" && python3 -m unittest discover -s simulator -p \"test_*.py\" && npm run build",
+    "research:summaries": "python3 research/summaries.py",
+    "research:key": ".venv/bin/python scripts/research_key.py",
+    "research:dev": ".venv/bin/python scripts/research_dev.py",
+    "test:research": ".venv/bin/python -m unittest discover -s research -p \"test_*.py\"",
+    "test:research-ui": "vitest run"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
-    "vite": "latest",
+    "lucide-react": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "lucide-react": "latest",
-    "three": "latest"
+    "three": "latest",
+    "vite": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jsdom": "^31.0.1",
+    "vitest": "^5.1.0"
+  }
 }
