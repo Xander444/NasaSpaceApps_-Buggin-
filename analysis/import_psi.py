@@ -20,7 +20,12 @@ import requests
 ROOT = Path(__file__).resolve().parents[1]
 API = "https://psi.nasa.gov/geode-py/ws/repo/investigations/{accession}"
 DOWNLOAD = "https://psi.nasa.gov/geode-py/ws/studies/{accession}/download"
-DEFAULT_ACCESSIONS = ["PSI-25", "PSI-26", "PSI-62", "PSI-69", "PSI-98", "PSI-99", "PSI-100", "PSI-101", "PSI-102"]
+DEFAULT_ACCESSIONS = [
+    "PSI-10", "PSI-20", "PSI-21", "PSI-22", "PSI-23", "PSI-25", "PSI-26",
+    "PSI-39", "PSI-47", "PSI-60", "PSI-62", "PSI-68", "PSI-69", "PSI-98",
+    "PSI-99", "PSI-100", "PSI-101", "PSI-102", "PSI-106", "PSI-107",
+    "PSI-115", "PSI-117", "PSI-142", "PSI-159",
+]
 
 
 def exact_number(value: str | None) -> float | None:
@@ -158,7 +163,7 @@ def parse_generic_csv(content: bytes, accession: str, source_name: str) -> list[
 
 def import_all(accessions: list[str], output: Path) -> dict[str, Any]:
     session = requests.Session()
-    session.headers["User-Agent"] = "FlameInFreefall/0.3 NASA-Space-Apps educational importer"
+    session.headers["User-Agent"] = "FlameInFreefall/0.4 NASA-Space-Apps educational importer"
     output.mkdir(parents=True, exist_ok=True)
     tables_dir = output / "tables"
     normalized_dir = output / "normalized"
@@ -172,6 +177,7 @@ def import_all(accessions: list[str], output: Path) -> dict[str, Any]:
             raw = response.json()
             catalog.append(normalize_metadata(raw))
             inventory.extend(normalize_file_inventory(raw))
+            accession_rows = []
             for table in raw.get("experimentalTable", []):
                 if table.get("restricted") or not table.get("visible", True):
                     continue
@@ -185,7 +191,8 @@ def import_all(accessions: list[str], output: Path) -> dict[str, Any]:
                 })
                 if destination.suffix.lower() == ".csv":
                     generic_rows = parse_generic_csv(content, accession, table["file_name"])
-                    (normalized_dir / f"{accession.lower()}_table_rows_raw.json").write_text(json.dumps(generic_rows, indent=2) + "\n")
+                    accession_rows.extend(generic_rows)
+                    (normalized_dir / f"{accession.lower()}_table_rows_raw.json").write_text(json.dumps(accession_rows, indent=2) + "\n")
                     if accession == "PSI-25":
                         rows = parse_bass_ii_csv(content, table["file_name"])
                         (normalized_dir / "bass_ii_tests.json").write_text(json.dumps(rows, indent=2) + "\n")

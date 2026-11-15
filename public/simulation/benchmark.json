@@ -1,0 +1,693 @@
+{
+  "schema_version": "0.1.0",
+  "scenario": "Exact cabin-demo.glb screening fixture",
+  "method": {
+    "device": "cpu",
+    "seeds": [
+      2026,
+      2027,
+      2028,
+      2029,
+      2030
+    ],
+    "top_region_rule": "same voxel or one-voxel Chebyshev neighbor among each run's top 10",
+    "default_rule": "smallest count with mean top-10 region retention >= 0.80, minimum pair retention >= 0.60, mean exact top-25 Jaccard >= 0.75, and median CPU latency <= 5 s"
+  },
+  "runtime": {
+    "python": "3.13.15",
+    "torch": "2.15.0",
+    "processor": "arm"
+  },
+  "results": [
+    {
+      "samples": 50000,
+      "run_seconds": [
+        0.025,
+        0.0257,
+        0.0254,
+        0.0266,
+        0.0474
+      ],
+      "median_seconds": 0.0257,
+      "maximum_seconds": 0.0474,
+      "mean_top10_region_retention": 0.955,
+      "minimum_top10_region_retention": 0.85,
+      "mean_exact_top25_jaccard": 0.6816,
+      "top_regions_by_seed": [
+        {
+          "seed": 2026,
+          "top5_voxels": [
+            [
+              28,
+              1,
+              0
+            ],
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2027,
+          "top5_voxels": [
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              28,
+              1,
+              0
+            ],
+            [
+              27,
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "seed": 2028,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              26,
+              1,
+              0
+            ],
+            [
+              2,
+              5,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ],
+            [
+              28,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "seed": 2029,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              26,
+              2,
+              0
+            ],
+            [
+              1,
+              5,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2030,
+          "top5_voxels": [
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ],
+            [
+              2,
+              5,
+              5
+            ],
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "samples": 100000,
+      "run_seconds": [
+        0.0382,
+        0.0318,
+        0.062,
+        0.0332,
+        0.0322
+      ],
+      "median_seconds": 0.0332,
+      "maximum_seconds": 0.062,
+      "mean_top10_region_retention": 1.0,
+      "minimum_top10_region_retention": 1.0,
+      "mean_exact_top25_jaccard": 0.7947,
+      "top_regions_by_seed": [
+        {
+          "seed": 2026,
+          "top5_voxels": [
+            [
+              28,
+              1,
+              0
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2027,
+          "top5_voxels": [
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              28,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "seed": 2028,
+          "top5_voxels": [
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              26,
+              1,
+              0
+            ],
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              2,
+              5,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2029,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2030,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "samples": 250000,
+      "run_seconds": [
+        0.0646,
+        0.0637,
+        0.0619,
+        0.0638,
+        0.0983
+      ],
+      "median_seconds": 0.0638,
+      "maximum_seconds": 0.0983,
+      "mean_top10_region_retention": 1.0,
+      "minimum_top10_region_retention": 1.0,
+      "mean_exact_top25_jaccard": 0.8254,
+      "top_regions_by_seed": [
+        {
+          "seed": 2026,
+          "top5_voxels": [
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              28,
+              1,
+              0
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2027,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              2,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2028,
+          "top5_voxels": [
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              26,
+              1,
+              0
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2029,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2030,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              27,
+              1,
+              0
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "samples": 500000,
+      "run_seconds": [
+        0.1357,
+        0.1128,
+        0.1166,
+        0.1632,
+        0.1157
+      ],
+      "median_seconds": 0.1166,
+      "maximum_seconds": 0.1632,
+      "mean_top10_region_retention": 1.0,
+      "minimum_top10_region_retention": 1.0,
+      "mean_exact_top25_jaccard": 0.833,
+      "top_regions_by_seed": [
+        {
+          "seed": 2026,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ],
+            [
+              27,
+              2,
+              0
+            ],
+            [
+              1,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2027,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              2,
+              3,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2028,
+          "top5_voxels": [
+            [
+              27,
+              1,
+              0
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              26,
+              1,
+              0
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              1,
+              4,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2029,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              2,
+              3,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        },
+        {
+          "seed": 2030,
+          "top5_voxels": [
+            [
+              1,
+              4,
+              5
+            ],
+            [
+              1,
+              3,
+              5
+            ],
+            [
+              2,
+              4,
+              5
+            ],
+            [
+              1,
+              5,
+              5
+            ],
+            [
+              27,
+              1,
+              0
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "recommended_default_samples": 100000,
+  "recommendation": "Use 100,000 samples by default: median CPU latency was 0.033 s and mean top-10 region retention across seeds was 100%."
+}

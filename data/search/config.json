@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "annotation_version": 1,
+  "chunk_words": 95,
+  "aliases": {
+    "polymethyl methacrylate": "pmma", "acrylic": "pmma", "carbon dioxide": "co2", "co₂": "co2", "o₂": "oxygen", "o2": "oxygen", "extinguishment": "extinction", "extinguish": "extinction", "extinguishing": "extinction", "suppression": "extinction", "suppressants": "extinction", "suppressant": "extinction", "detectors": "detector", "detection": "detector", "sensing": "detector", "alarms": "detector", "alarm": "detector", "flames": "flame", "fuels": "fuel", "droplets": "droplet", "measurements": "measurement", "cameras": "camera", "images": "image", "imaging": "image", "materials": "material", "micro-gravity": "microgravity"
+  },
+  "stopwords": ["a","an","and","are","as","at","be","by","for","from","in","is","it","of","on","or","the","to","was","were","with","this","that","these","those","how","i","me","my","find","design","data","study","studies","research","using","use","can","which","would","about"],
+  "tag_rules": {
+    "prevention": "prevention|material selection|flammability screening",
+    "detection": "detect|alarm",
+    "suppression": "suppress|extinguish|extinction",
+    "flame spread": "flame spread|spread rate",
+    "ignition": "ignit|ignition|flammability",
+    "extinction": "extinction|extinguish",
+    "smoke/aerosol": "smoke|aerosol",
+    "detector response": "detector|detection",
+    "images/video": "camera|video|imag",
+    "measurements": "measur|sensor|diagnostic|thermocouple"
+  },
+  "warnings": {
+    "PSI-25": ["Catalog approach says oxygen varied below 21%; table B1 reports 22.2% initial and final oxygen. Both are preserved; the catalog cap is not a filter.", "Fan and air display settings have no indexed velocity calibration. Final oxygen is not an extinction limit."]
+  }
+}

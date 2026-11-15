@@ -1,0 +1,546 @@
+[
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 2,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18073",
+      "Year": "2018",
+      "Month": "3",
+      "Date": "14",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "100% CH4",
+      "Fuel Conc": "100%",
+      "Flames Ignited": "10",
+      "Notes": "Test day is formatted YYDDD where YY identifies year and DDD identifies day of year (GMT)."
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 3,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18078",
+      "Year": "2018",
+      "Month": "3",
+      "Date": "19",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "100% CH4",
+      "Fuel Conc": "70%",
+      "Flames Ignited": "10",
+      "Notes": "Mesh polarity refers to the polarity of the high-voltage power supply and the copper electrode relative to the burner."
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 4,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "100%",
+      "Flames Ignited": null,
+      "Notes": "Fuel Conc. (diluted with nitrogen on a volume basis) was varied between tests, but typically matched the bottle. The list only accounts for flames ignited."
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 5,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18080",
+      "Year": "2018",
+      "Month": "3",
+      "Date": "21",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "40% CH4",
+      "Fuel Conc": "40%",
+      "Flames Ignited": "8",
+      "Notes": "Flames Ignited is the number ignited on that day (neglecting the day change on ISS)."
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 6,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18087",
+      "Year": "2018",
+      "Month": "3",
+      "Date": "28",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "100% C2H4",
+      "Fuel Conc": "80%",
+      "Flames Ignited": "10",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 7,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "100%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 8,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18092",
+      "Year": "2018",
+      "Month": "4",
+      "Date": "2",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "30% C2H4",
+      "Fuel Conc": "30%",
+      "Flames Ignited": "11",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 9,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18095",
+      "Year": "2018",
+      "Month": "4",
+      "Date": "5",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "30% C2H4",
+      "Fuel Conc": "30%",
+      "Flames Ignited": "10",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 10,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18102",
+      "Year": "2018",
+      "Month": "4",
+      "Date": "12",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "40% CH4",
+      "Fuel Conc": "40%",
+      "Flames Ignited": "8",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 11,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18106",
+      "Year": "2018",
+      "Month": "4",
+      "Date": "16",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "40% CH4",
+      "Fuel Conc": "40%",
+      "Flames Ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 12,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18113",
+      "Year": "2018",
+      "Month": "4",
+      "Date": "23",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "100% CH4",
+      "Fuel Conc": "100%",
+      "Flames Ignited": "15",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 13,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18130",
+      "Year": "2018",
+      "Month": "5",
+      "Date": "10",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "100% CH4",
+      "Fuel Conc": "70%",
+      "Flames Ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 14,
+    "raw": {
+      "Test Type": "First round of tests with coflow burner",
+      "Test Day": "18137",
+      "Year": "2018",
+      "Month": "5",
+      "Date": "17",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "100% C2H4",
+      "Fuel Conc": "80%",
+      "Flames Ignited": "12",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 15,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "100%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 16,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18269",
+      "Year": "2018",
+      "Month": "9",
+      "Date": "26",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "40% CH4",
+      "Fuel Conc": "40%",
+      "Flames Ignited": "11",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 17,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18274",
+      "Year": "2018",
+      "Month": "10",
+      "Date": "1",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "30% C2H4",
+      "Fuel Conc": "30%",
+      "Flames Ignited": "11",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 18,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18282",
+      "Year": "2018",
+      "Month": "10",
+      "Date": "9",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "100% CH4",
+      "Fuel Conc": "70%",
+      "Flames Ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 19,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "100%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 20,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18285",
+      "Year": "2018",
+      "Month": "10",
+      "Date": "12",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "100% C2H4",
+      "Fuel Conc": "100%",
+      "Flames Ignited": "10",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 21,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18290",
+      "Year": "2018",
+      "Month": "10",
+      "Date": "17",
+      "Mesh Polarity": "negative",
+      "Fuel Bottle": "100% C2H4",
+      "Fuel Conc": "80%",
+      "Flames Ignited": "11",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 22,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18298",
+      "Year": "2018",
+      "Month": "10",
+      "Date": "25",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "40% CH4",
+      "Fuel Conc": "40%",
+      "Flames Ignited": "9",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 23,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18302",
+      "Year": "2018",
+      "Month": "10",
+      "Date": "29",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "30% C2H4",
+      "Fuel Conc": "30%",
+      "Flames Ignited": "10",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 24,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18312",
+      "Year": "2018",
+      "Month": "11",
+      "Date": "8",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "100% CH4",
+      "Fuel Conc": "70%",
+      "Flames Ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 25,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "100%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 26,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18319",
+      "Year": "2018",
+      "Month": "11",
+      "Date": "15",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "100% C2H4",
+      "Fuel Conc": "25%",
+      "Flames Ignited": "11",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 27,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "50%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 28,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "80%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 29,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "100%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 30,
+    "raw": {
+      "Test Type": "Second round of tests with gas-jet burner",
+      "Test Day": "18319",
+      "Year": "2018",
+      "Month": "11",
+      "Date": "15",
+      "Mesh Polarity": "positive",
+      "Fuel Bottle": "100% C2H4",
+      "Fuel Conc": "25%",
+      "Flames Ignited": "11",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 31,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "50%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 32,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "80%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-22",
+    "source_file": "PSI-22_Experimental table_ACME E-FIELD Flames.csv",
+    "source_row": 33,
+    "raw": {
+      "Test Type": null,
+      "Test Day": null,
+      "Year": null,
+      "Month": null,
+      "Date": null,
+      "Mesh Polarity": null,
+      "Fuel Bottle": null,
+      "Fuel Conc": "100%",
+      "Flames Ignited": null,
+      "Notes": null
+    }
+  }
+]

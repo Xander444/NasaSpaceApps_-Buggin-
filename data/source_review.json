@@ -1,0 +1,41 @@
+{
+  "reviewed_at": "2026-11-14",
+  "selection_rule": "Include official investigations that directly study combustion, smoke/aerosol detection, extinction/suppression, or models validated against those experiments. Exclude keyword false positives and unrelated Earth-observation products from the spacecraft-fire ranking.",
+  "nasa_psi": {
+    "search_url": "https://psi.nasa.gov/physci/repo/search?q=combustion&data_source=psi&data_type=investigation",
+    "search_result_count": 26,
+    "included_count": 24,
+    "included_accessions": [
+      "PSI-10", "PSI-20", "PSI-21", "PSI-22", "PSI-23", "PSI-25", "PSI-26", "PSI-39",
+      "PSI-47", "PSI-60", "PSI-62", "PSI-68", "PSI-69", "PSI-98", "PSI-99", "PSI-100",
+      "PSI-101", "PSI-102", "PSI-106", "PSI-107", "PSI-115", "PSI-117", "PSI-142", "PSI-159"
+    ],
+    "excluded_results": [
+      {
+        "accession": "PSI-108",
+        "title": "Surface Tension Driven Convection Experiment-1",
+        "reason": "Search keyword match, but the investigation is fluid-physics convection rather than combustion or spacecraft fire safety."
+      },
+      {
+        "accession": "PSI-181",
+        "title": "Structure and Properties of Pb-Sn and Pb-free Sn-Ag-Cu Solders Produced in Terrestrial vs. Microgravity Environments under Extremes of Elevated and Cryo Temperatures",
+        "reason": "Materials-processing investigation with no combustion, smoke, detection, or suppression objective."
+      }
+    ]
+  },
+  "canadian_space_agency": {
+    "catalog_url": "https://donnees-data.asc-csa.gc.ca/en/dataset?science_admin=True",
+    "api": "https://donnees-data.asc-csa.gc.ca/api/3/action/package_search",
+    "queries": ["combustion", "fire", "microgravity"],
+    "eligible_count": 0,
+    "reviewed_results": [
+      {
+        "dataset": "MOPITT - Measurements of Pollution in the Troposphere",
+        "matched_query": "combustion",
+        "decision": "excluded from spacecraft-fire ranking",
+        "reason": "Atmospheric carbon-monoxide remote sensing includes biomass-burning applications but is not a microgravity combustion or enclosed-spacecraft fire experiment."
+      }
+    ],
+    "note": "No result was returned for the fire or microgravity queries at review time. Re-run the catalog review before future releases."
+  }
+}

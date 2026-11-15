@@ -1,0 +1,272 @@
+[
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 2,
+    "raw": {
+      "Year": "2019",
+      "Month": "Feb",
+      "Date": "8",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "21; 26.5; 40",
+      "Flames Ignited": "10",
+      "Notes": "Oxygen Conc. (as diluted with nitrogen on a volume basis) was varied between tests where approximate concentrations for tests that ignited are listed. The chamber pressures were also varied but are not identified in this summary table."
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 3,
+    "raw": {
+      "Year": "2019",
+      "Month": "Feb",
+      "Date": "20",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "26.5; 34",
+      "Flames Ignited": "8",
+      "Notes": "Flames Ignited is the number ignited on that day (neglecting the day change on ISS)."
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 4,
+    "raw": {
+      "Year": "2019",
+      "Month": "Feb",
+      "Date": "25",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "50% C2H4",
+      "Oxygen Conc (percent)": "21; 26.5; 34; 40",
+      "Flames Ignited": "8",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 5,
+    "raw": {
+      "Year": "2019",
+      "Month": "March",
+      "Date": "4",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "50% C2H4",
+      "Oxygen Conc (percent)": "26.5; 40",
+      "Flames Ignited": "6",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 6,
+    "raw": {
+      "Year": "2019",
+      "Month": "March",
+      "Date": "7",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "50% C2H4",
+      "Oxygen Conc (percent)": "3400%",
+      "Flames Ignited": "6",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 7,
+    "raw": {
+      "Year": "2019",
+      "Month": "March",
+      "Date": "11",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "50% C2H4",
+      "Oxygen Conc (percent)": "26.5; 34",
+      "Flames Ignited": "7",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 8,
+    "raw": {
+      "Year": "2019",
+      "Month": "March",
+      "Date": "28",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100%C2H4",
+      "Oxygen Conc (percent)": "26.5; 34",
+      "Flames Ignited": "8",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 9,
+    "raw": {
+      "Year": "2019",
+      "Month": "April",
+      "Date": "1",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100%C2H4",
+      "Oxygen Conc (percent)": "2100%",
+      "Flames Ignited": "0",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 10,
+    "raw": {
+      "Year": "2019",
+      "Month": "April",
+      "Date": "4",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100%C2H4",
+      "Oxygen Conc (percent)": "21; 26.5; 34",
+      "Flames Ignited": "9",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 11,
+    "raw": {
+      "Year": "2020",
+      "Month": "Sept",
+      "Date": "3",
+      "Burner Size (mm)": "50",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "25; 34; 40",
+      "Flames Ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 12,
+    "raw": {
+      "Year": "2020",
+      "Month": "Oct",
+      "Date": "17",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "26.5; 34",
+      "Flames Ignited": "13",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 13,
+    "raw": {
+      "Year": "2020",
+      "Month": "Dec",
+      "Date": "5",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% CH4",
+      "Oxygen Conc (percent)": "25; 34; 40",
+      "Flames Ignited": "21",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 14,
+    "raw": {
+      "Year": "2020",
+      "Month": "Dec",
+      "Date": "4",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% CH4",
+      "Oxygen Conc (percent)": "25; 40",
+      "Flames Ignited": "18",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 15,
+    "raw": {
+      "Year": "2020",
+      "Month": "Dec",
+      "Date": "11",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "50% C2H4",
+      "Oxygen Conc (percent)": "25; 40",
+      "Flames Ignited": "12",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 16,
+    "raw": {
+      "Year": "2020",
+      "Month": "Dec",
+      "Date": "17",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "34; 40",
+      "Flames Ignited": "10",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 17,
+    "raw": {
+      "Year": "2020",
+      "Month": "Dec",
+      "Date": "23",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "25; 34; 40",
+      "Flames Ignited": "17",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 18,
+    "raw": {
+      "Year": "2021",
+      "Month": "Jan",
+      "Date": "20",
+      "Burner Size (mm)": "25",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "21; 26.5; 34",
+      "Flames Ignited": "15",
+      "Notes": null
+    }
+  },
+  {
+    "accession": "PSI-20",
+    "source_file": "PSI-20_Experimental table_ACME BRE.csv",
+    "source_row": 19,
+    "raw": {
+      "Year": "2021",
+      "Month": "Jan",
+      "Date": "28",
+      "Burner Size (mm)": "50",
+      "Fuel Bottle": "100% C2H4",
+      "Oxygen Conc (percent)": "25; 34; 40",
+      "Flames Ignited": "13",
+      "Notes": null
+    }
+  }
+]
