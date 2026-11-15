@@ -97,7 +97,13 @@ test('homepage connects control evidence and shared hardware with source links',
   assert.match(main,/FROM STUDIES TO FIRE-SAFETY QUESTIONS/);
   assert.match(main,/SAME and SAME-R study smoke\/aerosol measurements and detector response/);
   assert.match(main,/DAFT\/DAFT-2 examines aerosol-measurement instrumentation with dust/);
-  assert.match(main,/Potential Earth applications/);
+  assert.match(main,/Earth technology-transfer examples/);
+  assert.match(main,/Fine-water-mist suppression/);
+  assert.match(main,/NASA Spinoff · Fire Detector/);
+  assert.match(main,/Firefighter equipment/);
+  assert.doesNotMatch(main,/This dashboard does not evaluate those products/);
+  assert.match(main,/NASA Spinoff · Fireman’s Air Tanks/);
+  assert.match(main,/NASA Spinoff · New Technology for the Fire Attire/);
   assert.match(main,/INVESTIGATIONS &amp; TEST HARDWARE/);
   assert.match(main,/Six gaseous-flame investigations use the ACME hardware family in the CIR/);
   assert.match(main,/Multi-user Droplet Combustion Apparatus in the CIR/);
