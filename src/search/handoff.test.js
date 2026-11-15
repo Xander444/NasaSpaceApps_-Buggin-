@@ -49,3 +49,44 @@ test('a finite physical airflow speed is the only way to create an airflow condi
   assert.equal(parsed.context.airflow_speed_status,'known');
   assert.deepEqual(parsed.conditions.find(condition=>condition.field==='airflow'),{field:'airflow',value:'0.2',unit:'m/s',operator:'eq',tolerance:0,mode:'preferred'});
 });
+
+test('detector handoff carries its area, confirmed object, spot, and cabin context',()=>{
+  const search=probe.evidence_searches.find(item=>item.area==='detection');
+  const href=buildExplorerHandoff({
+    query:search.query,
+    area:search.area,
+    objects:search.relevant_objects,
+    environment:demo.environment,
+    spot_m:probe.center_m,
+  });
+  const parsed=parseExplorerHandoff(new URL(href,'https://example.test').search);
+  assert.equal(parsed.context.area,'detection');
+  assert.deepEqual(parsed.context.spot_m,probe.center_m);
+  assert.deepEqual(parsed.context.objects,[{
+    id:'object-009-smoke-detector',type:'detector',position_m:[3,2.2,.08],
+    distance_m:2.5746,influence_radius_m:2,within_modeled_influence:false,
+  }]);
+  assert.deepEqual(parsed.conditions.map(condition=>condition.field),['oxygen_initial_percent','pressure']);
+});
+
+test('suppression handoff carries the confirmed suppressor without inventing airflow',()=>{
+  const search=probe.evidence_searches.find(item=>item.area==='suppression');
+  const href=buildExplorerHandoff({
+    query:search.query,
+    area:search.area,
+    objects:search.relevant_objects,
+    environment:demo.environment,
+    spot_m:probe.center_m,
+  });
+  const parsed=parseExplorerHandoff(new URL(href,'https://example.test').search);
+  assert.equal(parsed.context.area,'suppression');
+  assert.equal(parsed.context.objects[0].type,'suppressor');
+  assert.equal(parsed.context.objects[0].id,'object-010-portable-suppressor');
+  assert.equal(parsed.context.airflow_speed_status,'not provided');
+  assert.equal(parsed.conditions.some(condition=>condition.field==='airflow'),false);
+});
+
+test('malformed object context is ignored safely',()=>{
+  const parsed=parseExplorerHandoff(`?handoff=simulator-v1&q=test&objects=${encodeURIComponent('{bad json')}`);
+  assert.deepEqual(parsed.context.objects,[]);
+});

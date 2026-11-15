@@ -3,15 +3,15 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {AlertTriangle,ArrowLeft,Check,ChevronRight,ExternalLink,FileUp,Flame,Info,Play,RotateCcw,Search} from 'lucide-react';
-import {CATEGORIES,MATERIAL_PRESETS,defaultsFor,suggestClassification} from './simulator/suggestions';
+import {CATEGORIES,MATERIAL_PRESETS,defaultsFor} from './simulator/suggestions';
+import {prepareModel,voxelOverlayTransform} from './simulator/modelPreparation';
+import {SimulationServiceError,fetchPrecomputedCabin,requestSimulation} from './simulator/apiClient';
 import {buildExplorerHandoff} from './search/handoff';
 import './simulator.css';
 
 const COLOR={unreviewed:0xf2a65a,confirmed:0x75d39b,ignored:0x687376,selected:0xffe08a};
 const DEFAULT_SAMPLES=100_000;
 const CABIN_DEMO={name:'cabin-demo.glb',format:'glb',bytes:24044,sha256:'335206796c175bf3791b8ca0b76a3208462cb2268b5af32d601ccab43a29ac1a'};
-const roundVector=vector=>vector.toArray().map(value=>Number(value.toFixed(4)));
-const slug=value=>(value||'object').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,42)||'object';
 
 function boxMesh(name,position,size,color){
   const mesh=new THREE.Mesh(new THREE.BoxGeometry(...size),new THREE.MeshStandardMaterial({color,roughness:.78,metalness:.05,transparent:true,opacity:.88}));
@@ -34,36 +34,6 @@ function createDemoModel(){
     ['crew-critical-zone',[4.7,.8,2.7],[1.25,1.45,1.35],0x8d61a5],
   ].forEach(args=>group.add(boxMesh(...args)));
   return group;
-}
-
-function prepareModel(group){
-  group.traverse(object=>{
-    if(!object.isMesh)return;
-    object.material=Array.isArray(object.material)?object.material.map(item=>item.clone()):object.material.clone();
-  });
-  group.updateMatrixWorld(true);
-  const initial=new THREE.Box3().setFromObject(group);
-  if(initial.isEmpty())throw new Error('The file contains no visible mesh geometry.');
-  group.position.add(initial.min.clone().multiplyScalar(-1));
-  group.updateMatrixWorld(true);
-  const bounds=new THREE.Box3().setFromObject(group);
-  const dimensions=roundVector(bounds.getSize(new THREE.Vector3()));
-  const annotations=[]; let index=0;
-  group.traverse(mesh=>{
-    if(!mesh.isMesh||!mesh.geometry)return;
-    const objectBounds=new THREE.Box3().setFromObject(mesh);
-    const position=roundVector(objectBounds.getCenter(new THREE.Vector3()));
-    const size=roundVector(objectBounds.getSize(new THREE.Vector3()).max(new THREE.Vector3(.01,.01,.01)));
-    const name=mesh.name?.trim()||`unnamed-mesh-${index+1}`;
-    const id=`object-${String(index+1).padStart(3,'0')}-${slug(name)}`;
-    const suggestion=suggestClassification(name);
-    mesh.userData.annotationId=id;
-    const material=Array.isArray(mesh.material)?mesh.material[0]:mesh.material;
-    mesh.userData.originalColor=material?.color?.getHex?.()??0x758184;
-    annotations.push({id,name,position_m:position,size_m:size,category:suggestion.category,materialType:suggestion.materialType,params:suggestion.params,suggestion:{category:suggestion.category,confidence:suggestion.confidence,reason:suggestion.reason},reviewStatus:'unreviewed'});
-    index+=1;
-  });
-  return {group,annotations,dimensions:dimensions.map(value=>Math.max(value,.01))};
 }
 
 function disposeGroup(group){
@@ -131,7 +101,7 @@ export default function Simulator(){
     };
     installRef.current=install;
     install(createDemoModel(),{name:'Loading exact cabin demo…',format:'generated',bytes:0,sha256:'built-in-demo-v1'});
-    fetch('/models/cabin-demo.glb').then(response=>{
+    fetch(`${import.meta.env.BASE_URL}models/cabin-demo.glb`).then(response=>{
       if(!response.ok)throw new Error(`HTTP ${response.status}`);
       return response.arrayBuffer();
     }).then(buffer=>new GLTFLoader().parse(buffer,'',gltf=>install(gltf.scene,CABIN_DEMO),()=>{})).catch(()=>{
@@ -162,7 +132,7 @@ export default function Simulator(){
 
   useEffect(()=>{
     const group=resultRef.current;if(!group)return;while(group.children.length){const child=group.children.pop();disposeGroup(child);}if(!result)return;
-    const voxelSize=result.dimensions_m.map((value,index)=>value/result.grid[index]);const geometry=new THREE.BoxGeometry(...voxelSize.map(value=>value*.48));const material=new THREE.MeshBasicMaterial({transparent:true,opacity:.38,vertexColors:true,depthWrite:false});const voxels=result.risk_voxels_p75;const mesh=new THREE.InstancedMesh(geometry,material,voxels.length);const matrix=new THREE.Matrix4(),color=new THREE.Color();const low=result.summary.hotspot_threshold_p75||0;const high=result.summary.maximum_voxel_relative_screening_index||result.summary.maximum_voxel_risk_index||100;voxels.forEach((voxel,index)=>{matrix.makeTranslation((voxel[0]+.5)*voxelSize[0],(voxel[1]+.5)*voxelSize[1],(voxel[2]+.5)*voxelSize[2]);mesh.setMatrixAt(index,matrix);const normalized=Math.max(0,Math.min(1,(voxel[3]-low)/Math.max(high-low,.001)));color.setHSL(.14*(1-normalized),.92,.5);mesh.setColorAt(index,color);});group.add(mesh);
+    const firstTransform=voxelOverlayTransform(result.dimensions_m,result.grid,[0,0,0]);const geometry=new THREE.BoxGeometry(...firstTransform.size.map(value=>value*.48));const material=new THREE.MeshBasicMaterial({transparent:true,opacity:.38,vertexColors:true,depthWrite:false});const voxels=result.risk_voxels_p75;const mesh=new THREE.InstancedMesh(geometry,material,voxels.length);const matrix=new THREE.Matrix4(),color=new THREE.Color();const low=result.summary.hotspot_threshold_p75||0;const high=result.summary.maximum_voxel_relative_screening_index||result.summary.maximum_voxel_risk_index||100;voxels.forEach((voxel,index)=>{const {center}=voxelOverlayTransform(result.dimensions_m,result.grid,voxel.slice(0,3));matrix.makeTranslation(...center);mesh.setMatrixAt(index,matrix);const normalized=Math.max(0,Math.min(1,(voxel[3]-low)/Math.max(high-low,.001)));color.setHSL(.14*(1-normalized),.92,.5);mesh.setColorAt(index,color);});group.add(mesh);
   },[result]);
 
   const editSelected=(patch,invalidate=true)=>setAnnotations(items=>items.map(item=>item.id===selectedId?{...item,...patch,reviewStatus:invalidate?'unreviewed':item.reviewStatus}:item));
@@ -174,16 +144,15 @@ export default function Simulator(){
   const loadExactDemo=async(precomputed=false)=>{
     setBusy(true);setError('');
     try{
-      const [modelResponse,resultResponse]=await Promise.all([
-        fetch('/models/cabin-demo.glb'),
-        precomputed?fetch('/simulation/cabin-demo.json'):Promise.resolve(null),
+      const [modelResponse,precomputedResult]=await Promise.all([
+        fetch(`${import.meta.env.BASE_URL}models/cabin-demo.glb`),
+        precomputed?fetchPrecomputedCabin({basePath:import.meta.env.BASE_URL}):Promise.resolve(null),
       ]);
       if(!modelResponse.ok)throw new Error(`Could not load cabin-demo.glb (HTTP ${modelResponse.status}).`);
-      if(resultResponse&&!resultResponse.ok)throw new Error(`Could not load the precomputed result (HTTP ${resultResponse.status}).`);
       const buffer=await modelResponse.arrayBuffer();
       const group=await new Promise((resolve,reject)=>new GLTFLoader().parse(buffer,'',gltf=>resolve(gltf.scene),reject));
       installRef.current?.(group,CABIN_DEMO);
-      if(resultResponse)setResult(await resultResponse.json());
+      if(precomputedResult)setResult(precomputedResult);
     }catch(caught){setError(caught.message);}finally{setBusy(false);}
   };
   const importModel=async event=>{
@@ -198,8 +167,8 @@ export default function Simulator(){
     setBusy(true);setError('');
     try{
       const scenario=annotationToScenario(annotations,environment,dimensions,source,unitsConfirmed);
-      const response=await fetch('/api/simulate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({scenario,samples:DEFAULT_SAMPLES,seed:2026})});const payload=await response.json().catch(()=>({}));if(!response.ok)throw new Error(payload.detail||'Simulation service rejected the scenario.');setResult(payload);
-    }catch(caught){setError(caught.message.includes('fetch')?'Local PyTorch service is not running. Start it with “npm run api”, then try again.':caught.message);}finally{setBusy(false);}
+      const payload=await requestSimulation({scenario,samples:DEFAULT_SAMPLES,seed:2026,baseUrl:import.meta.env.VITE_SIMULATOR_API_URL});setResult(payload);
+    }catch(caught){setError(caught instanceof SimulationServiceError&&['service-unavailable','timeout'].includes(caught.kind)?`${caught.message} The precomputed cabin result remains available.`:caught.message);}finally{setBusy(false);}
   };
   const blockingReason=useMemo(()=>!complete?'Review every object before running.':!unitsConfirmed?'Confirm the imported model uses metres.':!annotations.some(item=>item.reviewStatus==='confirmed'&&item.category==='material')?'Confirm at least one combustible material.':'',[complete,unitsConfirmed,annotations]);
 
@@ -254,10 +223,13 @@ function ResultPanel({result,onEdit}){
   );
   const context=result.assumption_context;
   const metric=(modern,legacy)=>result.summary[modern]??result.summary[legacy];
-  const nearbyVent=selected?.nearby_objects?.find(item=>item.type==='vent'&&item.within_modeled_influence);
-  const vent=nearbyVent?result.scene?.vents?.find(item=>item.id===nearbyVent.id):null;
   const explorerPath=`${import.meta.env.BASE_URL.replace(/\/?$/,'/')}evidence`;
-  const explorerHref=selected?.evidence_search?buildExplorerHandoff({query:selected.evidence_search.query,environment:result.environment,spot_m:selected.center_m,vent},explorerPath):null;
+  const evidenceSearches=selected?.evidence_searches?.length?selected.evidence_searches:selected?.evidence_search?[selected.evidence_search]:[];
+  const explorerHrefFor=search=>{
+    const ventContext=search.relevant_objects?.find(item=>item.type==='vent');
+    const vent=ventContext?result.scene?.vents?.find(item=>item.id===ventContext.id):null;
+    return buildExplorerHandoff({query:search.query,area:search.area,environment:result.environment,spot_m:selected.center_m,objects:search.relevant_objects,vent},explorerPath);
+  };
   return <section className="result-panel">
     <div className="result-heading"><div><span>COMPLETED SCREENING</span><h1>{result.samples.toLocaleString()} locations sampled</h1><small>{result.metric_name||'relative screening index'} · seed {result.seed} · {result.device}</small></div><button onClick={onEdit}>Edit map</button></div>
     <div className="sim-metrics"><div><span>Mean relative index</span><b>{metric('mean_relative_screening_index','mean_risk_index')}</b></div><div><span>P95 relative index</span><b>{metric('p95_relative_screening_index','p95_risk_index')}</b></div><div><span>Peak voxel relative index</span><b>{metric('maximum_voxel_relative_screening_index','maximum_voxel_risk_index')}</b></div></div>
@@ -271,7 +243,7 @@ function ResultPanel({result,onEdit}){
       <section className="detail-section"><h3>Why it appeared</h3><p>These are same-sample counterfactual changes from the actual score. They do not add up because the formula multiplies interacting terms.</p><ol className="contributors">{selected.score_breakdown?.strongest_contributors.map(item=><li key={item.term}><span>{item.label}</span><b className={item.counterfactual_delta>=0?'raises':'lowers'}>{item.counterfactual_delta>=0?'+':''}{item.counterfactual_delta}</b></li>)}</ol></section>
       <section className="detail-section"><h3>Nearby reviewed objects</h3><ul className="nearby-objects">{selected.nearby_objects?.map(item=><li key={`${item.type}-${item.id}`}><span><b>{item.id.replace(/^object-\d+-/,'')}</b><small>{item.type}</small></span><em>{item.distance_m.toFixed(2)} m {item.within_modeled_influence?'· in modeled influence':''}</em></li>)}</ul></section>
       {comparison&&<section className="comparison-card"><span>CONTROLLED BEFORE / AFTER</span><h3>Same spot, detector moved</h3><p>Detector: {comparison.detector_position_before_m.join(', ')} m → {comparison.detector_position_after_m.join(', ')} m</p><div><span><small>Modeled coverage</small><b>{comparison.baseline.detection_coverage} → {comparison.after_move.detection_coverage}</b><em>+{comparison.change.detection_coverage}</em></span><span><small>Relative index</small><b>{comparison.baseline.relative_screening_index} → {comparison.after_move.relative_screening_index}</b><em>{comparison.change.relative_screening_index}</em></span></div><ul><li className={comparison.verification.same_sample_locations?'pass':''}><Check/> Same sampled locations: {String(comparison.verification.same_sample_locations)}</li><li className={comparison.verification.ignition_inputs_unchanged?'pass':''}><Check/> Ignition inputs unchanged: {String(comparison.verification.ignition_inputs_unchanged)}</li>{comparison.verification.only_detector_position_changed!==undefined&&<li className={comparison.verification.only_detector_position_changed?'pass':''}><Check/> Only detector position changed: {String(comparison.verification.only_detector_position_changed)}</li>}</ul><small>{comparison.interpretation}</small></section>}
-      {selected.evidence_search&&<section className="search-handoff"><Search/><div><span>RESEARCH HANDOFF</span><h3>{selected.evidence_search.query}</h3><p>{selected.evidence_search.reason} Airflow speed: <b>{selected.evidence_search.airflow_speed_status?.startsWith('unknown')?'unknown':selected.evidence_search.airflow_speed}</b>; a vent location and illustrative influence do not establish physical velocity.</p><div className="search-links"><a href={explorerHref} target="_blank" rel="noreferrer">Open shareable explorer <ExternalLink/></a><a href={selected.evidence_search.url} target="_blank" rel="noreferrer">NASA PSI directly <ExternalLink/></a></div></div></section>}
+      {evidenceSearches.length>0&&<section className="research-handoffs"><span>RESEARCH HANDOFFS</span><h3>Continue into sourced fire-safety evidence</h3>{evidenceSearches.map(search=><article className="search-handoff" key={`${search.area}-${search.query}`}><Search/><div><span>{search.area?.toUpperCase()||'RESEARCH'}</span><h3>{search.label||search.query}</h3><p>{search.reason}{search.airflow_speed_status&&<> Airflow speed: <b>{search.airflow_speed_status.startsWith('unknown')?'unknown':search.airflow_speed}</b>; a vent location and illustrative influence do not establish physical velocity.</>}</p><div className="search-links"><a href={explorerHrefFor(search)} target="_blank" rel="noreferrer">Open shareable explorer <ExternalLink/></a><a href={search.url} target="_blank" rel="noreferrer">NASA PSI directly <ExternalLink/></a></div></div></article>)}</section>}
     </article>}
     {result.benchmark_summary&&<details className="result-details"><summary>Stability and speed basis</summary><p>{result.benchmark_summary.recommendation}</p><p>Region stability means the same voxel or an immediate neighbor remained among the top 10 across five seeds. Exact rankings can still change.</p></details>}
     {context&&<details className="result-details" open><summary>Inputs, assumptions, and confirmations</summary><h3>User-entered cabin conditions</h3><ul>{context.user_entered_cabin_conditions.map(item=><li key={item.field}><b>{item.field}</b>: {item.value} · {item.used_in_score?'used in score':'recorded only, no score effect'}{item.note?`: ${item.note}`:''}</li>)}</ul><h3>Illustrative coefficients</h3><p>{context.coefficient_status}:</p><ul>{context.illustrative_coefficients.map(item=><li key={item}>{item}</li>)}</ul><h3>Geometry checks</h3><p>Metre units confirmed: <b>{String(context.mesh_confirmation.model_units_m_confirmed)}</b> · meshes reviewed: <b>{context.mesh_confirmation.reviewed_object_count} / {context.mesh_confirmation.total_object_count}</b></p><small>{context.mesh_confirmation.review_basis}</small></details>}
