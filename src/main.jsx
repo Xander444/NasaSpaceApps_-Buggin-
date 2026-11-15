@@ -74,7 +74,7 @@ function AboutPage(){
  const members=[
   {name:'Gabriel Ramos Rodriguez',bio:'Gabriel developed his passion for software engineering by teaching Python and participating in cybersecurity competitions throughout high school. Away from code, he is an avid guitarist who brings the same creativity and persistence to music and technical problem-solving.'},
   {name:'Alexander Vatch',bio:'17 year old programmer from Montreal, Canada. Student at Marianopolis College. Specializes in backend development and data visualization.'},
-  {name:'Elisabeth Wei',bio:'Among Us!!'},
+  {name:'Elisabeth Wei',bio:'Elisabeth is a 17-year-old Pure and Applied Science student at Marianopolis College in Montreal. She began learning Python in fifth grade and has continued building her skills through this challenge.'},
   {name:'Lily Ma',bio:'Lily is a first-year student at Marianopolis College who brings curiosity, humour, and persistence to collaborative problem-solving, even when an especially stubborn bug tests all three.'},
  ];
  return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Meet the four members of our team.</p><div className="team-grid">{members.map(({name,bio},index)=><article key={name}><span>{String(index+1).padStart(2,'0')}</span><h2>{name}</h2><p>{bio}</p></article>)}</div></main></PageShell>;
