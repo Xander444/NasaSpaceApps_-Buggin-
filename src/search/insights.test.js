@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createEngine} from './engine.js';
 import {preferredConditionsForContext} from './missionContexts.js';
-import {buildScientificInsight,evidenceFieldValue} from './insights.js';
+import {buildScientificInsight,evidenceFieldValue,uniqueObservationFields} from './insights.js';
 
 const index=JSON.parse(fs.readFileSync(new URL('../../public/search/index.json',import.meta.url)));
 const engine=createEngine(index);
@@ -26,6 +26,13 @@ test('specific test insight reports row values and links its NASA source',()=>{
   for(const sourceId of [...insight.sourceIds,...insight.evidenceRows[0].doc.source_ids])assert.ok(index.sources[sourceId]);
   assert.ok(insight.gaps.some(gap=>gap.kind==='warning'&&/below 21%/.test(gap.text)));
   assert.match(insight.observations[0].row.doc.kind,/test/);
+});
+
+test('observation field labels are returned as unique display-ready values',()=>{
+  assert.deepEqual(uniqueObservationFields([
+    {fields:['oxygen_initial_percent','pressure']},
+    {fields:['oxygen_initial_percent','outcome']},
+  ]),['Initial oxygen','Pressure','Reported outcome']);
 });
 
 test('mission comparability requires all preferred fields on the same returned test row',()=>{

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Citations} from './Evidence';
-import {DISPLAY_FIELDS,displayValue,evidenceFieldValue} from './insights';
+import {DISPLAY_FIELDS,displayValue,evidenceFieldValue,uniqueObservationFields} from './insights';
 
 function Claim({label,children,sourceIds,index,tone=''}){
   return <section className={`insight-claim${tone?` ${tone}`:''}`}>
@@ -33,7 +33,7 @@ export default function InsightPanel({insight,index}){
     <div className="insight-interpretations">
       <Claim label="Reported observations" sourceIds={insight.observations.flatMap(item=>item.row.doc.source_ids||[])} index={index} tone="reported">
         {insight.observations.length
-          ? `The indexed rows report values for ${uniqueFields(insight.observations).join(', ')}. Values below are shown as source-reported conditions or outcomes, not safety thresholds.`
+          ? `The indexed rows report values for ${uniqueObservationFields(insight.observations).join(', ')}. Values below are shown as source-reported conditions or outcomes, not safety thresholds.`
           : 'No normalized test measurements or outcomes were retrieved. Unknown fields remain unknown; catalog objectives and hypotheses are not treated as findings.'}
       </Claim>
       <Claim label="Scientific interpretation" sourceIds={insight.sourceIds} index={index} tone="interpretation">{insight.interpretation}</Claim>
@@ -45,8 +45,4 @@ export default function InsightPanel({insight,index}){
       <ul>{insight.gaps.map((gap,i)=><li className={`gap-${gap.kind}`} key={`${gap.kind}-${i}`}>{gap.text}{gap.sourceIds?.length>0&&<Citations ids={gap.sourceIds} index={index}/>}</li>)}</ul>
     </details>
   </section>;
-}
-
-function uniqueFields(observations){
-  return [...new Set(observations.flatMap(item=>item.fields.map(displayValue)))].join(', ');
 }

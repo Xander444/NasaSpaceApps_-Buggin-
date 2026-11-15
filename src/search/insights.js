@@ -140,4 +140,8 @@ export function evidenceFieldSourceIds(document, field) {
   return document.conditions?.[field]?.source_ids || document.source_ids || [];
 }
 
+export function uniqueObservationFields(observations) {
+  return [...new Set(observations.flatMap(item => item.fields.map(displayValue)))];
+}
+
 export {DISPLAY_FIELDS, displayValue};
