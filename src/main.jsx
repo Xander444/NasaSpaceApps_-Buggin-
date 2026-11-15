@@ -59,15 +59,54 @@ function HomePage(){
 }
 
 function SourcesPage(){
- const sources=[
-  ['NASA Space Apps challenge resources','Official challenge brief and supplied resources.','https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/?tab=resources'],
-  ['NASA Physical Sciences Informatics','Searchable combustion investigation records and linked files.','https://psi.nasa.gov/physci/repo/search?q=combustion&data_source=psi&data_type=investigation'],
-  ['BASS-II · PSI-25','Burning and Suppression of Solids II investigation record.','https://psi.nasa.gov/physci/repo/data/investigations/PSI-25'],
-  ['Saffire-I · PSI-98','Spacecraft Fire Experiment investigation record.','https://psi.nasa.gov/physci/repo/data/investigations/PSI-98'],
-  ['SAME-R · PSI-101','Smoke Aerosol Measurement Experiment Reflight investigation record.','https://psi.nasa.gov/physci/repo/data/investigations/PSI-101'],
-  [portfolio.title,'NASA combustion program context.',portfolio.url],
+ const coreSources=[
+  ['NASA Space Apps challenge resources','Challenge brief and supplied resources.','https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/?tab=resources'],
+  ['NASA Physical Sciences Informatics · combustion search','Search used to identify relevant public investigation records.','https://psi.nasa.gov/physci/repo/search?q=combustion&data_source=psi&data_type=investigation'],
+  ['Canadian Space Agency open-data catalog','Catalog reviewed for related datasets; no eligible dataset was included in the spacecraft-fire index.','https://donnees-data.asc-csa.gc.ca/en/dataset?science_admin=True'],
+  [portfolio.title,'NASA program context. This is background, not a calibration source.',portfolio.url],
+  ['NIST SP 811 · Appendix B','SI conversion reference used for supported unit conversions.','https://physics.nist.gov/Pubs/SP811/appenB.html'],
  ];
- return <PageShell active="sources"><main className="simple-page"><p className="section-label">SOURCE REGISTER</p><h1>Start with the original record.</h1><p className="page-intro">The explorer points back to public source material. A source supports only the claim and scope shown with it; relevance is not proof of safety.</p><div className="source-list">{sources.map(([title,description,url],index)=><a href={url} target="_blank" rel="noreferrer" key={url}><span>{String(index+1).padStart(2,'0')}</span><div><h2>{title}</h2><p>{description}</p></div><strong aria-hidden="true">↗</strong></a>)}</div></main></PageShell>;
+ const investigations=[
+  ['PSI-10','ACME / Flame Design','Advanced Combustion via Microgravity Experiments / Flame Design','10.60555/w4zy-bt45'],
+  ['PSI-20','ACME BRE','Advanced Combustion via Microgravity Experiments - Burning Rate Emulator','10.60555/vb93-3y72'],
+  ['PSI-21','ACME CLD Flame','Advanced Combustion via Microgravity Experiments / Coflow Laminar Diffusion Flame','10.60555/23e1-9950'],
+  ['PSI-22','ACME E-FIELD Flames','Advanced Combustion via Microgravity Experiments: Electric-Field Effects on Laminar Diffusion Flames','10.60555/se5a-8c73'],
+  ['PSI-23','ACME s-Flame','Advanced Combustion via Microgravity Experiments: Structure and Response of Spherical Diffusion Flames','10.60555/k57n-p030'],
+  ['PSI-25','BASS-II','Burning and Suppression of Solids II','10.60555/4qc4-de67'],
+  ['PSI-26','BASS','Burning and Suppression of Solids','10.60555/58h4-dy80'],
+  ['PSI-39','CFI','Cool Flames Investigation','10.60555/m6pj-a914'],
+  ['PSI-47','DAFT / DAFT-2','Dust and Aerosol Measurement Feasibility Test','10.60555/ztgj-d202'],
+  ['PSI-60','SPICE data analysis','Computational and Experimental Analysis of SPICE Data Sets','10.60555/mzjm-yv57'],
+  ['PSI-62','BASS modeling','Concurrent Flame Spread Modeling using Flamelet Generated Manifolds in Microgravity with Comparison to BASS Experiments using Two-Color Tomography','10.60555/e9xp-ex83'],
+  ['PSI-68','FLEX-2','Flame Extinguishment Experiment II','10.60555/byp8-h018'],
+  ['PSI-69','FLEX','Flame Extinguishment Experiment','10.60555/mbq8-0451'],
+  ['PSI-98','SAFFIRE-I','Spacecraft Fire Safety Experiment I','10.60555/0t15-1z43'],
+  ['PSI-99','SAFFIRE-II','Spacecraft Fire Experiment II','10.60555/2chp-m469'],
+  ['PSI-100','SAFFIRE-III','Spacecraft Fire Experiment III','10.60555/040q-4h36'],
+  ['PSI-101','SAME-R','Smoke Aerosol Measurement Experiment Reflight','10.60555/2np7-jv14'],
+  ['PSI-102','SAME','Smoke and Aerosol Measurement Experiment','10.60555/gd4k-8h62'],
+  ['PSI-106','SLICE','Structure and Liftoff in Combustion Experiment','10.60555/pm12-rg61'],
+  ['PSI-107','SPICE','Smoke Point in Co-flow Experiment','10.60555/9kbh-e962'],
+  ['PSI-115','Smoke modeling','Utilization of SAME Data for Modeling Smoke Generation in Microgravity','10.60555/q0v5-1v28'],
+  ['PSI-117','Cool-flame CFD analysis','External Thermo-Convective Perturbation on Cool Flame Dynamics','10.60555/gz0q-b577'],
+  ['PSI-142','Cool-flame extinction modeling','Cool Flame Transitions at Radiation / Stretch Extinction Using Counterflow Flames','10.60555/80qf-vj95'],
+  ['PSI-159','ACME CFI-G','Advanced Combustion via Microgravity Experiments / Cool Flames Investigation with Gases','10.60555/cyt1-kh64'],
+ ].map(([accession,acronym,title,doi])=>[
+  `${acronym} · ${accession}`,
+  `${title}. NASA PSI investigation record; DOI ${doi}.`,
+  `https://psi.nasa.gov/physci/repo/data/investigations/${accession}`,
+ ]);
+ const citedPapers=[
+  ['Dynamics of cool flames · PSI-142 catalog citation','Peer-reviewed publication cited in the PSI-142 record.','https://doi.org/10.1016/j.pecs.2019.100787'],
+  ['Understanding Cool Flames and Warm Flames · PSI-142 catalog citation','Peer-reviewed publication cited in the PSI-142 record.','https://doi.org/10.1016/j.proci.2020.09.019'],
+  ['Low-temperature reactivity of large n-alkanes · PSI-142 catalog citation','Publication cited in the PSI-142 record.','https://doi.org/10.1016/j.combustflame.2017.01.028'],
+  ['Sooting co-flow ethylene diffusion flames · PSI-21 catalog citation','Publication cited in the PSI-21 record.','https://doi.org/10.1088/1364-7830/8/3/009'],
+  ['CH(A-X) and OH(A-X) optical emission · PSI-21 catalog citation','Publication cited in the PSI-21 record.','https://doi.org/10.1016/S0010-2180(00)00112-7'],
+  ['Temperature, species, and soot in coflow diffusion flames · PSI-21 catalog citation','Publication cited in the PSI-21 record.','https://doi.org/10.1016/S0082-0784(00)80603-7'],
+  ['CH, CH*, and OH* in an axisymmetric diffusion flame · PSI-21 catalog citation','Publication cited in the PSI-21 record.','https://doi.org/10.1016/S0082-0784(98)80453-0'],
+ ];
+ const sourceList=(sources,offset=0)=><div className="source-list">{sources.map(([title,description,url],index)=><a href={url} target="_blank" rel="noreferrer" key={url}><span>{String(index+offset+1).padStart(2,'0')}</span><div><h2>{title}</h2><p>{description}</p></div><strong aria-hidden="true">↗</strong></a>)}</div>;
+ return <PageShell active="sources"><main className="simple-page"><p className="section-label">SOURCE REGISTER</p><h1>Source records behind the explorer.</h1><p className="page-intro">This register includes the challenge and methods references, all 24 NASA PSI investigation records in the curated index, and publications explicitly cited inside PSI catalog descriptions. Each result in the explorer links to its specific NASA record, cited field or test-row source. Investigation-level context does not imply that every record contains a directly comparable test.</p><h2>Project and methods</h2>{sourceList(coreSources)}<h2>All indexed NASA PSI investigations · 24</h2>{sourceList(investigations,coreSources.length)}<h2>Publications cited in PSI catalog records</h2><p className="page-intro">These publications are references listed in the NASA PSI catalog text; the app indexes the catalog excerpts and does not claim to have imported or reviewed each full paper.</p>{sourceList(citedPapers,coreSources.length+investigations.length)}<h2>Scope and limitations</h2><p className="page-intro">The source review assessed 26 NASA PSI combustion-search results and selected 24; excluded matches and the Canadian Space Agency catalog review are documented in the repository’s source-review record. NASA file inventories are indexed as metadata only, not as full-text sources. Reported study values and the simulator’s illustrative assumptions remain separate.</p></main></PageShell>;
 }
 
 function AboutPage(){

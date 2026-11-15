@@ -75,3 +75,14 @@ test('team page includes the approved professional biographies',()=>{
   assert.doesNotMatch(main,/Professional Larper|I chose the bio for everyone/);
 });
 
+test('source register includes the curated NASA PSI set and cited references',()=>{
+  const sourcePage=main.slice(main.indexOf('function SourcesPage()'),main.indexOf('function AboutPage()'));
+  assert.equal((sourcePage.match(/\['PSI-\d+'/g)||[]).length,24);
+  assert.match(sourcePage,/NASA Space Apps challenge resources/);
+  assert.match(sourcePage,/Canadian Space Agency open-data catalog/);
+  assert.match(sourcePage,/NIST SP 811/);
+  assert.match(sourcePage,/Publications cited in PSI catalog records/);
+  assert.match(sourcePage,/https:\/\/doi\.org\/10\.1016\/j\.pecs\.2019\.100787/);
+  assert.match(sourcePage,/file inventories are indexed as metadata only/i);
+});
+
