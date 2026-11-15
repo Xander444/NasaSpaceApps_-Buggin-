@@ -57,7 +57,7 @@ function SourcesPage(){
 function AboutPage(){
  const members=[
   {name:'Gabriel Ramos Rodriguez',bio:'Professional Larper'},
-  {name:'Alexander Vatch',bio:'Too cool to have a bio'},
+  {name:'Alexander Vatch',bio:'17 year old programmer from Montreal, Canada. Student at Marianopolis College. Specializes in backend development and data visualization.'},
   {name:'Elisabeth Wei',bio:'Among Us!!'},
   {name:'Lily Ma',bio:'I chose the bio for everyone'},
  ];
