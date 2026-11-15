@@ -84,7 +84,7 @@ function EvidencePage(){
  const [index,setIndex]=useState(null),[loadError,setLoadError]=useState(''),[loadAttempt,setLoadAttempt]=useState(0);
  useEffect(()=>{const controller=new AbortController();setIndex(null);setLoadError('');loadIndex(import.meta.env.BASE_URL,controller.signal).then(d=>{if(d.schema_version!==1)throw Error('Unsupported search schema');setIndex(d);}).catch(e=>{if(e.name!=='AbortError')setLoadError(e.message);});return ()=>controller.abort();},[loadAttempt]);
  return <PageShell active="evidence"><div className="app">
- <main className="evidence-main"><DemoPath currentStep="evidence"/>{loadError?<div role="alert" className="load-state error"><h1>Unable to load evidence</h1><p>{loadError}</p><button onClick={()=>setLoadAttempt(attempt=>attempt+1)}>Retry loading evidence</button></div>:!index?<p role="status" className="load-state">Loading the local evidence index…</p>:<Explorer index={index}/>}</main>
+ <main className="evidence-main">{loadError?<div role="alert" className="load-state error"><h1>Unable to load evidence</h1><p>{loadError}</p><button onClick={()=>setLoadAttempt(attempt=>attempt+1)}>Retry loading evidence</button></div>:!index?<p role="status" className="load-state">Loading the local evidence index…</p>:<Explorer index={index}/>}</main>
  </div></PageShell>
 }
 function Explorer({index}){

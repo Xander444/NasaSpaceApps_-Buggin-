@@ -23,7 +23,7 @@ test('guided demo connects project, evidence, cabin screening, and hotspot detai
   assert.match(demoPath,/href:'\/simulator\?demo=1'/);
   assert.match(demoPath,/href:'\/simulator\?demo=1#hotspot-explanation'/);
   assert.match(main,/DemoPath currentStep="project"/);
-  assert.match(main,/DemoPath currentStep="evidence"/);
+  assert.doesNotMatch(main,/DemoPath currentStep="evidence"/);
   assert.match(simulator,/DemoPath currentStep=\{result\?\.precomputed_fixture\?'hotspot':'cabin'\}/);
   assert.match(simulator,/loadExactDemo\(true\)/);
 });
