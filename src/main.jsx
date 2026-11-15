@@ -11,6 +11,8 @@ import {fetchSemantic} from './search/semantic';
 import {parseExplorerHandoff} from './search/handoff';
 import ConditionEditor from './search/ConditionEditor';
 import {MISSION_CONTEXTS,countComparableTestRows,preferredConditionsForContext} from './search/missionContexts';
+import {buildScientificInsight} from './search/insights';
+import InsightPanel from './search/InsightPanel';
 import {EvidenceDetail,ResultCard,Comparison} from './search/Evidence';
 import './styles.css';
 import DemoPath from './DemoPath';
@@ -175,6 +177,7 @@ function Explorer({index}){
  const researchKey=JSON.stringify([fullQuery,researchControls,handoff,index.index_version,similar,enhance]);
  const result=useMemo(()=>engine.search({q:siMode&&recommendation?.key===researchKey?recommendation.retrieval_query:fullQuery,conditions,program,familyName,problem,outcome:outcome==='other'?'':outcome,needed,sort,similar,semantic}),[engine,siMode,recommendation,researchKey,fullQuery,conditions,program,familyName,problem,outcome,needed,sort,similar,semantic]);
  const displayed=applyRanking(result,siMode&&recommendation?.key===researchKey&&sort==='relevance'&&!similar?recommendation:null);
+ const scientificInsight=useMemo(()=>buildScientificInsight({query:fullQuery,result,conditions}),[fullQuery,result,conditions]);
  const visibleIds=new Set([...result.verified,...result.related].flatMap(g=>[g.id,...g.evidence.map(e=>e.id)]));
  const outside=selected.filter(id=>!visibleIds.has(id));
  const toggle=id=>setSelected(s=>s.includes(id)?s.filter(x=>x!==id):s.length<3?[...s,id]:s);
@@ -208,6 +211,7 @@ function Explorer({index}){
  <div className="reset-row"><span>{q||filterCount||conditions.length?'Search settings are active.':'Showing the complete evidence index.'}</span><button disabled={!q&&!filterCount&&!conditions.length&&!handoff} onClick={reset}>Reset search</button></div>
  </section>
  {siMode&&<ResearchPanel index={index} prompt={fullQuery} controls={researchControls} context={handoff?.context} contextKey={researchKey} onRanking={setRecommendation} onKeyword={keyword} onApprove={c=>setConditions(cs=>[...cs,{...c,mode:'preferred',id:crypto.randomUUID()}])}/>}
+ <InsightPanel insight={scientificInsight} index={index}/>
  <div aria-live="polite" className="search-status">{siMode&&recommendation?.key===researchKey&&<p>SI-ranked with Gemini within existing evidence groups {sort!=='relevance'&&'· selected sort takes precedence'}</p>}<b>{result.browse?'Browse · neutral program ordering':result.mode}</b>{conditions.some(condition=>condition.mode==='preferred')&&<p className={comparableContextRows?'mission-context-match':'mission-context-gap'} role="status">{comparableContextRows?`${comparableContextRows} indexed test row(s) match all preferred conditions. This indicates condition comparability only, not safety or equivalence.`:'No indexed test row matches all preferred conditions. Results may be topically relevant, but are not condition-comparable; unknown values do not count as matches.'}</p>}{enhance&&semanticState.key===semanticKey&&semanticState.message&&<p>{semanticState.message}</p>}{semantic&&<p className="model-version">Model: {semantic.model_version}</p>}{result.notices.map(n=><p key={n}>{n}</p>)}{result.errors.map(e=><p role="alert" key={e}>{e}</p>)}{similar&&<p>Related-data mode: {similar.mode} · seed {similar.id} <button onClick={()=>setSimilar(null)}>Exit related search</button></p>}</div>
  {outside.length>0&&<p className="warning">Selected outside current results: {outside.join(', ')}. Comparison selection is preserved; only currently verified test rows can be exported.</p>}
  <div className="workspace"><section className="results"><div className="sectionhead"><div><span className="step-label">02 · REVIEW</span><h2>{result.browse?'Browse investigations':'Verified matches'}</h2><span>{result.verified.length} investigations · {result.verified.reduce((n,g)=>n+g.matchingTestCount,0)} {result.browse?'indexed':'matching'} test rows</span></div><button className="comparebtn" disabled={!selected.length} onClick={openComparison}>Compare selected · {selected.length}/3</button></div>

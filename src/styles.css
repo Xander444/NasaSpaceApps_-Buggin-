@@ -164,6 +164,29 @@ button:disabled{cursor:not-allowed;opacity:.5}
 .app .mission-context-options button{display:flex;flex-direction:column;align-items:flex-start;gap:5px;height:auto;min-height:64px;text-align:left;border-color:var(--line-bright)}
 .app .mission-context-options button b{font-size:11px}.app .mission-context-options button span{color:var(--muted);font-size:10px}
 .app .mission-context>a{display:inline-block;margin-top:10px;color:var(--blue-bright);font-size:10px;text-decoration:none}
+.scientific-insight{margin:22px 0;padding:20px;border:1px solid var(--blue);background:#09131b}
+.scientific-insight-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.scientific-insight-heading h2{margin:4px 0 0;font-size:20px;font-weight:600;line-height:1.3}
+.insight-method{padding:5px 8px;border:1px solid var(--line);color:var(--muted);font:9px 'IBM Plex Mono',monospace;white-space:nowrap}
+.insight-claim{padding:12px 0;border-bottom:1px solid var(--line)}
+.insight-claim h3{margin:0 0 5px;color:#d9e7ef;font-size:12px;font-weight:600}
+.insight-claim p{margin:0;color:#aebdc8;font-size:12px;line-height:1.6}
+.insight-claim.reported h3{color:#8fd3f5}.insight-claim.interpretation h3{color:var(--orange-soft)}.insight-claim.relevance h3{color:#c6d1d8}
+.scientific-insight .citations{margin-top:5px}
+.insight-experiments,.insight-gaps{margin-top:10px;border-top:1px solid var(--line)}
+.insight-experiments>summary,.insight-gaps>summary{min-height:42px;display:flex;align-items:center;cursor:pointer;color:var(--blue-bright);font-size:11px;font-weight:600}
+.insight-empty{margin:0 0 12px;color:var(--muted);font-size:11px}
+.insight-row{margin:0 0 10px;padding:12px;border:1px solid var(--line);background:var(--space-raised)}
+.insight-row-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.insight-row-heading b,.insight-row-heading span{display:block}.insight-row-heading b{color:var(--text);font-size:11px}.insight-row-heading span{margin-top:3px;color:var(--muted);font-size:10px;line-height:1.45}
+.insight-row-heading code{color:var(--orange-soft);font:9px 'IBM Plex Mono',monospace;overflow-wrap:anywhere}
+.insight-scope{margin:8px 0!important;color:var(--orange-soft)!important;font-size:10px!important}
+.insight-row dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:10px 0}
+.insight-row dl>div{min-width:0;padding:7px;border:1px solid var(--line);background:#080d12}
+.insight-row dt{color:var(--muted);font-size:9px}.insight-row dd{margin:3px 0 0;color:#d8e2e8;font-size:10px;overflow-wrap:anywhere}
+.insight-row dd small{display:block;margin-top:3px;color:#718596;font-size:8px;overflow-wrap:anywhere}
+.insight-warnings{padding-left:17px;color:#efc7b4;font-size:10px;line-height:1.5}
+.insight-gaps{border-color:#76503b}.insight-gaps>summary{color:var(--orange-soft)}.insight-gaps ul{margin:0 0 10px;padding-left:18px;color:#b9c5ce;font-size:10px;line-height:1.6}.insight-gaps li+li{margin-top:4px}.insight-gaps .gap-warning,.insight-gaps .gap-different,.insight-gaps .gap-unknown{color:#efc7b4}
 .app .search-toolbar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:18px;color:var(--muted);font-size:12px}
 .app .search-toolbar label{display:flex;align-items:center;gap:7px}.app .search-toolbar input{min-height:auto}.app .search-toolbar>button{margin-left:auto}
 .app .reset-row{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-top:16px;color:var(--muted);font-size:11px}.app .reset-row button{min-width:116px}
@@ -220,6 +243,7 @@ button:disabled{cursor:not-allowed;opacity:.5}
  .project-flow,.trust-section,.simple-page{padding:80px 0}.study-context,.hardware-map{padding:54px 0}.study-context-grid,.hardware-map-grid{grid-template-columns:1fr;gap:4px}.study-context-grid article>p,.hardware-map-grid article>p{min-height:0}.project-flow li{grid-template-columns:60px 1fr}.project-facts{grid-template-columns:1fr}.project-facts>div{min-height:auto;padding:48px 0}.project-facts>div+div{border-left:0;border-top:1px solid var(--line)}
  .team-grid{grid-template-columns:1fr}.team-grid article{min-height:260px}.source-list>a{grid-template-columns:45px 1fr auto}
  .app main{padding-top:28px}.app .hero{grid-template-columns:1fr}.app .hero h1{font-size:clamp(43px,10.5vw,62px)}.app .signal{display:grid;grid-template-columns:1fr auto;align-items:end;border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.app .signal>b{grid-row:1/4;grid-column:2;font-size:44px}.app .signal .mini{grid-column:1/-1}.app .search-area{padding:16px}.app .search-area-head{display:block}.app .search-area-head>p{margin-top:8px;text-align:left}.app .filters{grid-template-columns:1fr 1fr}.app .handoff-banner{display:block}.app .handoff-banner button{margin-top:14px}.app .sectionhead{align-items:flex-end}.app .comparebtn{white-space:nowrap}
+ .scientific-insight{padding:14px}.scientific-insight-heading{display:block}.insight-method{display:inline-block;margin-top:9px}.insight-row dl{grid-template-columns:repeat(2,minmax(0,1fr))}.insight-row-heading{display:block}.insight-row-heading code{display:block;margin-top:5px}
  .demo-path ol,.demo-path.compact ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.demo-path li,.demo-path.compact li{min-width:0}.demo-path li a,.demo-path.compact li a{min-width:0;white-space:normal}
 }
 
