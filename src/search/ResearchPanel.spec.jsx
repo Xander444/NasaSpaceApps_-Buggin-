@@ -31,21 +31,21 @@ test('keyword action aborts pending AI and ignores late results',async()=>{
  let finish;
  researchRequest.mockResolvedValueOnce({status:'ready',summary_version:'v'}).mockImplementationOnce(()=>new Promise(resolve=>finish=resolve));
  await render();await click('Analyze request');const signal=researchRequest.mock.calls[1][2];
- await click('Use keyword search now');expect(signal.aborted).toBe(true);expect(props.onKeyword).toHaveBeenCalledTimes(1);
+ await click('Return to keyword search');expect(signal.aborted).toBe(true);expect(props.onKeyword).toHaveBeenCalledTimes(1);
  await act(async()=>finish(ready));expect(researchRequest).toHaveBeenCalledTimes(2);expect(props.onRanking.mock.calls.every(([r])=>r===null)).toBe(true);
 });
 test('context changes invalidate pending results without another request',async()=>{
  let finish;researchRequest.mockResolvedValueOnce({status:'ready',summary_version:'v'}).mockImplementationOnce(()=>new Promise(resolve=>finish=resolve));
  await render();await click('Analyze request');props={...props,contextKey:'changed'};await render();
- await act(async()=>finish(ready));expect(host.textContent).toContain('stale');expect(researchRequest).toHaveBeenCalledTimes(2);
+ await act(async()=>finish(ready));expect(host.textContent).toContain('Needs refresh');expect(researchRequest).toHaveBeenCalledTimes(2);
 });
 test('search-now is distinct from keyword and reset clears conversation',async()=>{
  vi.stubGlobal('fetch',vi.fn().mockResolvedValue({ok:true}));
  researchRequest.mockResolvedValueOnce({status:'ready',summary_version:'v'}).mockResolvedValueOnce(ready).mockResolvedValueOnce(ranking);
- await render();await click('Search with what I have');expect(researchRequest.mock.calls[1][1].search_now).toBe(true);expect(props.onKeyword).not.toHaveBeenCalled();
+ await render();await click('Search with current details');expect(researchRequest.mock.calls[1][1].search_now).toBe(true);expect(props.onKeyword).not.toHaveBeenCalled();
  await click('Reset AI session');expect(host.textContent).not.toContain('What I understand');expect(fetch).toHaveBeenCalledWith('/api/research/session',{method:'DELETE'});
 });
 test('unconfigured backend leaves keyword action available',async()=>{
  researchRequest.mockResolvedValue({status:'unconfigured'});await render();await click('Analyze request');
- expect(host.textContent).toContain('Gemini is not configured');await click('Use keyword search now');expect(props.onKeyword).toHaveBeenCalled();expect(researchRequest).toHaveBeenCalledTimes(1);
+ expect(host.textContent).toContain('Gemini is not configured');await click('Return to keyword search');expect(props.onKeyword).toHaveBeenCalled();expect(researchRequest).toHaveBeenCalledTimes(1);
 });

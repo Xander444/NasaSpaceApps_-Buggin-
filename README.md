@@ -35,6 +35,8 @@ npm run api
 
 Run `npm run dev` in another terminal. Production frontend output is written to `dist/`; no publishing is part of these commands.
 
+For static hosting, publish `dist/` after `npm run build`. Netlify/Cloudflare Pages and Vercel route rewrites are included, and the keyword explorer plus precomputed cabin result require no API. See [HOSTING.md](docs/HOSTING.md). The `/about` page is technically ready but its biographies remain the team's content task.
+
 For a public deployment, set `VITE_SIMULATOR_API_URL` on the frontend build and configure the FastAPI container’s `SIMULATOR_ALLOWED_ORIGINS`. The container, concurrency, health-check, failure, and static-fallback contract is documented in [BACKEND_DEPLOYMENT.md](docs/BACKEND_DEPLOYMENT.md).
 
 ## Verify the integrated project
@@ -118,6 +120,8 @@ The analysis writes `public/analysis.json`, which contains the three nearest evi
 ## Team handoff
 
 Start with `docs/TEAM_HANDOFF.md` and `docs/THEME_GUIDE.md`. Data, frontend, study-comparison, and 3D model-preparation task templates are in `templates/`. The public “Who we are” page intentionally contains labeled sample copy that must be replaced before submission.
+
+The evidence explorer's current interaction and responsive layout were reviewed against the eight Bastien–Scapin ergonomic criteria. See [ERGONOMIC_REVIEW.md](docs/ERGONOMIC_REVIEW.md) for the implemented responses and the remaining human usability tasks.
 
 ## Next architecture slice
 

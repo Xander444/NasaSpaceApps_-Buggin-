@@ -82,4 +82,5 @@ The guided demo should follow `/` → `/evidence` → `/simulator?demo=1` → th
 - [ ] Screening output is called a relative screening index.
 - [ ] Any scientific claim links to its source or clearly says that it is an assumption.
 - [ ] The change does not hide mesh confirmation, metre-unit confirmation, or the simulator validity boundary.
+- [ ] The change has been checked for guidance, workload, explicit control, adaptability, error management, consistency, meaningful labels, and compatibility with the user's task.
 
