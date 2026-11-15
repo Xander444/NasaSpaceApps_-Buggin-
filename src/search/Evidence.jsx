@@ -21,26 +21,26 @@ export function EvidenceDetail({doc,index,selected,toggle,onSimilar}){
  <div className="similar"><h3>Find similar data</h3>{[['topic','Topic'],['conditions','Experimental conditions'],['measurements','Measurements / sensors']].map(([mode,label])=><button key={mode} onClick={()=>onSimilar({id:doc.id,mode})}>{label}</button>)}<small>Preserves required filters. Topic and shared hardware links do not establish comparable conditions.</small></div>
  </div>
 }
-export function ResultCard({group,verified,index,selected,toggle,onInspect}){
+export function ResultCard({group,verified,browse=false,index,selected,toggle,onInspect}){
  const [limit,setLimit]=useState(5);const strongest=group.strongest,inv=group.investigation;
  const summarySource=strongest.doc.kind==='investigation'?index.sources[inv.section_sources.objective]:null;
  const summaryText=summarySource?.excerpt||strongest.doc.text;
  const summaryIds=summarySource?[summarySource.id]:strongest.doc.source_ids;
- return <article className="evidence-card"><div className="top"><div><span className="recordid">{inv.id}</span><h3><button className="textbutton" onClick={()=>onInspect(inv.id)}>{inv.program}</button></h3></div><CompareToggle doc={{id:inv.id,kind:'investigation'}} selected={selected} toggle={toggle}/></div>
- <p>{inv.title}</p><div className="badges"><span className={'badge '+(verified?'verified':'gap')}>{verified?'Verified at the requested scope':'Related evidence with gaps'}</span><span className="badge">{strongest.doc.evidence_level}</span></div>
- <p className="matchreason">{strongest.matched.length?`Matched terms: ${strongest.matched.slice(0,8).join(', ')}`:strongest.sem?'Semantic topic match; inspect the cited evidence.':'Browse / structured condition match'}</p>
- <div className="extract"><b>{summarySource?'Objective · catalog excerpt':strongest.doc.section?.replaceAll('_',' ')||strongest.doc.evidence_level}</b><p>{summaryText.length>380?summaryText.slice(0,380)+'…':summaryText}</p><Citations ids={summaryIds} index={index}/></div>
- <CheckList checks={strongest.checks} index={index}/>
- <p className="muted">{verified?group.matchingTestCount+' matching test rows':'No rows in this group are exact matches'} · {strongest.doc.content_indexed?'source text/cells indexed':'file metadata only'}</p>
+ return <article className="evidence-card" aria-labelledby={`result-${inv.id}`}><div className="top"><div><span className="recordid">{inv.id}</span><h3 id={`result-${inv.id}`}><button className="textbutton" onClick={()=>onInspect(inv.id)}>{inv.program}</button></h3></div><CompareToggle doc={{id:inv.id,kind:'investigation'}} selected={selected} toggle={toggle}/></div>
+ <p>{inv.title}</p><div className="badges"><span className={'badge '+(verified?'verified':'gap')}>{browse?'Indexed investigation':verified?'Verified at the requested scope':'Related evidence with gaps'}</span><span className="badge">{strongest.doc.evidence_level}</span></div>
+ <p className="matchreason">{browse?'Neutral browse order':strongest.matched.length?`Matched terms: ${strongest.matched.slice(0,8).join(', ')}`:strongest.sem?'Semantic topic match; inspect the cited evidence.':'Structured condition match'}</p>
+ <details className="extract"><summary>Why this result matched · source excerpt</summary><b>{summarySource?'Objective · catalog excerpt':strongest.doc.section?.replaceAll('_',' ')||strongest.doc.evidence_level}</b><p>{summaryText.length>380?summaryText.slice(0,380)+'…':summaryText}</p><Citations ids={summaryIds} index={index}/></details>
+ {strongest.checks.length>0&&<CheckList checks={strongest.checks} index={index}/>}
+ <p className="muted">{browse?group.matchingTestCount+' indexed test rows':verified?group.matchingTestCount+' matching test rows':'No rows in this group are exact matches'} · {strongest.doc.content_indexed?'source text/cells indexed':'file metadata only'}</p>
  {inv.warnings.map(w=><p className="warning" key={w}>{w}</p>)}
  <details className="test-list"><summary>Inspect {group.evidence.length} supporting records ({group.tests.length} test rows)</summary>{group.evidence.slice(0,limit).map(e=><div className="test-item" key={e.id}><button className="textbutton" onClick={()=>onInspect(e.id)}>{e.doc.title}</button><small>{e.doc.evidence_level}</small>{e.doc.kind==='test'&&<CompareToggle doc={e.doc} selected={selected} toggle={toggle}/>}{e.contextSourceIds&&<div className="muted">Topic relevance comes from investigation context; conditions below belong to this row.<Citations ids={e.contextSourceIds} index={index}/></div>}<CheckList checks={e.checks} index={index}/></div>)}{limit<group.evidence.length&&<button onClick={()=>setLimit(l=>l+20)}>Show 20 more</button>}</details>
  </article>
 }
-export function Comparison({docs,index,result,onInspect}){
+export function Comparison({docs,index,result,onInspect,onClose}){
  const comparison=compareEvidence(docs,index);const payload=exportEvidence(docs,result,index);
  function download(format){const blob=new Blob([format==='json'?JSON.stringify(payload,null,2):toCSV(payload)],{type:format==='json'?'application/json':'text/csv;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`flame-evidence.${format}`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
  const matched=comparison.rows.filter(r=>r.status==='matched'),different=comparison.rows.filter(r=>r.status==='different'),missing=comparison.rows.filter(r=>r.status==='missing');
- return <div className="panel comparison"><h2>Compare selected evidence</h2><p className="muted">{docs.length}/3 selected · compare exact scopes below</p>
+ return <div className="panel comparison"><div className="paneltop"><div><span className="step-label">03 · COMPARE</span><h2>Compare selected evidence</h2></div><button onClick={onClose}>Close comparison</button></div><p className="muted">{docs.length}/3 selected · compare exact scopes below</p>
  {!docs.length?<p>Select investigations or actual test rows using their checkboxes.</p>:<>
  <div className="comparegrid">{docs.map(d=><section key={d.id}><h3><button className="textbutton" onClick={()=>onInspect(d.id)}>{d.id}</button></h3><p>{d.kind} · {d.title}</p><Citations ids={d.source_ids} index={index}/>{d.kind==='investigation'&&<><p>Investigation coverage only; no simultaneous test conditions inferred.</p>{['objective','approach','hardware'].map(s=>{const id=index.investigations.find(i=>i.id===d.id).section_sources[s];return id?<div key={s}><b>{s}</b><p>{index.sources[id].excerpt}</p><Citations ids={[id]} index={index}/></div>:null;})}</>}{d.warnings.map(w=><p className="warning" key={w}>{w}</p>)}</section>)}</div>
  {docs.length>1&&[['Conditions that match',matched],['Conditions that differ',different],['Missing or unresolved conditions',missing]].map(([title,rows])=><section key={title}><h3>{title}</h3>{!rows.length?<p className="muted">None established.</p>:rows.map(r=><div className="comparison-row" key={r.field}><b>{r.label}</b><ul>{r.values.map((v,i)=><li key={i}>{docs[i].id}: {v.value??'Unknown'} {v.unit}</li>)}</ul><p>{r.conclusion}</p><Citations ids={r.source_ids} index={index}/></div>)}</section>)}
