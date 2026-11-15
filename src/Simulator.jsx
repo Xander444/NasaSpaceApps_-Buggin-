@@ -1,4 +1,4 @@
-import React,{useEffect,useMemo,useRef,useState} from 'react';
+import React,{useCallback,useEffect,useMemo,useRef,useState} from 'react';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -7,6 +7,7 @@ import {CATEGORIES,MATERIAL_PRESETS,defaultsFor} from './simulator/suggestions';
 import {prepareModel,voxelOverlayTransform} from './simulator/modelPreparation';
 import {SimulationServiceError,fetchPrecomputedCabin,requestSimulation} from './simulator/apiClient';
 import {buildExplorerHandoff} from './search/handoff';
+import DemoPath from './DemoPath';
 import './simulator.css';
 
 const COLOR={unreviewed:0xf2a65a,confirmed:0x75d39b,ignored:0x687376,selected:0xffe08a};
@@ -76,7 +77,9 @@ export default function Simulator(){
   const [annotations,setAnnotations]=useState([]),[selectedId,setSelectedId]=useState(null),[dimensions,setDimensions]=useState([8,3,4]);
   const [source,setSource]=useState({name:'Built-in compartment demo',format:'generated',bytes:0,sha256:'built-in-demo-v1'});
   const [environment,setEnvironment]=useState({oxygen_percent:21,pressure_kpa:101.325,gravity_g:0,ambient_temperature_c:22});
-  const [unitsConfirmed,setUnitsConfirmed]=useState(false),[result,setResult]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
+  const [unitsConfirmed,setUnitsConfirmed]=useState(false),[result,setResult]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState(''),[errorKind,setErrorKind]=useState('');
+  const guidedDemo=useMemo(()=>new URLSearchParams(window.location.search).get('demo')==='1',[]);
+  const [guidedHotspot,setGuidedHotspot]=useState(()=>guidedDemo&&window.location.hash==='#hotspot-explanation');
   const selected=annotations.find(item=>item.id===selectedId);
   const reviewed=annotations.filter(item=>item.reviewStatus!=='unreviewed').length;
   const complete=annotations.length>0&&reviewed===annotations.length;
@@ -96,16 +99,16 @@ export default function Simulator(){
         while(resultGroup.children.length){const child=resultGroup.children.pop();disposeGroup(child);}
         const prepared=prepareModel(raw); scene.add(prepared.group); modelRef.current=prepared.group;
         controls.target.fromArray(prepared.dimensions.map(value=>value/2)); camera.position.set(prepared.dimensions[0]*1.25,Math.max(4,prepared.dimensions[1]*2),prepared.dimensions[2]*1.6);
-        setAnnotations(prepared.annotations);setDimensions(prepared.dimensions);setSource(metadata);setSelectedId(prepared.annotations[0]?.id||null);setUnitsConfirmed(false);setResult(null);setError('');
-      }catch(caught){disposeGroup(raw);setError(caught.message);}
+        setAnnotations(prepared.annotations);setDimensions(prepared.dimensions);setSource(metadata);setSelectedId(prepared.annotations[0]?.id||null);setUnitsConfirmed(false);setResult(null);setError('');setErrorKind('');
+      }catch(caught){disposeGroup(raw);setError(caught.message);setErrorKind('demo');}
     };
     installRef.current=install;
     install(createDemoModel(),{name:'Loading exact cabin demo…',format:'generated',bytes:0,sha256:'built-in-demo-v1'});
-    fetch(`${import.meta.env.BASE_URL}models/cabin-demo.glb`).then(response=>{
+    if(!guidedHotspot)fetch(`${import.meta.env.BASE_URL}models/cabin-demo.glb`).then(response=>{
       if(!response.ok)throw new Error(`HTTP ${response.status}`);
       return response.arrayBuffer();
-    }).then(buffer=>new GLTFLoader().parse(buffer,'',gltf=>install(gltf.scene,CABIN_DEMO),()=>{})).catch(()=>{
-      setError('The exact cabin demo could not be loaded; showing the generated fallback.');
+    }).then(buffer=>new Promise((resolve,reject)=>new GLTFLoader().parse(buffer,'',gltf=>resolve(gltf.scene),reject))).then(group=>install(group,CABIN_DEMO)).catch(caught=>{
+      setError(`The exact cabin demo could not be loaded; showing the generated fallback. ${caught.message}`);setErrorKind('demo');
     });
     const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();let down=null;
     const pointerDown=event=>{down=[event.clientX,event.clientY];};
@@ -135,14 +138,14 @@ export default function Simulator(){
     const firstTransform=voxelOverlayTransform(result.dimensions_m,result.grid,[0,0,0]);const geometry=new THREE.BoxGeometry(...firstTransform.size.map(value=>value*.48));const material=new THREE.MeshBasicMaterial({transparent:true,opacity:.38,vertexColors:true,depthWrite:false});const voxels=result.risk_voxels_p75;const mesh=new THREE.InstancedMesh(geometry,material,voxels.length);const matrix=new THREE.Matrix4(),color=new THREE.Color();const low=result.summary.hotspot_threshold_p75||0;const high=result.summary.maximum_voxel_relative_screening_index||result.summary.maximum_voxel_risk_index||100;voxels.forEach((voxel,index)=>{const {center}=voxelOverlayTransform(result.dimensions_m,result.grid,voxel.slice(0,3));matrix.makeTranslation(...center);mesh.setMatrixAt(index,matrix);const normalized=Math.max(0,Math.min(1,(voxel[3]-low)/Math.max(high-low,.001)));color.setHSL(.14*(1-normalized),.92,.5);mesh.setColorAt(index,color);});group.add(mesh);
   },[result]);
 
-  const editSelected=(patch,invalidate=true)=>setAnnotations(items=>items.map(item=>item.id===selectedId?{...item,...patch,reviewStatus:invalidate?'unreviewed':item.reviewStatus}:item));
+  const editSelected=(patch,invalidate=true)=>setAnnotations(items=>items.map(item=>item.id===selectedId?{...item,...patch,...(invalidate?{reviewStatus:'unreviewed'}:{})}:item));
   const editParams=patch=>editSelected({params:{...selected.params,...patch}});
   const changeCategory=category=>editSelected({category,materialType:category==='material'?'unknown_combustible':selected.materialType,params:defaultsFor(category)});
   const confirmSelected=()=>editSelected({reviewStatus:selected.category==='ignore'?'ignored':'confirmed'},false);
   const ignoreSelected=()=>editSelected({category:'ignore',params:{},reviewStatus:'ignored'},false);
   const nextUnreviewed=()=>{const next=annotations.find(item=>item.reviewStatus==='unreviewed');if(next)setSelectedId(next.id);};
-  const loadExactDemo=async(precomputed=false)=>{
-    setBusy(true);setError('');
+  const loadExactDemo=useCallback(async(precomputed=false)=>{
+    setBusy(true);setError('');setErrorKind('');
     try{
       const [modelResponse,precomputedResult]=await Promise.all([
         fetch(`${import.meta.env.BASE_URL}models/cabin-demo.glb`),
@@ -153,10 +156,21 @@ export default function Simulator(){
       const group=await new Promise((resolve,reject)=>new GLTFLoader().parse(buffer,'',gltf=>resolve(gltf.scene),reject));
       installRef.current?.(group,CABIN_DEMO);
       if(precomputedResult)setResult(precomputedResult);
-    }catch(caught){setError(caught.message);}finally{setBusy(false);}
-  };
+    }catch(caught){setError(precomputed?`Could not load the precomputed cabin result. ${caught.message}`:caught.message);setErrorKind(precomputed?'precomputed':'demo');}finally{setBusy(false);}
+  },[]);
+  useEffect(()=>{
+    if(guidedHotspot)loadExactDemo(true);
+  },[guidedHotspot,loadExactDemo]);
+  useEffect(()=>{
+    const syncHash=()=>setGuidedHotspot(guidedDemo&&window.location.hash==='#hotspot-explanation');
+    window.addEventListener('hashchange',syncHash);
+    return ()=>window.removeEventListener('hashchange',syncHash);
+  },[guidedDemo]);
+  useEffect(()=>{
+    if(guidedHotspot&&result?.precomputed_fixture)document.getElementById('hotspot-explanation')?.scrollIntoView({block:'start'});
+  },[guidedHotspot,result]);
   const importModel=async event=>{
-    const file=event.target.files?.[0];event.target.value='';if(!file)return;setError('');
+    const file=event.target.files?.[0];event.target.value='';if(!file)return;setError('');setErrorKind('');
     const extension=file.name.split('.').pop().toLowerCase();if(!['glb','gltf'].includes(extension)){setError('First release accepts .glb or a self-contained .gltf file.');return;}
     try{
       const buffer=await file.arrayBuffer();const digest=await crypto.subtle.digest('SHA-256',buffer);const sha256=[...new Uint8Array(digest)].map(byte=>byte.toString(16).padStart(2,'0')).join('');const payload=extension==='glb'?buffer:new TextDecoder().decode(buffer);
@@ -164,11 +178,15 @@ export default function Simulator(){
     }catch(caught){setError(`Could not import model: ${caught.message}`);}
   };
   const runSimulation=async()=>{
-    setBusy(true);setError('');
+    setBusy(true);setError('');setErrorKind('');
     try{
       const scenario=annotationToScenario(annotations,environment,dimensions,source,unitsConfirmed);
       const payload=await requestSimulation({scenario,samples:DEFAULT_SAMPLES,seed:2026,baseUrl:import.meta.env.VITE_SIMULATOR_API_URL});setResult(payload);
-    }catch(caught){setError(caught instanceof SimulationServiceError&&['service-unavailable','timeout'].includes(caught.kind)?`${caught.message} The precomputed cabin result remains available.`:caught.message);}finally{setBusy(false);}
+    }catch(caught){
+      const offline=caught instanceof SimulationServiceError&&['service-unavailable','timeout'].includes(caught.kind);
+      setErrorKind(offline?'api':'');
+      setError(offline?`${caught.message} The precomputed cabin result remains available.`:caught.message);
+    }finally{setBusy(false);}
   };
   const blockingReason=useMemo(()=>!complete?'Review every object before running.':!unitsConfirmed?'Confirm the imported model uses metres.':!annotations.some(item=>item.reviewStatus==='confirmed'&&item.category==='material')?'Confirm at least one combustible material.':'',[complete,unitsConfirmed,annotations]);
 
@@ -177,11 +195,12 @@ export default function Simulator(){
     <main>
       <section className="sim-visual"><div ref={host}/><div className="sim-toolbar"><button onClick={()=>fileInput.current?.click()}><FileUp/> Import GLB / glTF</button><input ref={fileInput} type="file" accept=".glb,.gltf,model/gltf-binary,model/gltf+json" onChange={importModel}/><button onClick={()=>loadExactDemo(false)} disabled={busy}><RotateCcw/> Load cabin demo</button><button className="precomputed-button" onClick={()=>loadExactDemo(true)} disabled={busy}><Play/> View precomputed result</button></div><div className="sim-canvas-note">Click a mesh to review it · drag to orbit · scroll to zoom</div><div className="sim-legend"><span><i className="unreviewed-dot"/> unreviewed</span><span><i className="confirmed-dot"/> confirmed</span><span><i className="ignored-dot"/> ignored</span>{result&&<span><i className="risk-dot"/> upper-quartile relative index</span>}</div></section>
       <aside className="sim-sidebar">
+        {guidedDemo&&<DemoPath currentStep={result?.precomputed_fixture?'hotspot':'cabin'} compact/>}
         <div className="sim-warning"><AlertTriangle/><div><b>Relative screening, not CFD or fire probability</b><span>Do not use this prototype for mission-safety decisions.</span></div></div>
         <div className="model-summary"><div><span>MODEL</span><b>{source.name}</b><small>{dimensions.map(value=>value.toFixed(2)).join(' × ')} m · {annotations.length} meshes</small></div><button onClick={nextUnreviewed} disabled={complete||Boolean(result)}>Review next <ChevronRight/></button></div>
         <div className="review-progress"><div><span style={{width:`${result?.precomputed_fixture?100:annotations.length?reviewed/annotations.length*100:0}%`}}/></div><b>{result?.precomputed_fixture?`${result.assumption_context.mesh_confirmation.reviewed_object_count} / ${result.assumption_context.mesh_confirmation.total_object_count} fixture labels`: `${reviewed} / ${annotations.length} reviewed`}</b></div>
-        {error&&<div className="sim-error">{error}</div>}
-        {result?<ResultPanel result={result} onEdit={()=>setResult(null)}/>:<>
+        {error&&<div className="sim-error" role="alert"><p>{error}</p>{errorKind==='api'&&<div className="sim-error-actions"><button onClick={runSimulation} disabled={Boolean(blockingReason)||busy}>Retry simulation</button><button onClick={()=>loadExactDemo(true)} disabled={busy}>View precomputed result</button></div>}{errorKind==='demo'&&<button onClick={()=>loadExactDemo(false)} disabled={busy}>Retry cabin demo</button>}{errorKind==='precomputed'&&<button onClick={()=>loadExactDemo(true)} disabled={busy}>Retry precomputed result</button>}</div>}
+        {result?<ResultPanel result={result} onEdit={()=>{setResult(null);if(guidedHotspot){window.history.replaceState({},'',`${window.location.pathname}?demo=1`);setGuidedHotspot(false);}}}/>:<>
           <EnvironmentForm value={environment} onChange={setEnvironment}/>
           {selected?<AnnotationPanel item={selected} onCategory={changeCategory} onParams={editParams} onMaterial={materialType=>editSelected({materialType,params:defaultsFor('material',materialType)})} onConfirm={confirmSelected} onIgnore={ignoreSelected}/>:<div className="empty-selection">Click an object in the 3D view to classify it.</div>}
           <div className="run-card"><label className="units-check"><input type="checkbox" checked={unitsConfirmed} onChange={event=>setUnitsConfirmed(event.target.checked)}/><span><b>I confirm model units are metres</b><small>Imported geometry is not automatically scaled.</small></span></label><button className="run-button" onClick={runSimulation} disabled={Boolean(blockingReason)||busy}><Play/>{busy?`Sampling ${DEFAULT_SAMPLES.toLocaleString()} locations…`:'Run confirmed scenario'}</button>{blockingReason&&<small className="blocking-reason">{blockingReason}</small>}</div>
@@ -230,7 +249,7 @@ function ResultPanel({result,onEdit}){
     const vent=ventContext?result.scene?.vents?.find(item=>item.id===ventContext.id):null;
     return buildExplorerHandoff({query:search.query,area:search.area,environment:result.environment,spot_m:selected.center_m,objects:search.relevant_objects,vent},explorerPath);
   };
-  return <section className="result-panel">
+  return <section className="result-panel" id={result.precomputed_fixture?'hotspot-explanation':undefined}>
     <div className="result-heading"><div><span>COMPLETED SCREENING</span><h1>{result.samples.toLocaleString()} locations sampled</h1><small>{result.metric_name||'relative screening index'} · seed {result.seed} · {result.device}</small></div><button onClick={onEdit}>Edit map</button></div>
     <div className="sim-metrics"><div><span>Mean relative index</span><b>{metric('mean_relative_screening_index','mean_risk_index')}</b></div><div><span>P95 relative index</span><b>{metric('p95_relative_screening_index','p95_risk_index')}</b></div><div><span>Peak voxel relative index</span><b>{metric('maximum_voxel_relative_screening_index','maximum_voxel_risk_index')}</b></div></div>
     <h2>Ranked candidate hotspots</h2>
