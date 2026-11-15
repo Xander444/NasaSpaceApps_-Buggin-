@@ -13,7 +13,9 @@ test('simulator probe round-trips query, cabin conditions, and selected spot',()
     environment:demo.environment,
     spot_m:probe.center_m,
   });
-  const parsed=parseExplorerHandoff(new URL(href,'https://example.test').search);
+  const url=new URL(href,'https://example.test');
+  assert.equal(url.pathname,'/evidence');
+  const parsed=parseExplorerHandoff(url.search);
   assert.equal(parsed.query,'solid material flammability forced airflow microgravity fabric');
   assert.deepEqual(parsed.context.spot_m,[1.7,2.1,2.3]);
   assert.equal(parsed.context.gravity_g,0);

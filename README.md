@@ -2,7 +2,7 @@
 
 An evidence-first dashboard and human-confirmed 3D fire-risk screening prototype for the 2026 NASA Space Apps Challenge. It searches imported NASA Physical Sciences Informatics evidence, preserves provenance and unknown conditions, and optionally adds pretrained semantic retrieval. A separate PyTorch workflow screens candidate spatial hotspots.
 
-## Run the evidence explorer locally
+## Run the website locally
 
 ```bash
 npm install
@@ -10,7 +10,9 @@ npm run dev
 npm run build
 ```
 
-The explorer at `/` works from the committed search index without Python, a server, an API key, or live NASA access. Search a question, add optional required/preferred conditions, inspect cited rows, compare up to three selections, and export verified tests. Try **Design a smoke detector**, or **PMMA** with required initial oxygen **22.2% vol**.
+The project overview opens at `/`. The evidence explorer at `/evidence` works from the committed search index without Python, a server, an API key, or live NASA access. Search a question, add optional required/preferred conditions, inspect cited rows, compare up to three selections, and export verified tests. Try **Design a smoke detector**, or **PMMA** with required initial oxygen **22.2% vol**.
+
+The other public routes are `/simulator` for cabin screening, `/sources` for the primary-source register, and `/about` for the team page. The visual and language rules for future frontend work are in [THEME_GUIDE.md](docs/THEME_GUIDE.md).
 
 ```bash
 npm run search:index       # explicit, offline preprocessing
@@ -111,7 +113,7 @@ The analysis writes `public/analysis.json`, which contains the three nearest evi
 
 ## Team handoff
 
-Start with `docs/TEAM_HANDOFF.md`. Data, frontend, study-comparison, and 3D model-preparation task templates are in `templates/`.
+Start with `docs/TEAM_HANDOFF.md` and `docs/THEME_GUIDE.md`. Data, frontend, study-comparison, and 3D model-preparation task templates are in `templates/`. The public “Who we are” page intentionally contains labeled sample copy that must be replaced before submission.
 
 ## Next architecture slice
 

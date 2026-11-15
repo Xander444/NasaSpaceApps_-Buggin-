@@ -1,6 +1,6 @@
 import React,{lazy,Suspense,useEffect,useMemo,useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import {Flame,Search,Database} from 'lucide-react';
+import {Search,Database} from 'lucide-react';
 import {portfolio,family} from './data';
 import {loadIndex} from './search/loadIndex';
 import {createEngine} from './search/engine';
@@ -11,12 +11,60 @@ import ConditionEditor from './search/ConditionEditor';
 import {EvidenceDetail,ResultCard,Comparison} from './search/Evidence';
 import './styles.css';
 const Simulator=lazy(()=>import('./Simulator'));
-function App(){
+
+const links=[
+ {href:'/',label:'Project',key:'project'},
+ {href:'/evidence',label:'Evidence explorer',key:'evidence'},
+ {href:'/simulator',label:'Cabin screening',key:'simulator'},
+ {href:'/sources',label:'Sources',key:'sources'},
+ {href:'/about',label:'Who we are',key:'about'},
+];
+
+function SiteHeader({active}){
+ return <header className="site-header"><div className="header-line"><a className="wordmark" href="/" aria-label="Flame in Freefall home"><strong>Flame in Freefall</strong><span>Fire safety evidence for exploration</span></a><span className="event-name">NASA SPACE APPS · 2026</span></div><nav aria-label="Primary navigation">{links.map(link=><a className={active===link.key?'active':''} href={link.href} key={link.key}>{link.label}</a>)}</nav></header>;
+}
+
+function SiteFooter(){
+ return <footer className="site-footer"><span>Flame in Freefall · NASA Space Apps 2026</span></footer>;
+}
+
+function PageShell({active,children}){
+ return <div className="site-shell"><SiteHeader active={active}/>{children}<SiteFooter/></div>;
+}
+
+function HomePage(){
+ return <PageShell active="project"><main id="project" className="project-page">
+  <section className="project-hero"><div className="hero-copy"><p className="eyebrow centered">MICROGRAVITY FIRE SAFETY</p><h1>Find the fire safety evidence that fits the mission.</h1><p className="lede">A clear, source-grounded workspace for exploring combustion research and screening spacecraft interiors, without presenting assumptions as measured fact.</p><div className="hero-actions"><a className="primary-action" href="/evidence">Explore the evidence <span aria-hidden="true">→</span></a><a className="secondary-action" href="/simulator">View cabin screening</a></div></div></section>
+  <section className="challenge-solution" aria-labelledby="challenge-title"><div><p className="section-label">THE CHALLENGE</p><h2 id="challenge-title">Turn decades of microgravity combustion research into usable fire safety insight.</h2><p>Create an interactive, SI-powered dashboard that summarizes, ranks, and interprets microgravity combustion findings for human space exploration.</p></div><div><p className="section-label">HOW WE SOLVE IT</p><h2>Connect published evidence to an explainable cabin screen.</h2><p>Users search sourced studies, compare test conditions, confirm objects in a 3D cabin, rank candidate hotspots, and carry a selected spot and its conditions back into evidence search.</p></div></section>
+  <section className="project-flow" aria-labelledby="flow-title"><p className="section-label">WHAT THE PROJECT DOES</p><h2 id="flow-title">One path from question to traceable result</h2><ol><li><span>01</span><div><h3>Find the study</h3><p>Search and filter NASA combustion investigations by material, oxygen, pressure, flow, sensors, and mission need.</p></div></li><li><span>02</span><div><h3>Screen the cabin</h3><p>Confirm imported geometry and cabin assumptions before sampling candidate ignition locations.</p></div></li><li><span>03</span><div><h3>Explain the result</h3><p>See why each candidate hotspot appears and hand the exact context back to evidence search.</p></div></li></ol></section>
+  <section className="project-facts" aria-label="Project facts"><div><strong>24</strong><p>combustion investigations in the current curated explorer</p></div><div><strong>100k</strong><p>default candidate locations in the precomputed cabin screen</p></div><div><strong>1 rule</strong><p>If a value is missing, show unknown. Never invent it.</p></div></section>
+  <section className="trust-section"><p className="section-label">DESIGNED FOR TRUST</p><h2>Useful because the limits stay visible.</h2><p>The interface keeps reported measurements, user-entered cabin conditions, illustrative coefficients, and missing data distinct. Every research result should be easy to trace back to its source.</p><div className="text-links"><a href="/sources">Review project sources →</a><a href="/about">Meet the team →</a></div></section>
+ </main></PageShell>;
+}
+
+function SourcesPage(){
+ const sources=[
+  ['NASA Space Apps challenge resources','Official challenge brief and supplied resources.','https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/?tab=resources'],
+  ['NASA Physical Sciences Informatics','Searchable combustion investigation records and linked files.','https://psi.nasa.gov/physci/repo/search?q=combustion&data_source=psi&data_type=investigation'],
+  ['BASS-II · PSI-25','Burning and Suppression of Solids II investigation record.','https://psi.nasa.gov/physci/repo/data/investigations/PSI-25'],
+  ['Saffire-I · PSI-98','Spacecraft Fire Experiment investigation record.','https://psi.nasa.gov/physci/repo/data/investigations/PSI-98'],
+  ['SAME-R · PSI-101','Smoke Aerosol Measurement Experiment Reflight investigation record.','https://psi.nasa.gov/physci/repo/data/investigations/PSI-101'],
+  [portfolio.title,'NASA combustion program context.',portfolio.url],
+ ];
+ return <PageShell active="sources"><main className="simple-page"><p className="section-label">SOURCE REGISTER</p><h1>Start with the original record.</h1><p className="page-intro">The explorer points back to public source material. A source supports only the claim and scope shown with it; relevance is not proof of safety.</p><div className="source-list">{sources.map(([title,description,url],index)=><a href={url} target="_blank" rel="noreferrer" key={url}><span>{String(index+1).padStart(2,'0')}</span><div><h2>{title}</h2><p>{description}</p></div><strong aria-hidden="true">↗</strong></a>)}</div></main></PageShell>;
+}
+
+function AboutPage(){
+ const members=['Project lead / product','Evidence and data','Simulation and validation','Frontend and experience'];
+ return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Sample team copy: We are a multidisciplinary NASA Space Apps team combining research, data, simulation, and design. Replace this paragraph with the team’s real story before release.</p><div className="sample-note">SAMPLE TEAM CONTENT · Replace names, roles, and biographies.</div><div className="team-grid">{members.map((role,index)=><article key={role}><span>{String(index+1).padStart(2,'0')}</span><h2>Team member name</h2><h3>{role}</h3><p>Sample biography: add this person’s background, project contribution, and the question they are helping the team answer.</p></article>)}</div></main></PageShell>;
+}
+
+function EvidencePage(){
  const [index,setIndex]=useState(null),[loadError,setLoadError]=useState('');
  useEffect(()=>{const controller=new AbortController();loadIndex(import.meta.env.BASE_URL,controller.signal).then(d=>{if(d.schema_version!==1)throw Error('Unsupported search schema');setIndex(d);}).catch(e=>{if(e.name!=='AbortError')setLoadError(e.message);});return ()=>controller.abort();},[]);
- return <div className="app"><header><div className="brand"><div className="mark"><Flame size={20}/></div><div><strong>Flame in Freefall</strong><span>NASA Space Apps 2026 · evidence explorer</span></div></div><a className="simlink" href="/simulator">3D risk prototype ↗</a><div className="status"><i/> Source-grounded prototype</div></header>
+ return <PageShell active="evidence"><div className="app">
  <main>{loadError?<div role="alert" className="panel"><h1>Unable to load evidence</h1><p>{loadError}</p><button onClick={()=>location.reload()}>Retry</button></div>:!index?<p role="status">Loading the local evidence index…</p>:<Explorer index={index}/>}</main>
- <footer><a href={portfolio.url} target="_blank" rel="noreferrer">{portfolio.title} ↗</a><span>Missing means unknown—not zero.</span></footer></div>
+ </div></PageShell>
 }
 function Explorer({index}){
  const engine=useMemo(()=>createEngine(index),[index]);
@@ -79,4 +127,11 @@ function SimulatorHandoff({handoff,onClear}){
  const conditions=[c.oxygen_percent!==null&&`O₂ ${c.oxygen_percent}%`,c.pressure_kpa!==null&&`${c.pressure_kpa} kPa`,c.gravity_g!==null&&`${c.gravity_g} g`,c.ambient_temperature_c!==null&&`${c.ambient_temperature_c} °C`].filter(Boolean);
  return <section className="handoff-banner" aria-label="Simulator search handoff"><div><span>SIMULATOR HANDOFF</span><h2>Evidence context for selected spot {vector(c.spot_m)}{c.spot_m?' m':''}</h2><p>{conditions.join(' · ')||'No cabin conditions supplied'}</p>{c.vent_id&&<p><b>{c.vent_id.replace(/^object-\d+-/,'')}</b>{c.vent_position_m?` at ${vector(c.vent_position_m)} m`:''} is recorded. Physical airflow speed: <strong>{c.airflow_speed_status}</strong>. {c.airflow_speed_status==='unknown'?'No airflow condition was applied.':''}</p>}<small>Oxygen and pressure are preferred search context. Gravity and temperature remain recorded scenario inputs; they are not treated as measured study conditions.</small></div><button onClick={onClear}>Dismiss context</button></section>;
 }
-createRoot(document.getElementById('root')).render(window.location.pathname.startsWith('/simulator')?<Suspense fallback={<div className="sim-error">Loading 3D viewer…</div>}><Simulator/></Suspense>:<App/>);
+const path=window.location.pathname.replace(/\/+$/,'')||'/';
+let page;
+if(path==='/simulator'||path==='/screening')page=<Suspense fallback={<div className="sim-error">Loading 3D viewer…</div>}><Simulator/></Suspense>;
+else if(path==='/evidence')page=<EvidencePage/>;
+else if(path==='/sources')page=<SourcesPage/>;
+else if(path==='/about')page=<AboutPage/>;
+else page=<HomePage/>;
+createRoot(document.getElementById('root')).render(page);

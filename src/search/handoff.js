@@ -29,7 +29,7 @@ const preferredNumeric = (field, value, unit) => ({
  * Build a portable, source-grounded explorer handoff. A vent location is
  * context only unless the scenario supplies a finite physical airflow speed.
  */
-export function buildExplorerHandoff({ query, environment = {}, spot_m, vent = null }, basePath = '/') {
+export function buildExplorerHandoff({ query, environment = {}, spot_m, vent = null }, basePath = '/evidence') {
   const params = new URLSearchParams();
   params.set('handoff', SIMULATOR_HANDOFF);
   if (String(query || '').trim()) params.set('q', String(query).trim());
