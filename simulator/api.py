@@ -7,9 +7,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from research.api import router as research_router
 from research.middleware import ResearchLimits
 
+
+import os
+import threading
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from engine import simulate
@@ -22,13 +26,32 @@ class SimulationRequest(BaseModel):
 
 
 app = FastAPI(
-    title="Flame in Freefall local screening API",
+    title="Flame in Freefall screening API",
     version="0.4.0",
     description="Runs only scenarios whose object labels and model scale were reviewed by a person.",
 )
 
 app.include_router(research_router)
 app.add_middleware(ResearchLimits)
+
+ALLOWED_ORIGINS = [
+    origin.strip() for origin in os.getenv(
+        "SIMULATOR_ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
+    ).split(",") if origin.strip()
+]
+try:
+    MAX_CONCURRENT_REQUESTS = max(1, int(os.getenv("SIMULATOR_MAX_CONCURRENT", "2")))
+except ValueError:
+    MAX_CONCURRENT_REQUESTS = 2
+SIMULATION_SLOTS = threading.BoundedSemaphore(MAX_CONCURRENT_REQUESTS)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
+)
 
 CATEGORY_COLLECTIONS = {
     "materials": "material",
@@ -124,15 +147,22 @@ def run_confirmed_simulation(payload: SimulationRequest) -> dict[str, Any]:
 
 @app.get("/api/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "model": "relative spatial screening"}
+    return {
+        "status": "ok", "model": "relative spatial screening",
+        "max_concurrent_requests": str(MAX_CONCURRENT_REQUESTS),
+    }
 
 
 @app.post("/api/simulate")
 def simulate_endpoint(payload: SimulationRequest) -> dict[str, Any]:
+    if not SIMULATION_SLOTS.acquire(blocking=False):
+        raise HTTPException(status_code=503, detail="Simulation service is at capacity; retry shortly")
     try:
         return run_confirmed_simulation(payload)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+    finally:
+        SIMULATION_SLOTS.release()
 
 
 if __name__ == "__main__":

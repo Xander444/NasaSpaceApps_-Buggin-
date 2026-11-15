@@ -29,10 +29,10 @@ Timings vary by machine. They are included to justify the default on this enviro
 
 | Samples | Median model latency | Maximum latency | Mean top-10 region retention | Minimum pair retention | Mean exact top-25 Jaccard |
 | ---: | ---: | ---: | ---: | ---: | ---: |
-| 50,000 | 0.0257 s | 0.0474 s | 95.5% | 85% | 68.16% |
-| 100,000 | 0.0332 s | 0.0620 s | 100% | 100% | 79.47% |
-| 250,000 | 0.0638 s | 0.0983 s | 100% | 100% | 82.54% |
-| 500,000 | 0.1166 s | 0.1632 s | 100% | 100% | 83.30% |
+| 50,000 | 0.0262 s | 0.0466 s | 95.5% | 85% | 68.16% |
+| 100,000 | 0.0301 s | 0.0335 s | 100% | 100% | 79.47% |
+| 250,000 | 0.0597 s | 0.0630 s | 100% | 100% | 82.54% |
+| 500,000 | 0.1074 s | 0.1318 s | 100% | 100% | 83.30% |
 
 The retained default is **100,000 samples**. It is the smallest tested count that passes every predefined rule: mean top-10 neighborhood retention at least 80%, minimum pair retention at least 60%, mean exact top-25 Jaccard at least 75%, and median model latency below five seconds.
 
@@ -67,9 +67,29 @@ The comparison verifies all three conditions in the generated result:
 
 This is a model counterfactual. It does not establish that the new detector position is operationally optimal.
 
-## Evidence handoff check
+## Evidence handoff checks
 
 The controlled fabric-and-vent research spot remains at `[1.7, 2.1, 2.3] m`. It produces the query `solid material flammability forced airflow microgravity fabric`. The scenario supplies a vent location and an illustrative radial influence, but no physical velocity, so airflow speed remains `unknown` and no airflow-speed condition is inserted into the evidence search.
+
+Every ranked hotspot and controlled research spot also emits detector-response and suppression/extinguishment searches. Each shareable explorer URL carries the selected spot, cabin oxygen and pressure as preferred context, the research area, and the relevant confirmed detector, suppressor, material, or vent record. Automated round-trip tests verify that these values survive URL encoding without turning object locations or missing airflow into measured study conditions.
+
+## Imported-model geometry checks
+
+Browser-side geometry tests exercise nested objects, parent rotation, non-uniform scaling, a `0.001` alternate scale, and a large rotated wall. They verify that:
+
+- annotations use each mesh's world-space bounds after every parent transform;
+- the complete model is normalized once to a `[0, 0, 0]` world-space minimum;
+- hotspot overlay centers use the same normalized dimensions and grid as the scorer;
+- model scale is preserved without an automatic millimetre-to-metre conversion; and
+- large rotated meshes use the same world-axis-aligned box in the annotation and calculation.
+
+The last behavior is an explicit limitation, not oriented-box or triangle-level collision. Large diagonal meshes can over-approximate occupied space and should be split when tighter spatial localization is needed.
+
+## Public-backend readiness checks
+
+The public API client and service tests cover a successful simulation, HTTP 422 rejected input, HTTP 5xx/network failure, capacity rejection, recovery after failure, and two simultaneous simulations within the default two-slot limit. The frontend's precomputed fixture URL is deliberately based on the static site path rather than the API host, and the outage test loads that fixture after a simulated backend network failure.
+
+The repository now includes a one-worker container definition, explicit CORS origin configuration, health route, and bounded concurrency guard. A cloud deployment was not created because no team cloud target or credentials were supplied, and no Docker-compatible runtime was available in this validation environment. The provider-specific public URL, TLS, cold start, and deployed-origin CORS check therefore remain release tasks.
 
 ## Validation and trust-boundary tests
 
@@ -85,6 +105,10 @@ The simulator suite now checks:
 - exact-GLB hash verification;
 - the same-sample detector counterfactual;
 - unknown airflow speed in the fabric-and-vent handoff;
+- detector and suppression handoffs matching the actual modeled coverage and relevant confirmed objects;
+- shareable handoff URLs preserving area, objects, spot, and cabin context;
+- transformed-model and hotspot-overlay coordinate alignment;
+- live-service success, rejected input, concurrency, overload, failure recovery, and static outage fallback;
 - finite geometry, integer grids, compartment bounds, and unique object IDs;
 - explicit material coefficients and gravity metadata, with no silent numeric defaults for missing values;
 - legacy scenario `0.1.0` and reviewed scenario `0.2.0` contract handling;
@@ -102,6 +126,7 @@ python simulator/build_cabin_release.py
 python -m unittest discover -s simulator -p 'test_*.py' -v
 python -m unittest discover -s analysis -p 'test_*.py'
 npm run test:search
+npm run test:simulator-ui
 npm run build
 ```
 
@@ -109,8 +134,9 @@ The project-wide `npm run check` command runs the search tests, analysis tests, 
 
 ## Final automated check
 
-- 32 simulator and API tests passed.
-- 22 search, handoff, and UI-shell tests passed.
+- 38 simulator and API tests passed.
+- 25 search, handoff, and UI-shell tests passed.
+- 8 imported-model and public-API client tests passed.
 - 15 analysis tests passed; one socket/CORS integration test was skipped because the execution sandbox blocks local sockets.
 - The Vite production build completed successfully.
 - The scenario schema parsed as valid JSON.

@@ -1,7 +1,19 @@
 import json
 import unittest
+from concurrent.futures import ThreadPoolExecutor
+from threading import Barrier
+from unittest.mock import patch
 
-from api import SimulationRequest, run_confirmed_simulation, validate_confirmation
+from fastapi import HTTPException
+
+from api import (
+    MAX_CONCURRENT_REQUESTS,
+    SIMULATION_SLOTS,
+    SimulationRequest,
+    run_confirmed_simulation,
+    simulate_endpoint,
+    validate_confirmation,
+)
 from engine import ROOT
 
 
@@ -34,6 +46,56 @@ class ApiConfirmationTests(unittest.TestCase):
         )
         self.assertEqual(result["samples"], 1_000)
         self.assertEqual(result["seed"], 7)
+
+    def test_endpoint_returns_successful_simulation(self):
+        result = simulate_endpoint(SimulationRequest(scenario=self.scenario, samples=1_000, seed=11))
+        self.assertEqual(result["samples"], 1_000)
+        self.assertEqual(result["seed"], 11)
+
+    def test_endpoint_returns_422_for_rejected_input(self):
+        self.scenario["confirmation"]["model_units_m_confirmed"] = False
+        with self.assertRaises(HTTPException) as caught:
+            simulate_endpoint(SimulationRequest(scenario=self.scenario, samples=1_000))
+        self.assertEqual(caught.exception.status_code, 422)
+        self.assertIn("metres", caught.exception.detail)
+
+    def test_two_simultaneous_requests_complete(self):
+        barrier = Barrier(2)
+        real_runner = run_confirmed_simulation
+
+        def synchronized_runner(payload):
+            barrier.wait(timeout=2)
+            return real_runner(payload)
+
+        payloads = [SimulationRequest(scenario=self.scenario, samples=1_000, seed=seed)
+                    for seed in (101, 102)]
+        with patch("api.run_confirmed_simulation", side_effect=synchronized_runner):
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                results = list(executor.map(simulate_endpoint, payloads))
+        self.assertEqual([result["seed"] for result in results], [101, 102])
+
+    def test_request_over_capacity_is_rejected_and_slots_recover(self):
+        acquired = 0
+        try:
+            for _ in range(MAX_CONCURRENT_REQUESTS):
+                self.assertTrue(SIMULATION_SLOTS.acquire(blocking=False))
+                acquired += 1
+            with self.assertRaises(HTTPException) as caught:
+                simulate_endpoint(SimulationRequest(scenario=self.scenario, samples=1_000))
+            self.assertEqual(caught.exception.status_code, 503)
+            self.assertIn("capacity", caught.exception.detail)
+        finally:
+            for _ in range(acquired):
+                SIMULATION_SLOTS.release()
+        recovered = simulate_endpoint(SimulationRequest(scenario=self.scenario, samples=1_000, seed=77))
+        self.assertEqual(recovered["seed"], 77)
+
+    def test_unexpected_service_failure_releases_capacity(self):
+        with patch("api.run_confirmed_simulation", side_effect=RuntimeError("synthetic failure")):
+            with self.assertRaisesRegex(RuntimeError, "synthetic failure"):
+                simulate_endpoint(SimulationRequest(scenario=self.scenario, samples=1_000))
+        recovered = simulate_endpoint(SimulationRequest(scenario=self.scenario, samples=1_000, seed=88))
+        self.assertEqual(recovered["seed"], 88)
 
     def test_ignored_mesh_cannot_be_added_to_scoring(self):
         ignored = self.scenario["confirmation"]["manifest"][0]

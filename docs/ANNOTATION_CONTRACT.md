@@ -9,6 +9,10 @@ The first release treats automatic recognition as a suggestion, never as accepte
 - The model should be split into meaningful meshes with useful names such as `oxygen-manifold`, `smoke-detector`, or `fabric-curtain`.
 - The user must confirm that coordinates and dimensions are in metres. The application does not guess or rescale units.
 
+The importer resolves every mesh through its full world transform before annotation. Parent and child translations, rotations, and scales are therefore included, and the model is shifted once so its world-space minimum is `[0, 0, 0]`. Hotspot voxels and reviewed object bounds use that same normalized coordinate system.
+
+The first release sends world-axis-aligned bounding boxes to the scorer, not triangle meshes or oriented boxes. This is repeatable and keeps the overlay aligned with the geometry used by the calculation, but a large diagonal wall can produce a box containing empty space. Split long walls or complex interiors into meaningful meshes when tighter spatial screening is needed. The application never silently changes a model from millimetres to metres; the human metre-unit check remains mandatory.
+
 STEP, IGES, STL, OBJ, floor-plan images, and point clouds are intentionally deferred. Supporting them consistently requires a controlled conversion and segmentation service.
 
 ## Review states

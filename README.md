@@ -35,6 +35,8 @@ npm run api
 
 Run `npm run dev` in another terminal. Production frontend output is written to `dist/`; no publishing is part of these commands.
 
+For a public deployment, set `VITE_SIMULATOR_API_URL` on the frontend build and configure the FastAPI container’s `SIMULATOR_ALLOWED_ORIGINS`. The container, concurrency, health-check, failure, and static-fallback contract is documented in [BACKEND_DEPLOYMENT.md](docs/BACKEND_DEPLOYMENT.md).
+
 ## Verify the integrated project
 
 After activating `.venv` and installing `requirements.txt`, run `npm run check` to check search, analysis, simulator behavior, and the production build together. Optional semantic setup is documented in [SEARCH.md](docs/SEARCH.md). Rebuild the search index explicitly with `npm run search:index` whenever committed source data changes; restart the semantic service afterward so versions agree.
@@ -75,8 +77,8 @@ Each hotspot now includes its location, nearby reviewed objects, mean scoring te
 
 The exact cabin fixture has two additional reproducibility artifacts:
 
-- `public/simulation/benchmark.json` records CPU timings and top-region stability across five seeds and four sample counts. In the latest validation run, 100,000 samples had 100% mean/minimum top-10 neighborhood retention, about 0.79 exact top-25 Jaccard overlap, and 0.033-second median model latency on the recorded CPU environment.
-- `public/simulation/cabin-demo.json` contains the precomputed result, a same-location detector-move comparison, and a fabric/vent research probe that hands off a NASA PSI forced-airflow query while preserving airflow speed as unknown.
+- `public/simulation/benchmark.json` records CPU timings and top-region stability across five seeds and four sample counts. In the latest validation run, 100,000 samples had 100% mean/minimum top-10 neighborhood retention, about 0.79 exact top-25 Jaccard overlap, and 0.030-second median model latency on the recorded CPU environment.
+- `public/simulation/cabin-demo.json` contains the precomputed result, a same-location detector-move comparison, and flammability, detection, and suppression research handoffs. The fabric/vent probe preserves airflow speed as unknown, while every handoff carries its selected spot, cabin context, and relevant confirmed objects into the explorer.
 
 Regenerate both artifacts with:
 

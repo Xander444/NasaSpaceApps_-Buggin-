@@ -12,14 +12,15 @@ import {parseExplorerHandoff} from './search/handoff';
 import ConditionEditor from './search/ConditionEditor';
 import {EvidenceDetail,ResultCard,Comparison} from './search/Evidence';
 import './styles.css';
+import DemoPath from './DemoPath';
 const Simulator=lazy(()=>import('./Simulator'));
 
 const links=[
  {href:'/',label:'Project',key:'project'},
- {href:'/evidence',label:'Evidence explorer',key:'evidence'},
- {href:'/simulator',label:'Cabin screening',key:'simulator'},
+ {href:'/evidence',label:'Evidence Explorer',key:'evidence'},
+ {href:'/simulator',label:'Cabin Screening',key:'simulator'},
  {href:'/sources',label:'Sources',key:'sources'},
- {href:'/about',label:'Who we are',key:'about'},
+ {href:'/about',label:'Who We Are',key:'about'},
 ];
 
 function SiteHeader({active}){
@@ -38,7 +39,7 @@ function HomePage(){
  return <PageShell active="project"><main id="project" className="project-page">
   <section className="project-hero"><div className="hero-copy"><p className="eyebrow centered">MICROGRAVITY FIRE SAFETY</p><h1>Find the fire safety evidence that fits the mission.</h1><p className="lede">A clear, source-grounded workspace for exploring combustion research and screening spacecraft interiors, without presenting assumptions as measured fact.</p><div className="hero-actions"><a className="primary-action" href="/evidence">Explore the evidence <span aria-hidden="true">→</span></a><a className="secondary-action" href="/simulator">View cabin screening</a></div></div></section>
   <section className="challenge-solution" aria-labelledby="challenge-title"><div><p className="section-label">THE CHALLENGE</p><h2 id="challenge-title">Turn decades of microgravity combustion research into usable fire safety insight.</h2><p>Create an interactive, SI-powered dashboard that summarizes, ranks, and interprets microgravity combustion findings for human space exploration.</p></div><div><p className="section-label">HOW WE SOLVE IT</p><h2>Connect published evidence to an explainable cabin screen.</h2><p>Users search sourced studies, compare test conditions, confirm objects in a 3D cabin, rank candidate hotspots, and carry a selected spot and its conditions back into evidence search.</p></div></section>
-  <section className="project-flow" aria-labelledby="flow-title"><p className="section-label">WHAT THE PROJECT DOES</p><h2 id="flow-title">One path from question to traceable result</h2><ol><li><span>01</span><div><h3>Find the study</h3><p>Search and filter NASA combustion investigations by material, oxygen, pressure, flow, sensors, and mission need.</p></div></li><li><span>02</span><div><h3>Screen the cabin</h3><p>Confirm imported geometry and cabin assumptions before sampling candidate ignition locations.</p></div></li><li><span>03</span><div><h3>Explain the result</h3><p>See why each candidate hotspot appears and hand the exact context back to evidence search.</p></div></li></ol></section>
+  <section className="project-flow" aria-labelledby="flow-title"><p className="section-label">GUIDED DEMO</p><h2 id="flow-title">Follow one question to an explainable hotspot.</h2><p className="demo-intro">Move from project context to sourced evidence, then inspect a reproducible cabin-screening example and its modeled contributors.</p><DemoPath currentStep="project"/></section>
   <section className="project-facts" aria-label="Project facts"><div><strong>24</strong><p>combustion investigations in the current curated explorer</p></div><div><strong>100k</strong><p>default candidate locations in the precomputed cabin screen</p></div><div><strong>1 rule</strong><p>If a value is missing, show unknown. Never invent it.</p></div></section>
   <section className="trust-section"><p className="section-label">DESIGNED FOR TRUST</p><h2>Useful because the limits stay visible.</h2><p>The interface keeps reported measurements, user-entered cabin conditions, illustrative coefficients, and missing data distinct. Every research result should be easy to trace back to its source.</p><div className="text-links"><a href="/sources">Review project sources →</a><a href="/about">Meet the team →</a></div></section>
  </main></PageShell>;
@@ -57,15 +58,20 @@ function SourcesPage(){
 }
 
 function AboutPage(){
- const members=['Alexander','Gabriel','Elisabeth','Lily'];
- return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Meet the four members of our team.</p><div className="team-grid">{members.map((name,index)=><article key={name}><span>{String(index+1).padStart(2,'0')}</span><h2>{name}</h2><p>Marianopolis’ Student</p></article>)}</div></main></PageShell>;
+ const members=[
+  {name:'Gabriel Ramos Rodriguez',bio:'Professional Larper'},
+  {name:'Alexander Vatch',bio:'17 year old programmer from Montreal, Canada. Student at Marianopolis College. Specializes in backend development and data visualization.'},
+  {name:'Elisabeth Wei',bio:'Among Us!!'},
+  {name:'Lily Ma',bio:'I chose the bio for everyone'},
+ ];
+ return <PageShell active="about"><main className="simple-page about-page"><p className="section-label">WHO WE ARE</p><h1>We are building a clearer path from fire research to mission questions.</h1><p className="page-intro">Meet the four members of our team.</p><div className="team-grid">{members.map(({name,bio},index)=><article key={name}><span>{String(index+1).padStart(2,'0')}</span><h2>{name}</h2><p>{bio}</p></article>)}</div></main></PageShell>;
 }
 
 function EvidencePage(){
- const [index,setIndex]=useState(null),[loadError,setLoadError]=useState('');
- useEffect(()=>{const controller=new AbortController();loadIndex(import.meta.env.BASE_URL,controller.signal).then(d=>{if(d.schema_version!==1)throw Error('Unsupported search schema');setIndex(d);}).catch(e=>{if(e.name!=='AbortError')setLoadError(e.message);});return ()=>controller.abort();},[]);
+ const [index,setIndex]=useState(null),[loadError,setLoadError]=useState(''),[loadAttempt,setLoadAttempt]=useState(0);
+ useEffect(()=>{const controller=new AbortController();setIndex(null);setLoadError('');loadIndex(import.meta.env.BASE_URL,controller.signal).then(d=>{if(d.schema_version!==1)throw Error('Unsupported search schema');setIndex(d);}).catch(e=>{if(e.name!=='AbortError')setLoadError(e.message);});return ()=>controller.abort();},[loadAttempt]);
  return <PageShell active="evidence"><div className="app">
- <main>{loadError?<div role="alert" className="panel"><h1>Unable to load evidence</h1><p>{loadError}</p><button onClick={()=>location.reload()}>Retry</button></div>:!index?<p role="status">Loading the local evidence index…</p>:<Explorer index={index}/>}</main>
+ <main><DemoPath currentStep="evidence"/>{loadError?<div role="alert" className="load-state error"><h1>Unable to load evidence</h1><p>{loadError}</p><button onClick={()=>setLoadAttempt(attempt=>attempt+1)}>Retry loading evidence</button></div>:!index?<p role="status" className="load-state">Loading the local evidence index…</p>:<Explorer index={index}/>}</main>
  </div></PageShell>
 }
 function Explorer({index}){
@@ -123,7 +129,7 @@ function Explorer({index}){
  <div aria-live="polite" className="search-status">{aiMode&&recommendation?.key===researchKey&&<p>Gemini-ranked within existing evidence groups {sort!=='relevance'&&'· selected sort takes precedence'}</p>}<b>{result.browse?'Browse · neutral program ordering':result.mode}</b>{enhance&&semanticState.key===semanticKey&&semanticState.message&&<p>{semanticState.message}</p>}{semantic&&<p className="model-version">Model: {semantic.model_version}</p>}{result.notices.map(n=><p key={n}>{n}</p>)}{result.errors.map(e=><p role="alert" key={e}>{e}</p>)}{similar&&<p>Related-data mode: {similar.mode} · seed {similar.id} <button onClick={()=>setSimilar(null)}>Exit related search</button></p>}</div>
  {outside.length>0&&<p className="warning">Selected outside current results: {outside.join(', ')}. Comparison selection is preserved; only currently verified test rows can be exported.</p>}
  <div className="workspace"><section className="results"><div className="sectionhead"><div><h2>{result.browse?'Browse investigations':'Verified matches'}</h2><span>{result.verified.length} investigations · {result.verified.reduce((n,g)=>n+g.matchingTestCount,0)} matching test rows</span></div><button className="comparebtn" onClick={()=>setShowCompare(true)}>Compare {selected.length}/3</button></div>
- {!result.verified.length&&<div className="empty-state"><h3>{result.errors.length?'Complete the condition controls':'No strong verified match'}</h3><p>Try another question or inspect the related evidence below. Unknown coverage does not establish that no matching data exists elsewhere.</p></div>}
+ {!result.verified.length&&<div className="empty-state"><h3>{result.errors.length?'Complete the condition controls':'No strong verified match'}</h3><p>Try another question or inspect the related evidence below. Unknown coverage does not establish that no matching data exists elsewhere.</p><button onClick={reset}>Reset search</button></div>}
  {displayed.verified.map(g=><ResultCard key={g.id} group={g} verified index={index} selected={selected} toggle={toggle} onInspect={inspect}/>)}
  {result.related.length>0&&<details className="related" open={!result.verified.length}><summary>Related evidence with gaps · {result.related.length} investigations</summary><p>Required conditions have not been relaxed. These records are excluded from exact-match counts and exports.</p>{displayed.related.map(g=><ResultCard key={g.id} group={g} verified={false} index={index} selected={selected} toggle={toggle} onInspect={inspect}/>)}</details>}
  </section><aside>{selected.length>0&&<div className="selection"><span>{selected.length}/3 selected</span>{selected.map(id=><button key={id} onClick={()=>toggle(id)} aria-label={`Remove ${id} from comparison`}>{id} ×</button>)}<button onClick={()=>setSelected([])}>Clear selection</button></div>}{showCompare?<Comparison docs={selected.map(id=>engine.byId.get(id)).filter(Boolean)} index={index} result={result} onInspect={inspect}/>:<EvidenceDetail doc={engine.byId.get(detail)} index={index} selected={selected} toggle={toggle} onSimilar={setSimilar}/>}</aside></div>
@@ -134,7 +140,7 @@ function SimulatorHandoff({handoff,onClear}){
  const c=handoff.context;
  const vector=value=>value?.map(number=>number.toFixed(2)).join(', ');
  const conditions=[c.oxygen_percent!==null&&`O₂ ${c.oxygen_percent}%`,c.pressure_kpa!==null&&`${c.pressure_kpa} kPa`,c.gravity_g!==null&&`${c.gravity_g} g`,c.ambient_temperature_c!==null&&`${c.ambient_temperature_c} °C`].filter(Boolean);
- return <section className="handoff-banner" aria-label="Simulator search handoff"><div><span>SIMULATOR HANDOFF</span><h2>Evidence context for selected spot {vector(c.spot_m)}{c.spot_m?' m':''}</h2><p>{conditions.join(' · ')||'No cabin conditions supplied'}</p>{c.vent_id&&<p><b>{c.vent_id.replace(/^object-\d+-/,'')}</b>{c.vent_position_m?` at ${vector(c.vent_position_m)} m`:''} is recorded. Physical airflow speed: <strong>{c.airflow_speed_status}</strong>. {c.airflow_speed_status==='unknown'?'No airflow condition was applied.':''}</p>}<small>Oxygen and pressure are preferred search context. Gravity and temperature remain recorded scenario inputs; they are not treated as measured study conditions.</small></div><button onClick={onClear}>Dismiss context</button></section>;
+ return <section className="handoff-banner" aria-label="Simulator search handoff"><div><span>SIMULATOR HANDOFF{c.area?` · ${c.area.toUpperCase()}`:''}</span><h2>Evidence context for selected spot {vector(c.spot_m)}{c.spot_m?' m':''}</h2><p>{conditions.join(' · ')||'No cabin conditions supplied'}</p>{c.objects?.length>0&&<div className="handoff-objects"><b>Relevant confirmed objects</b><ul>{c.objects.map(object=><li key={`${object.type}-${object.id}`}><strong>{object.id.replace(/^object-\d+-/,'')}</strong> · {object.type}{object.position_m?` at ${vector(object.position_m)} m`:''}{object.distance_m!==null?` · ${object.distance_m.toFixed(2)} m from spot`:''}</li>)}</ul></div>}{c.vent_id&&<p><b>{c.vent_id.replace(/^object-\d+-/,'')}</b>{c.vent_position_m?` at ${vector(c.vent_position_m)} m`:''} is recorded. Physical airflow speed: <strong>{c.airflow_speed_status}</strong>. {c.airflow_speed_status==='unknown'?'No airflow condition was applied.':''}</p>}<small>Oxygen and pressure are preferred search context. Object locations, gravity, and temperature remain recorded scenario context; they are not treated as measured study conditions.</small></div><button onClick={onClear}>Dismiss context</button></section>;
 }
 const path=window.location.pathname.replace(/\/+$/,'')||'/';
 let page;

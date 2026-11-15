@@ -11,7 +11,8 @@ The frontend can be redesigned freely as long as it consumes the versioned contr
 - Scenario example: `simulator/demo_scenario.json`
 - Scenario schema: `simulator/scenario.schema.json`
 - Annotation rules: `docs/ANNOTATION_CONTRACT.md`
-- Live local endpoint: `POST /api/simulate`
+- Live endpoint: `POST /api/simulate` through the Vite development proxy or the configured public backend
+- Public backend URL: build-time `VITE_SIMULATOR_API_URL`; see `BACKEND_DEPLOYMENT.md`
 
 ## Simulator result fields
 
@@ -22,6 +23,7 @@ The frontend can be redesigned freely as long as it consumes the versioned contr
 - `scene`: materials, ignition and oxygen sources, vents, detectors, suppressors, and consequence zones.
 - `assumptions`: must be accessible beside any result.
 - `evidence_bindings`: describes which NASA studies provide context.
+- `evidence_searches`: flammability, detector, and suppression research handoffs with relevant confirmed objects.
 
 ## Language rules
 
@@ -42,4 +44,4 @@ Do not call the current object-name heuristic AI, computer vision, or material r
 
 The `/` route is the project overview and should remain the first page. `/evidence` consumes `public/search/index.json` schema 1 via the pure JavaScript modules in `src/search/`. `/simulator`, `/sources`, and `/about` contain cabin screening, the source register, and team information respectively. Follow [THEME_GUIDE.md](THEME_GUIDE.md) for the shared visual and language rules.
 
-The explorer must stay usable without any API or model. Conditions are scoped to a single test; topic context must not supply missing test conditions. Keep verified and related-with-gaps groups separate, preserve comparison selection across searches, and export only currently verified test selections. Source excerpts and claim-level citations remain inspectable. Optional `VITE_SEMANTIC_URL` enables the separate local semantic API; stale, unavailable, timed-out, or mismatched results must fall back visibly to keyword search. See [SEARCH.md](SEARCH.md) for the exact contract and demo. Existing `/simulator` controls, confirmation gate, API, and coefficients are unchanged.
+The explorer must stay usable without any API or model. Conditions are scoped to a single test; topic context must not supply missing test conditions. Keep verified and related-with-gaps groups separate, preserve comparison selection across searches, and export only currently verified test selections. Source excerpts and claim-level citations remain inspectable. Optional `VITE_SEMANTIC_URL` enables the separate local semantic API; stale, unavailable, timed-out, or mismatched results must fall back visibly to keyword search. See [SEARCH.md](SEARCH.md) for the exact contract and demo. Preserve the simulator’s controls, human-confirmation and metre-unit gates, relative-index language, static precomputed fallback, and distinction between recorded inputs and illustrative coefficients.
