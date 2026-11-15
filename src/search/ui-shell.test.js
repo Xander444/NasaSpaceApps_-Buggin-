@@ -69,3 +69,9 @@ test('theme remains flat and the team guide is repository documentation',()=>{
   assert.match(themeGuide,/\/about/);
 });
 
+test('team page includes the approved professional biographies',()=>{
+  assert.match(main,/Gabriel developed his passion for software engineering/);
+  assert.match(main,/Lily is a first-year student at Marianopolis College/);
+  assert.doesNotMatch(main,/Professional Larper|I chose the bio for everyone/);
+});
+
