@@ -42,7 +42,7 @@ test('evidence explorer exposes a guided, controllable, low-density workflow',()
   const evidence=read('./Evidence.jsx');
   assert.match(main,/01 · SEARCH/);
   assert.match(main,/02 · REVIEW/);
-  assert.match(main,/aria-pressed=\{!aiMode\}/);
+  assert.match(main,/aria-pressed=\{!siMode\}/);
   assert.match(main,/filter-disclosure/);
   assert.match(main,/Compare selected/);
   assert.match(evidence,/Why this result matched · source excerpt/);

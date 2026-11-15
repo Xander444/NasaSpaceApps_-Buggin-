@@ -1,6 +1,6 @@
 # Flame in Freefall theme guide
 
-This guide keeps new pages and features consistent with the approved fire-and-space visual system. The interface should feel calm, technical, and traceable. It should not look like a generic AI product.
+This guide keeps new pages and features consistent with the approved fire-and-space visual system. The interface should feel calm, technical, and traceable. It should not look like a generic model-powered product.
 
 ## Core palette
 
@@ -44,7 +44,7 @@ Do:
 
 Do not:
 
-- Use gradient text or an “AI” rainbow effect.
+- Use gradient text or a rainbow effect.
 - Use pulsing, flashing, or glowing status circles.
 - Put ordinary text in floating or lifted bubbles.
 - add broad shadows to cards, controls, or headings.

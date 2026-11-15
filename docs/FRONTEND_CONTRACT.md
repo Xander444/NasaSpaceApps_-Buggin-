@@ -29,7 +29,7 @@ The frontend can be redesigned freely as long as it consumes the versioned contr
 
 Use “relative screening index,” “screening,” “candidate hotspot,” and “coverage gap.” Do not display the index as a probability, predicted incident rate, safety certification, or mission approval.
 
-Do not call the current object-name heuristic AI, computer vision, or material recognition. Suggestions must remain visually distinct from confirmed labels. Changing a confirmed category or coefficient must invalidate the confirmation.
+Do not describe the current object-name heuristic as a trained recognition system, computer vision, or material recognition. Suggestions must remain visually distinct from confirmed labels. Changing a confirmed category or coefficient must invalidate the confirmation.
 
 ## UI work still open
 

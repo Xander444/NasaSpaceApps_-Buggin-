@@ -107,19 +107,19 @@ python -m unittest discover -s analysis -p 'test_*.py'
 
 The analysis writes `public/analysis.json`, which contains the three nearest evidence records for each investigation and the shared fields responsible for each match. Numeric values are only included where the linked source reports them. Missing numeric fields receive a separate zero-valued observability mask; they are never interpreted as measured zeroes.
 
-## Data and AI contract
+## Data and SI contract
 
 - Search summaries are cited extracts from imported catalog sections and table cells. Hypotheses and prospective impacts retain their labels.
-- Earlier curator copy is archived separately and is not presented as AI-generated findings.
+- Earlier curator copy is archived separately and is not presented as generated scientific findings.
 - No absent measurement is converted to zero or inferred.
 - Search and comparison expose source IDs, excerpts, row locators, units, and discrepancies.
 - The optional semantic service encodes questions and evidence with a pinned pretrained model. Retrieval similarity is not scientific confidence or fire prediction.
-- The 3D recognition suggestion is currently a deterministic name heuristic, not a trained AI model. This is stated in the UI and every label requires human confirmation.
+- The 3D recognition suggestion is currently a deterministic name heuristic, not a trained recognition model. This is stated in the UI and every label requires human confirmation.
 - Gravity and temperature are recorded but do not affect the current score. Directional transport, oxygen depletion, material consumption, and time evolution are not implemented.
 
 ## Team handoff
 
-Start with `docs/TEAM_HANDOFF.md` and `docs/THEME_GUIDE.md`. Data, frontend, study-comparison, and 3D model-preparation task templates are in `templates/`. The public “Who we are” page intentionally contains labeled sample copy that must be replaced before submission.
+Start with `docs/TEAM_HANDOFF.md` and `docs/THEME_GUIDE.md` for project handoff and presentation conventions.
 
 The evidence explorer's current interaction and responsive layout were reviewed against the eight Bastien–Scapin ergonomic criteria. See [ERGONOMIC_REVIEW.md](docs/ERGONOMIC_REVIEW.md) for the implemented responses and the remaining human usability tasks.
 
@@ -127,6 +127,10 @@ The evidence explorer's current interaction and responsive layout were reviewed 
 
 Calibrate simulator inputs against verified test-level evidence, design a labeled recognition evaluation set, add directed/time-dependent transport, implement sensitivity analysis, and validate rankings against held-out investigations. Split any learned model by investigation—not random row—to prevent data leakage.
 
-## Optional Gemini-guided research
+## Optional SI-guided research
 
-The evidence explorer now offers independent **Keyword search (no AI)** and **AI-guided search** actions. AI guidance uses prebuilt cited study cards, optional clarification, exact-source recommendation excerpts and session-scoped caching. See [Gemini research setup and verification](docs/GEMINI_RESEARCH.md). `npm run research:dev` launches the API and frontend together; credentials are entered only through the private `npm run research:key` terminal helper. Static keyword search needs neither.
+The evidence explorer offers independent **Keyword search** and **SI-guided search** actions. SI guidance uses prebuilt cited study cards, optional clarification, exact-source recommendation excerpts and session-scoped caching; it is powered by Google Gemini when explicitly configured. See [SI research setup and verification](docs/GEMINI_RESEARCH.md). `npm run research:dev` launches the API and frontend together; credentials are entered only through the private `npm run research:key` terminal helper. Static keyword search needs neither.
+
+## AI-use acknowledgment
+
+Generative AI tools were used to assist with development and code review. The optional SI-guided search also uses Google Gemini to clarify user intent and rank source-bounded study excerpts. The deterministic search and condition checks remain authoritative; people must inspect cited NASA records, and model output is not scientific evidence or a safety recommendation. See [AI usage acknowledgment](docs/AI_USAGE_ACKNOWLEDGMENT.md).

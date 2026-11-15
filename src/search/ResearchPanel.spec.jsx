@@ -27,7 +27,7 @@ test('opening panel, selecting a chip, and editing answers make no inference cal
  expect(researchRequest.mock.calls[3][1].answers).toEqual([{question:'Which goal?',answer:'Detection'}]);
  expect(props.onRanking).toHaveBeenLastCalledWith(expect.objectContaining({key:'first'}));
 });
-test('keyword action aborts pending AI and ignores late results',async()=>{
+test('keyword action aborts pending SI and ignores late results',async()=>{
  let finish;
  researchRequest.mockResolvedValueOnce({status:'ready',summary_version:'v'}).mockImplementationOnce(()=>new Promise(resolve=>finish=resolve));
  await render();await click('Analyze request');const signal=researchRequest.mock.calls[1][2];
@@ -43,7 +43,7 @@ test('search-now is distinct from keyword and reset clears conversation',async()
  vi.stubGlobal('fetch',vi.fn().mockResolvedValue({ok:true}));
  researchRequest.mockResolvedValueOnce({status:'ready',summary_version:'v'}).mockResolvedValueOnce(ready).mockResolvedValueOnce(ranking);
  await render();await click('Search with current details');expect(researchRequest.mock.calls[1][1].search_now).toBe(true);expect(props.onKeyword).not.toHaveBeenCalled();
- await click('Reset AI session');expect(host.textContent).not.toContain('What I understand');expect(fetch).toHaveBeenCalledWith('/api/research/session',{method:'DELETE'});
+ await click('Reset SI session');expect(host.textContent).not.toContain('What I understand');expect(fetch).toHaveBeenCalledWith('/api/research/session',{method:'DELETE'});
 });
 test('unconfigured backend leaves keyword action available',async()=>{
  researchRequest.mockResolvedValue({status:'unconfigured'});await render();await click('Analyze request');

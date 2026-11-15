@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {applyRanking,researchRequest} from './research.js';
 
-test('AI reorders only within verified and related groups, keeping omitted order',()=>{
+test('SI reorders only within verified and related groups, keeping omitted order',()=>{
  const result={verified:[{id:'a'},{id:'b'},{id:'c'}],related:[{id:'d'},{id:'e'}]};
  const ranked=applyRanking(result,{ranked:[{id:'e'},{id:'b'}]});
  assert.deepEqual(ranked.verified.map(x=>x.id),['b','a','c']);

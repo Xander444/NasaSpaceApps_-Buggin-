@@ -17,7 +17,7 @@ Next work:
 3. Add scenario comparison and sensitivity analysis.
 4. Validate that rankings remain stable across seeds and grid resolutions.
 5. Define out-of-evidence-range warnings.
-6. Build and evaluate a labeled recognition dataset before presenting any learned recognizer as AI.
+6. Build and evaluate a labeled recognition dataset before presenting any learned recognizer as validated.
 
 ## Data / study track
 

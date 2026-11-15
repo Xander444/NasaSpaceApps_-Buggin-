@@ -65,4 +65,4 @@ Before release, test the deployed URL from the deployed frontend origin as well.
 
 ## Optional research module
 
-The image includes the research Python module because the shared API imports its router. The simulator image does not include the optional Gemini SDK, Node retrieval runtime, search corpus, or private credentials. Gemini research remains unavailable in this simulator-only deployment; local AI search uses `npm run research:dev`. No private `.local` environment files enter the Docker build context.
+The image includes the research Python module because the shared API imports its router. The simulator image does not include the optional Gemini SDK, Node retrieval runtime, search corpus, or private credentials. SI guidance remains unavailable in this simulator-only deployment; local SI search uses `npm run research:dev`. No private `.local` environment files enter the Docker build context.

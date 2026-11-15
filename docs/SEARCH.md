@@ -154,4 +154,4 @@ The real pinned model was downloaded and exercised; hybrid evaluation uses actua
 
 ## Optional Gemini-guided research
 
-The explicit AI-guided path, offline summary artifact, private setup helper, local launcher, API limits, session caches and verification are documented in [GEMINI_RESEARCH.md](GEMINI_RESEARCH.md). Keyword search remains an independent no-AI mode; Gemini never replaces the deterministic joint-condition gate.
+The explicit SI-guided path, offline summary artifact, private setup helper, local launcher, API limits, session caches and verification are documented in [GEMINI_RESEARCH.md](GEMINI_RESEARCH.md). Keyword search remains an independent model-free mode; Gemini never replaces the deterministic joint-condition gate.
