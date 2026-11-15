@@ -38,6 +38,7 @@ def generate(task, data, schema):
             'input_tokens':getattr(usage,'prompt_token_count',None),'output_tokens':getattr(usage,'candidates_token_count',None)}
     except Exception as exc:
         code = getattr(exc,'code',None)
+        print(f"[Gemini diagnostic] exception={type(exc).__name__}, "f"code={code}",flush=True)
         category = {400:'invalid_request',401:'credentials',403:'credentials_or_eligibility',404:'model_unavailable',429:'quota'}.get(code)
         if category is None: category = 'invalid_output' if isinstance(exc,ValueError) else 'network_or_provider'
         if isinstance(exc, ValidationError):
