@@ -1,0 +1,55 @@
+
+# Stage 1: Build the React website
+FROM node:22-slim AS frontend
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+ENV RENDER_DEPLOY=true
+RUN npm run build
+
+
+
+# Stage 2: Run the Python backend
+FROM python:3.12-slim
+
+# Install Node.js for the research backend
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PORT=8000 \
+    SIMULATOR_MAX_CONCURRENT=2
+
+WORKDIR /app
+
+COPY requirements.txt requirements-research.txt ./
+
+RUN pip install --no-cache-dir \
+    -r requirements.txt \
+    -r requirements-research.txt
+
+# Copy the existing backend
+COPY simulator ./simulator
+COPY research ./research
+
+# Copy the files required by the research API
+COPY data ./data
+COPY public ./public
+COPY src ./src
+
+# Copy the compiled React website
+COPY --from=frontend /app/dist ./dist
+
+# Copy the public server entry point
+COPY server_public.py ./
+
+EXPOSE 8000
+
+CMD ["sh", "-c", "uvicorn server_public:app --host 0.0.0.0 --port ${PORT:-8000} --workers 1"]
