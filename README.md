@@ -39,6 +39,8 @@ For static hosting, publish `dist/` after `npm run build`. Netlify/Cloudflare Pa
 
 For a public deployment, set `VITE_SIMULATOR_API_URL` on the frontend build and configure the FastAPI container’s `SIMULATOR_ALLOWED_ORIGINS`. The container, concurrency, health-check, failure, and static-fallback contract is documented in [BACKEND_DEPLOYMENT.md](docs/BACKEND_DEPLOYMENT.md).
 
+The canonical public site is [nasaspaceapps-buggin.onrender.com](https://nasaspaceapps-buggin.onrender.com/). It is built with `Dockerfile.public`, which serves the frontend and APIs from one origin and keeps the deterministic SI retrieval engine warm on localhost. The Gemini key remains backend-only.
+
 ## Verify the integrated project
 
 After activating `.venv` and installing `requirements.txt`, run `npm run check` to check search, analysis, simulator behavior, and the production build together. Optional semantic setup is documented in [SEARCH.md](docs/SEARCH.md). Rebuild the search index explicitly with `npm run search:index` whenever committed source data changes; restart the semantic service afterward so versions agree.

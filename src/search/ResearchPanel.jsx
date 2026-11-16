@@ -16,7 +16,11 @@ export default function ResearchPanel({index,prompt,controls,context,contextKey,
   try{
    const ready=await researchRequest('status',null,controller.signal);
    if(version!==generation.current)return;
-   if(ready.status!=='ready'){setState('unconfigured');return;}
+   if(ready.status!=='ready'){
+    if(ready.status==='unavailable'){setError('The source retrieval service is unavailable. Keyword search remains ready.');setState('unavailable');}
+    else setState('unconfigured');
+    return;
+   }
    const body={prompt,answers,controls,context:JSON.stringify(context??null),index_version:index.index_version,summary_version:ready.summary_version,search_now:searchNow,rounds};
    const interpreted=editedIntent?{...analysis,interpretation:editedIntent,status:'ready',questions:[]}:await researchRequest('analyze',body,controller.signal);
    if(version!==generation.current)return;

@@ -27,6 +27,18 @@ docker run --rm -p 8000:8000 \
 
 The public container host must support a Python container with enough memory for PyTorch. Configure its health check to `/api/health` and preserve one application worker unless the concurrency design is changed and retested.
 
+The canonical Render deployment uses the all-in-one public image:
+
+```bash
+docker build -f Dockerfile.public -t flame-public .
+docker run --rm -p 8000:8000 \
+  -e GEMINI_API_KEY=server-only-value \
+  -e GEMINI_ELIGIBILITY_CONFIRMED=true \
+  flame-public
+```
+
+That image serves the compiled frontend, simulator API, Gemini research API, and a localhost-only warm deterministic retrieval service. `RESEARCH_RETRIEVAL_URL` defaults to the internal service in this image and must never point to an untrusted external host. The service loads the committed search index once; the browser cannot access it directly.
+
 ## Connect the public frontend
 
 Set this variable before building the frontend:
@@ -65,4 +77,4 @@ Before release, test the deployed URL from the deployed frontend origin as well.
 
 ## Optional research module
 
-The image includes the research Python module because the shared API imports its router. The simulator image does not include the optional Gemini SDK, Node retrieval runtime, search corpus, or private credentials. SI guidance remains unavailable in this simulator-only deployment; local SI search uses `npm run research:dev`. No private `.local` environment files enter the Docker build context.
+The simulator-only `Dockerfile` includes the research router because the shared API imports it, but it intentionally omits the Gemini SDK, Node retrieval runtime, search corpus, and private credentials. SI guidance is therefore unavailable in that image. `Dockerfile.public` contains the complete public website and SI runtime. No private `.local` environment files enter either build context.

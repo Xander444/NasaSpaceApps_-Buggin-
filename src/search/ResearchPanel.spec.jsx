@@ -49,3 +49,8 @@ test('unconfigured backend leaves keyword action available',async()=>{
  researchRequest.mockResolvedValue({status:'unconfigured'});await render();await click('Analyze request');
  expect(host.textContent).toContain('Gemini is not configured');await click('Return to keyword search');expect(props.onKeyword).toHaveBeenCalled();expect(researchRequest).toHaveBeenCalledTimes(1);
 });
+test('retrieval outage is distinguished from missing Gemini configuration',async()=>{
+ researchRequest.mockResolvedValue({status:'unavailable',retrieval:{status:'unavailable'}});await render();await click('Analyze request');
+ expect(host.textContent).toContain('source retrieval service is unavailable');expect(host.textContent).not.toContain('Gemini is not configured');
+ await click('Return to keyword search');expect(props.onKeyword).toHaveBeenCalled();expect(researchRequest).toHaveBeenCalledTimes(1);
+});

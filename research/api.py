@@ -4,9 +4,13 @@ from collections import OrderedDict, deque
 import hashlib
 import importlib.util
 import json
+import logging
 import os
 import secrets
+import shutil
 import time
+from urllib.parse import urlparse
+import httpx
 from fastapi import APIRouter, HTTPException, Request as HTTPRequest, Response
 from research.config import load_settings
 from research.models import Request, RecommendRequest, Analysis, Ranking
@@ -21,9 +25,24 @@ sessions = OrderedDict()
 semaphore = asyncio.Semaphore(2)
 ip_history = OrderedDict()
 metrics = {'calls':0,'cache_hits':0,'coalesced':0}
+logger = logging.getLogger('flame.research.retrieval')
 _index = None
 _artifact = None
 _stamp = None
+
+def retrieval_timeout():
+    try: value=float(os.getenv('RESEARCH_RETRIEVAL_TIMEOUT_SECONDS','30'))
+    except ValueError: value=30
+    return min(60,max(5,value))
+
+def retrieval_url():
+    value=os.getenv('RESEARCH_RETRIEVAL_URL','').rstrip('/')
+    if not value: return ''
+    parsed=urlparse(value)
+    if parsed.scheme!='http' or parsed.hostname not in {'127.0.0.1','localhost'}:
+        logger.warning('retrieval_configuration_rejected category=non_loopback_url')
+        return ''
+    return value
 
 def corpus():
     global _index, _artifact, _stamp
@@ -61,10 +80,32 @@ def session(request,response):
         while len(sessions)>128: sessions.popitem(last=False)
     return sid
 
+async def retrieval_health():
+    url=retrieval_url()
+    if not url:
+        ready=bool(shutil.which('node')) and (ROOT/'research/retrieve.mjs').is_file()
+        return {'status':'ready' if ready else 'unavailable','mode':'one-shot-process',
+                'timeout_seconds':retrieval_timeout()}
+    try:
+        async with httpx.AsyncClient(timeout=min(5,retrieval_timeout()),trust_env=False) as client:
+            reply=await client.get(url+'/health')
+        if reply.status_code!=200 or len(reply.content)>4096:
+            logger.warning('retrieval_health_failed category=http status=%s bytes=%s',reply.status_code,len(reply.content))
+            return {'status':'unavailable','mode':'warm-local-service'}
+        data=reply.json()
+        if data.get('status')!='ready': raise ValueError('not ready')
+        return {key:data[key] for key in ('status','mode','index_version','node_version','requests','uptime_seconds') if key in data}
+    except (httpx.HTTPError,ValueError,json.JSONDecodeError) as exc:
+        logger.warning('retrieval_health_failed category=%s',type(exc).__name__)
+        return {'status':'unavailable','mode':'warm-local-service'}
+
 @router.get('/status')
-def status(request: HTTPRequest,response: Response):
+async def status(request: HTTPRequest,response: Response):
     session(request,response)
-    return configuration()
+    result=configuration()
+    result['retrieval']=await retrieval_health()
+    if result['status']=='ready' and result['retrieval']['status']!='ready': result['status']='unavailable'
+    return result
 
 @router.delete('/session')
 def reset(request: HTTPRequest,response: Response):
@@ -79,7 +120,7 @@ async def cached(kind,payload,request,response,work):
     sid=request.cookies.get('research_session')
     if sid not in sessions: raise HTTPException(409,'session_expired: reopen AI-guided search')
     config=configuration()
-    config['implementation_version']=digest([(ROOT/p).read_text() for p in ('research/models.py','research/provider.py','research/retrieve.mjs','src/search/engine.js','src/search/conditions.js')])
+    config['implementation_version']=digest([(ROOT/p).read_text() for p in ('research/models.py','research/provider.py','research/retrieve.mjs','research/retrieve_service.mjs','src/search/engine.js','src/search/conditions.js')])
     if config['status']!='ready': raise HTTPException(503,'unconfigured: configure an eligible key privately with scripts/research_key.py')
     if payload.index_version!=config['index_version'] or payload.summary_version!=config['summary_version']:
         raise HTTPException(409,'stale: reload the index or rebuild research summaries')
@@ -130,15 +171,56 @@ async def analyze(payload: Request,request: HTTPRequest,response: Response):
         return {**result,'request_usage':usage}
     return await cached('analyze',payload,request,response,work)
 
-async def retrieve(options):
-    proc=await asyncio.create_subprocess_exec('node',str(ROOT/'research/retrieve.mjs'),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE,cwd=ROOT)
+def validate_retrieval(data):
+    if not isinstance(data,dict) or not isinstance(data.get('verified'),list) or not isinstance(data.get('related'),list) or not isinstance(data.get('index_version'),str):
+        raise ValueError('invalid retrieval response')
+    return data
+
+async def retrieve_service(options,url):
     try:
-        out,_=await asyncio.wait_for(proc.communicate(json.dumps(options).encode()),timeout=10)
-        if proc.returncode or len(out)>250000: raise ValueError()
-        return json.loads(out)
-    except (asyncio.TimeoutError,ValueError):
+        async with httpx.AsyncClient(timeout=retrieval_timeout(),trust_env=False) as client:
+            reply=await client.post(url+'/search',json=options)
+        if reply.status_code==422:
+            raise HTTPException(422,'retrieval_invalid_conditions: check explicit conditions')
+        if reply.status_code!=200:
+            logger.warning('retrieval_failed mode=service category=http status=%s bytes=%s',reply.status_code,len(reply.content))
+            raise HTTPException(503,'retrieval_unavailable: keyword search remains ready')
+        if len(reply.content)>250000: raise ValueError('response budget')
+        return validate_retrieval(reply.json())
+    except HTTPException: raise
+    except (httpx.TimeoutException,httpx.NetworkError,httpx.RemoteProtocolError) as exc:
+        logger.warning('retrieval_failed mode=service category=%s',type(exc).__name__)
+        raise HTTPException(503,'retrieval_unavailable: keyword search remains ready') from None
+    except (ValueError,json.JSONDecodeError) as exc:
+        logger.warning('retrieval_failed mode=service category=%s',type(exc).__name__)
+        raise HTTPException(503,'retrieval_unavailable: keyword search remains ready') from None
+
+async def retrieve_process(options):
+    try:
+        proc=await asyncio.create_subprocess_exec('node',str(ROOT/'research/retrieve.mjs'),stdin=asyncio.subprocess.PIPE,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE,cwd=ROOT)
+    except (FileNotFoundError,OSError) as exc:
+        logger.warning('retrieval_failed mode=process category=%s',type(exc).__name__)
+        raise HTTPException(503,'retrieval_unavailable: keyword search remains ready') from None
+    try:
+        out,err=await asyncio.wait_for(proc.communicate(json.dumps(options).encode()),timeout=retrieval_timeout())
+    except asyncio.TimeoutError:
         if proc.returncode is None: proc.kill(); await proc.wait()
-        raise HTTPException(422,'retrieval_failed: check explicit conditions') from None
+        logger.warning('retrieval_failed mode=process category=timeout timeout_seconds=%s',retrieval_timeout())
+        raise HTTPException(503,'retrieval_unavailable: keyword search remains ready') from None
+    if proc.returncode==2:
+        logger.info('retrieval_rejected mode=process category=invalid_conditions')
+        raise HTTPException(422,'retrieval_invalid_conditions: check explicit conditions')
+    if proc.returncode or len(out)>250000:
+        logger.warning('retrieval_failed mode=process category=exit returncode=%s stdout_bytes=%s stderr_bytes=%s',proc.returncode,len(out),len(err))
+        raise HTTPException(503,'retrieval_unavailable: keyword search remains ready')
+    try: return validate_retrieval(json.loads(out))
+    except (ValueError,json.JSONDecodeError) as exc:
+        logger.warning('retrieval_failed mode=process category=%s stdout_bytes=%s',type(exc).__name__,len(out))
+        raise HTTPException(503,'retrieval_unavailable: keyword search remains ready') from None
+
+async def retrieve(options):
+    url=retrieval_url()
+    return await retrieve_service(options,url) if url else await retrieve_process(options)
 
 @router.post('/recommend')
 async def recommend(payload: RecommendRequest,request: HTTPRequest,response: Response):
@@ -148,6 +230,7 @@ async def recommend(payload: RecommendRequest,request: HTTPRequest,response: Res
         options=payload.controls.model_dump(exclude_none=True)
         options['q']=' '.join(filter(None,[payload.prompt,payload.intent.goal,payload.intent.desired_data]))
         candidates=await retrieve(options)
+        if candidates['index_version']!=index['index_version']: raise HTTPException(409,'stale: retrieval index does not match research summaries')
         groups=candidates['verified']+candidates['related']
         if not groups:
             return {'ranked':[],'gap':'no_indexed_match','message':'No matching evidence was found in the indexed collection.','request_usage':{'calls':0},'retrieval_query':options['q']}

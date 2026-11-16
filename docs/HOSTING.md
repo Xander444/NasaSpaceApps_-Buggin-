@@ -1,4 +1,6 @@
-# Static website hosting
+# Website hosting
+
+The canonical public deployment is [Render](https://nasaspaceapps-buggin.onrender.com/), using `Dockerfile.public` so the website, live screening API, and optional Gemini guidance share one origin. Render should use `/api/health` for its health check. A first request on a sleeping free instance can show Render's wake screen before the application appears, so wake the service before a judged demonstration.
 
 The public-facing project, sourced keyword explorer, and precomputed cabin result build as static files. The optional live PyTorch simulation, Gemini guidance, and semantic reranking are separate services; the core judge path does not require them.
 
@@ -27,5 +29,7 @@ No API key belongs in the frontend host. The keyword explorer reads the committe
 - Set `VITE_SIMULATOR_API_URL` only when a public simulator backend is deployed. See `BACKEND_DEPLOYMENT.md`.
 - Gemini guidance needs the same-origin research API and a backend-only key. See `GEMINI_RESEARCH.md`.
 - Leave `VITE_SEMANTIC_URL` unset for the default static keyword experience.
+
+The Render image starts a localhost-only warm retrieval service for SI recommendations. Its health appears in `/api/research/status`; infrastructure failures are shown separately from missing Gemini configuration, while keyword search remains available.
 
 The `/about` page is technically host-ready, but its team biographies remain the team's content task before public submission.
