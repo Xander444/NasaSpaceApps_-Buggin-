@@ -20,16 +20,23 @@ test('project overview is the default route and explains the challenge and appro
   assert.match(main,/Who We Are/);
 });
 
-test('guided demo connects project, evidence, cabin screening, and hotspot details',()=>{
+test('guided demo stays contextual to the simulator instead of duplicating primary navigation',()=>{
   const simulator=read('../Simulator.jsx');
   const demoPath=read('../DemoPath.jsx');
   assert.match(demoPath,/href:'\/evidence'/);
   assert.match(demoPath,/href:'\/simulator\?demo=1'/);
   assert.match(demoPath,/href:'\/simulator\?demo=1#hotspot-explanation'/);
-  assert.match(main,/DemoPath currentStep="project"/);
-  assert.doesNotMatch(main,/DemoPath currentStep="evidence"/);
+  assert.doesNotMatch(main,/DemoPath/);
+  assert.doesNotMatch(main,/GUIDED DEMO/);
   assert.match(simulator,/DemoPath currentStep=\{result\?\.precomputed_fixture\?'hotspot':'cabin'\}/);
   assert.match(simulator,/loadExactDemo\(true\)/);
+});
+
+test('example questions preserve the selected search method',()=>{
+  assert.match(main,/const chooseExample=text=>\{setQ\(text\);setSimilar\(null\);\}/);
+  assert.match(main,/onClick=\{\(\)=>chooseExample\(text\)\}/);
+  assert.doesNotMatch(main,/keyword\(\);setQ\(text\)/);
+  assert.doesNotMatch(main,/onKeyDown=\{e=>\{if\(e\.key==='Enter'\)keyword\(\);\}\}/);
 });
 
 test('loading, empty, and API-offline states offer recovery actions',()=>{
@@ -74,6 +81,10 @@ test('theme remains flat and the team guide is repository documentation',()=>{
   assert.match(themeGuide,/gradient text/i);
   assert.match(themeGuide,/relative screening index/i);
   assert.match(themeGuide,/\/about/);
+});
+
+test('mobile primary navigation keeps every destination visible without horizontal scrolling',()=>{
+  assert.match(styles,/@media\(max-width:720px\)[\s\S]*\.site-header nav\{[^}]*flex-wrap:wrap[^}]*overflow:visible/);
 });
 
 test('team page includes the approved professional biographies',()=>{
