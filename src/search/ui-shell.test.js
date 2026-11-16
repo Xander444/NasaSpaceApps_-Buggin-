@@ -15,7 +15,7 @@ test('project overview is the default route and explains the challenge and appro
   assert.match(main,/SCOPE &amp; VALIDITY/);
   assert.match(main,/No verified partial-gravity combustion tests are currently indexed/);
   assert.match(main,/Rocket-engine and propellant fires are outside the scope/);
-  assert.match(main,/illustrative relative screening index—not a fire prediction, CFD, probability, safety certification, or mission approval/);
+  assert.match(main,/illustrative relative screening index, not a fire prediction, CFD, probability, safety certification, or mission approval/);
   assert.match(main,/else page=<HomePage\/>/);
   assert.match(main,/Who We Are/);
 });
@@ -78,7 +78,11 @@ test('theme remains flat and the team guide is repository documentation',()=>{
 
 test('team page includes the approved professional biographies',()=>{
   assert.match(main,/Gabriel developed his passion for software engineering/);
+  assert.match(main,/Alexander discovered programming during the COVID-19 pandemic/);
+  assert.match(main,/chemistry and building robots with his teammates/);
+  assert.match(main,/Elisabeth Wei',bio:'Elisabeth is a Pure and Applied Science student/);
   assert.match(main,/Lily is a first-year student at Marianopolis College/);
+  assert.match(main,/She also enjoys robotics with her teammates/);
   assert.doesNotMatch(main,/Professional Larper|I chose the bio for everyone/);
 });
 
