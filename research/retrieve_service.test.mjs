@@ -1,9 +1,22 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {after, before, test} from 'node:test';
+import zlib from 'node:zlib';
 import {startRetrievalService} from './retrieve_service.mjs';
 
 let service;
 let baseUrl;
+
+test('committed compact index matches the public evidence version and excludes generic inventory', () => {
+  const full = JSON.parse(fs.readFileSync(new URL('../public/search/index.json', import.meta.url)));
+  const compact = JSON.parse(zlib.gunzipSync(fs.readFileSync(new URL('../public/search/research-retrieval-index.json.gz', import.meta.url))));
+  assert.equal(compact.index_version, full.index_version);
+  assert.equal(compact.investigations.length, full.investigations.length);
+  assert.ok(compact.documents.length < full.documents.length / 2);
+  assert.ok(compact.documents.every(document => document.kind !== 'file'
+    || document.tags.includes('images/video')
+    || /\.(avi|mp4|jpe?g|png|mov|tiff?)$/i.test(document.title)));
+});
 
 before(async () => {
   service = startRetrievalService({port: 0});

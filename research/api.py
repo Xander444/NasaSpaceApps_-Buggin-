@@ -120,7 +120,7 @@ async def cached(kind,payload,request,response,work):
     sid=request.cookies.get('research_session')
     if sid not in sessions: raise HTTPException(409,'session_expired: reopen AI-guided search')
     config=configuration()
-    config['implementation_version']=digest([(ROOT/p).read_text() for p in ('research/models.py','research/provider.py','research/retrieve.mjs','research/retrieve_service.mjs','src/search/engine.js','src/search/conditions.js')])
+    config['implementation_version']=digest([(ROOT/p).read_text() for p in ('research/models.py','research/provider.py','research/retrieve.mjs','research/retrieve_service.mjs','research/build_retrieval_index.mjs','src/search/engine.js','src/search/conditions.js')])
     if config['status']!='ready': raise HTTPException(503,'unconfigured: configure an eligible key privately with scripts/research_key.py')
     if payload.index_version!=config['index_version'] or payload.summary_version!=config['summary_version']:
         raise HTTPException(409,'stale: reload the index or rebuild research summaries')

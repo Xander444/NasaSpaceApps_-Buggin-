@@ -3,16 +3,17 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {createEngine} from '../src/search/engine.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const INDEX_PATH = path.join(ROOT, 'public', 'search', 'index.json');
+const INDEX_PATH = path.join(ROOT, 'public', 'search', 'research-retrieval-index.json.gz');
 const MAX_REQUEST_BYTES = 32_768;
 const MAX_RESPONSE_BYTES = 250_000;
 
 export function createRetrievalRuntime() {
-  const index = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf8'));
+  const index = JSON.parse(zlib.gunzipSync(fs.readFileSync(INDEX_PATH)));
   const engine = createEngine(index);
   let requests = 0;
 
